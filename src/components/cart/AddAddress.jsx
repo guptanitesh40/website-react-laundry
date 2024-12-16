@@ -1,34 +1,38 @@
 import PropTypes from "prop-types";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import AddAddressModel from "./AddAddressModel";
-import useAddressOperation from "../../hooks/address/useAddressOperation";
+import { useDispatch, useSelector } from "react-redux";
+import useDeleteAddress from "../../hooks/address/useDeleteAddress";
+import { deleteAddress as deleteAddressAction } from "../../redux/slices/addressSlice";
+import useFetchAddress from "../../hooks/address/useFetchAddress";
 
 const AddAddress = ({ setSelectAddId }) => {
+  const { loading: loadingFetchAddress } = useFetchAddress();
+  const dispatch = useDispatch();
   const [flag, setFlag] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
-  const [addresses, setAddresses] = useState();
   const [editAddress, setEditAddress] = useState(null);
-  const { fetchAddress, deleteAddress } = useAddressOperation();
+  const { deleteAddress, loading: loadingDelAdd } = useDeleteAddress();
+  const addresses = useSelector((state) => state.address.address);
+
+  function handleAddAddressClick() {
+    setIsOpen(true);
+    setEditAddress(null);
+  }
 
   function onEditClick(address) {
-    setFlag(false);
     setEditAddress(address);
+    setFlag(false);
     setIsOpen(true);
   }
 
-  async function onDelClick(address) {
-    const { address_id } = address;
-    await deleteAddress(address_id);
+  async function onDelClick(address_id) {
+    const result = await deleteAddress(address_id);
+    if (result) {
+      dispatch(deleteAddressAction(address_id));
+    }
   }
-
-  useEffect(() => {
-    const getAddress = async () => {
-      const res = await fetchAddress();
-      if (res) setAddresses(res);
-    };
-    getAddress();
-  }, []);
 
   return (
     <>
@@ -37,7 +41,7 @@ const AddAddress = ({ setSelectAddId }) => {
           <h4 className="cart-sub-title">Select Address</h4>
           <button
             className="address-btn flex items-center gap-4"
-            onClick={() => setIsOpen(true)}
+            onClick={handleAddAddressClick}
           >
             <FaPlus className="inline-block h-[1.6rem] w-[1.6rem] fill-[var(--red)]" />
             <span>Add New Address</span>
@@ -69,7 +73,7 @@ const AddAddress = ({ setSelectAddId }) => {
                 return (
                   <div
                     key={address_id}
-                    className="flex items-center gap-6 p-8 border border-[#e0e0e0]"
+                    className="flex items-center gap-6 p-8 border border-[#e0e0e0] rounded-xl"
                   >
                     <div>
                       <input
@@ -108,7 +112,9 @@ const AddAddress = ({ setSelectAddId }) => {
                         </span>
                         <ul className="shortcut">
                           <li onClick={() => onEditClick(address)}>Edit</li>
-                          <li onClick={() => onDelClick(address)}>Delete</li>
+                          <li onClick={() => onDelClick(address_id)}>
+                            {loadingDelAdd ? "Deleting.." : "Delete"}
+                          </li>
                         </ul>
                       </div>
                     </div>
@@ -118,12 +124,14 @@ const AddAddress = ({ setSelectAddId }) => {
             : "No address Found!"}
         </div>
       </div>
-      <AddAddressModel
-        setIsOpen={setIsOpen}
-        isOpen={isOpen}
-        address={editAddress}
-        flag={flag}
-      />
+      {isOpen && (
+        <AddAddressModel
+          setIsOpen={setIsOpen}
+          isOpen={isOpen}
+          address={editAddress}
+          flag={flag}
+        />
+      )}
     </>
   );
 };

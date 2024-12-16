@@ -15,8 +15,9 @@
   display: inline-block;
   line-height: normal;
   font-size: 2rem;
+  line-height: 5.8rem;
   font-weight: 500;
-  padding: 1.7rem 2.5rem;
+  padding: 0 2.5rem;
   border-radius: 999px;
 }
 
@@ -52,4 +53,24 @@
   top: 50%;
   left: 0;
   transform: translateY(-50%);
+}
+
+.spinner {
+  display: inline-block;
+  height: 4rem;
+  width: 4rem;
+  border-radius: 50%;
+  border-width: 6px;
+  border-style: solid;
+  border-color: var(--secondary) white;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

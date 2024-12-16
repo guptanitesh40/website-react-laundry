@@ -13,7 +13,7 @@
 .cart-table thead tr,
 .cart-table tbody tr {
   display: grid;
-  grid-template-columns: 1.25fr 1fr 1fr 1fr 0.5fr 0.5fr;
+  grid-template-columns: 1.25fr 1fr 1fr 1fr 1fr;
 }
 
 .cart-table thead tr th {
@@ -34,13 +34,13 @@
 }
 
 .items-detail-cell h3 {
-  font-size: 1.8rem;
+  font-size: 2rem;
   color: var(--black);
   font-weight: 600;
 }
 
 .items-detail-cell p {
-  font-size: 1.6rem;
+  font-size: 1.7rem;
   color: var(--black);
 }
 
@@ -54,7 +54,7 @@
 }
 
 .description-cell {
-  padding: 0 2rem 2rem 2rem !important;
+  padding: 1rem 2rem 2rem 2rem !important;
 }
 
 .description-cell textarea {
@@ -82,6 +82,16 @@
   top: 47%;
   right: 2rem;
   transform: translateY(-50%);
+}
+
+.small-spinner {
+  display: inline-block;
+  height: 2.1rem;
+  width: 2.1rem;
+  border-radius: 50%;
+  border-width: 3px;
+  border-style: solid;
+  border-color: red white;
 }
 
 /* Addaddress */
@@ -227,4 +237,20 @@
   }
 }
 
-/* Main */
+.sticky-summary {
+  position: sticky;
+  top: 1.5rem;
+  align-self: start;
+}
+
+
+.applied-coupon {
+  font-size: 1.6rem;
+  line-height: normal;
+  color: var(--black);
+  border-radius: 4px;
+  padding: 0 1rem;
+  font-weight: 600;
+}
+
+

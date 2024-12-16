@@ -1,42 +1,41 @@
-import toast from "react-hot-toast";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
-const useDeleteProduct = () => {
+const useDeleteAddress = () => {
   const [loading, setLoading] = useState(false);
   const baseURL = import.meta.env.VITE_BASE_URL;
   const token = localStorage.getItem("token");
 
-  const deleteProduct = async (cartId) => {
-    if (!cartId) {
-      toast.error("Cart ID is required to delete an item!");
-      return null;
+  const deleteAddress = async (address_id) => {
+    if (!address_id) {
+      toast.error("Address Id is required to delete address");
+      return;
     }
 
     try {
       setLoading(true);
-      const response = await fetch(`${baseURL}/carts/${cartId}`, {
+      const response = await fetch(`${baseURL}/address/${address_id}`, {
         method: "DELETE",
         headers: {
-          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
       });
-
       const data = await response.json();
       if (response.ok) {
-        return data;
+        toast.success(data?.message);
+        return data?.data;
       } else {
-        toast.error("Failed to delete item from cart!");
         return null;
       }
     } catch {
-      toast.error("Failed to delete item from cart!");
+      toast.error("Unable to delete address, please try again later!");
       return null;
     } finally {
       setLoading(false);
     }
   };
-  return { deleteProduct, loading };
+
+  return { deleteAddress, loading };
 };
 
-export default useDeleteProduct;
+export default useDeleteAddress;

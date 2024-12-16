@@ -6,9 +6,16 @@ import toast from "react-hot-toast";
 import useUpdateCart from "../../hooks/cart/useUpdateCart";
 import useDeletCart from "../../hooks/cart/useDeletCart";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import useReFetchCart from "../../hooks/newCart/useReFetchCart";
+import { updateQty } from "../../redux/slices/cartSlice";
+
 const CategoryItem = ({ categoryItem, category_id }) => {
+  const { loading: loadingReFetchCart, refetch: refetchCart } =
+    useReFetchCart();
+
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [itemCount, setItemCount] = useState(1);
   const [cartId, setCartId] = useState(null);
   const [numberBtn, setNumberBtn] = useState(false);
@@ -21,18 +28,29 @@ const CategoryItem = ({ categoryItem, category_id }) => {
 
   const onIncClick = async () => {
     setItemCount(itemCount + 1);
-    const newCount = itemCount + 1;
-    await updateCart(newCount, cartId);
+    const newQuantity = itemCount + 1;
+    const result = await updateCart(newQuantity, cartId);
+
+    if (result) {
+      dispatch(updateQty({ cart_id: cartId, newQuantity }));
+    }
   };
 
   const onDecClick = async () => {
     if (itemCount > 0 && itemCount - 1 != 0) {
       setItemCount(itemCount - 1);
-      const newCount = itemCount - 1;
-      await updateCart(newCount, cartId);
+      const newQuantity = itemCount - 1;
+      const result = await updateCart(newQuantity, cartId);
+
+      if (result) {
+        dispatch(updateQty({ cart_id: cartId, newQuantity }));
+      }
     } else {
       setNumberBtn(false);
-      await deleteCart(cartId);
+      const result = await deleteCart(cartId);
+      if (result) {
+        await refetchCart();
+      }
     }
   };
 
@@ -49,6 +67,7 @@ const CategoryItem = ({ categoryItem, category_id }) => {
       });
       if (result) {
         setCartId(result);
+        await refetchCart();
       } else {
         toast.error("Failed to add item into cart!");
       }
@@ -91,16 +110,20 @@ const CategoryItem = ({ categoryItem, category_id }) => {
             <p className="cat-item-price">₹{categoryItem.price}</p>
           </div>
           {numberBtn ? (
-            <button className="inc-dec-btn">
-              <HiOutlineMinus
-                className="stroke-[#B9BCCF]"
+            <button className="inc-dec-btn overflow-hidden">
+              <span
+                className="py-[1.1rem] pl-[1.2rem] cursor-pointer"
                 onClick={onDecClick}
-              />
+              >
+                <HiOutlineMinus className="indec-icon" />
+              </span>
               {itemCount}
-              <HiOutlinePlus
-                className="stroke-[#B9BCCF]"
+              <span
+                className="py-[1.1rem] pr-[1.2rem] cursor-pointer"
                 onClick={onIncClick}
-              />
+              >
+                <HiOutlinePlus className="indec-icon" />
+              </span>
             </button>
           ) : (
             <button
@@ -146,10 +169,13 @@ const CategoryItem = ({ categoryItem, category_id }) => {
 
 CategoryItem.propTypes = {
   categoryItem: PropTypes.shape({
-    carts: PropTypes.shape({
-      cart_id: PropTypes.number.isRequired,
-      quantity: PropTypes.number.isRequired,
-    }),
+    carts: PropTypes.oneOfType([
+      PropTypes.shape({
+        cart_id: PropTypes.number.isRequired,
+        quantity: PropTypes.number.isRequired,
+      }),
+      PropTypes.string,
+    ]),
     price: PropTypes.number.isRequired,
     service_id: PropTypes.number.isRequired,
     product_id: PropTypes.number.isRequired,

@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import toast from "react-hot-toast";
 
 const cartSlice = createSlice({
   name: "cart",
@@ -11,10 +10,6 @@ const cartSlice = createSlice({
   reducers: {
     setCart: (state, action) => {
       state.cartItems = action.payload;
-      state.cartItems = action.payload.map((item) => ({
-        ...item,
-        description: "",
-      }));
       state.cartItemCount = action.payload.length;
       state.subTotal = action.payload.reduce(
         (total, item) => total + item.price * item.quantity,
@@ -23,14 +18,6 @@ const cartSlice = createSlice({
     },
     addItem: (state, action) => {
       const newItem = action.payload;
-      const existingItem = state.cartItems.find(
-        (item) => item.id === newItem.id
-      );
-      if (existingItem) {
-        existingItem.quantity += newItem.quantity;
-      } else {
-        state.cartItems.push(newItem);
-      }
     },
     deleteItem: (state, action) => {
       const itemId = action.payload;
@@ -56,15 +43,16 @@ const cartSlice = createSlice({
       }
     },
     addDescription: (state, action) => {
-      const { cart_id, description } = action.payload;
+      const { cart_id, itemDescription } = action.payload;
       const item = state.cartItems.find((item) => item.cart_id === cart_id);
       if (item) {
-        item.description = description;
-        toast.success("Description added successfully");
+        item.description = itemDescription;
       }
     },
     clearCart: (state) => {
       state.cartItems = [];
+      state.cartItemCount = 0;
+      state.subTotal = 0;
     },
   },
 });

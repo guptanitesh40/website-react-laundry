@@ -458,3 +458,61 @@
   background-color: rgb(245, 238, 238);
   color: rgba(77, 77, 235, 0.787);
 }
+
+.dashboard-menu-container {
+  display: none;
+  min-width: 12.5rem;
+  padding-top: 1rem;
+  position: absolute;
+  top: 100%;
+  right: 0;
+}
+
+.dashboard-avatar-menu {
+  background-color: white;
+  border-radius: 0.4rem;
+  border: 1px solid #b9bccf4d;
+  padding: 0.25rem 0;
+  box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 1;
+}
+
+.dashboard-avatar-menu::before {
+  content: "";
+  display: inline-block;
+  height: 1.5rem;
+  width: 1.5rem;
+  background-color: white;
+
+  position: absolute;
+  top: -10%;
+  right: 1.5rem;
+  transform: rotate(45deg);
+  border-radius: 1px;
+  z-index: -999;
+}
+
+.dash-menu-container a {
+  font-size: 1.6rem;
+  color: var(--black);
+  padding: 0.5rem 1.5rem;
+  transition: all 0.3s;
+
+  display: flex;
+  gap: 1rem;
+  justify-content: start;
+  align-items: center;
+}
+
+.dash-menu-container a span {
+  font-size: 1.6rem;
+  color: #676788;
+  color: var(--black);
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.dash-menu-container a:hover {
+  background-color: rgba(103, 103, 136, 0.2);
+}

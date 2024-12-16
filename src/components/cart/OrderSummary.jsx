@@ -5,12 +5,16 @@ import { useNavigate } from "react-router-dom";
 import useApplyCoupon from "../../hooks/coupon/useApplyCoupon";
 import { RxCross2 } from "react-icons/rx";
 import { useSelector } from "react-redux";
+import toast from "react-hot-toast";
+import { clearCart } from "../../redux/slices/cartSlice";
+import { useDispatch } from "react-redux";
 
 const OrderSummary = ({ instruction, paymentMethod, selectedAddId }) => {
+  const dispatch = useDispatch();
   const subTotal = useSelector((state) => state.cart.subTotal);
   const items = useSelector((state) => state.cart.cartItems);
   const shippingCharge = parseInt(
-    useSelector((state) => state.shipping.shippingInfo.shipping_charge)
+    useSelector((state) => state?.shipping?.shippingInfo?.shipping_charge)
   );
   const navigate = useNavigate();
   const [couponCode, setCouponCode] = useState("");
@@ -35,6 +39,20 @@ const OrderSummary = ({ instruction, paymentMethod, selectedAddId }) => {
   };
 
   const handleCheckout = async () => {
+    if (!paymentMethod && !selectedAddId) {
+      toast.error("Please select Payment Method and Shipping Address");
+      return;
+    }
+
+    if (!paymentMethod) {
+      toast.error("Please select Payment Method");
+      return;
+    }
+
+    if (!selectedAddId) {
+      toast.error("Please select Shipping Address");
+      return;
+    }
     let newSubTotal = subTotal - discountValue;
     const result = await placeOrder(
       items,
@@ -45,8 +63,8 @@ const OrderSummary = ({ instruction, paymentMethod, selectedAddId }) => {
       paymentMethod,
       selectedAddId
     );
-
     if (result) {
+      dispatch(clearCart());
       navigate("/order", { state: { result } });
     }
   };
@@ -103,7 +121,14 @@ const OrderSummary = ({ instruction, paymentMethod, selectedAddId }) => {
           <h5>₹{subTotal}</h5>
         </div>
         <div className="place-center">
-          <p>Applied Coupon</p>
+          <p>
+            Applied Coupon
+            {isCouponApplied.status && (
+              <span className="applied-coupon">
+                {`[ ${isCouponApplied?.code} ]`}
+              </span>
+            )}
+          </p>
           <h5>₹{discountValue}</h5>
         </div>
         <div className="place-center">

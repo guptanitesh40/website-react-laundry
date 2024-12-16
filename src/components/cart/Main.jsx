@@ -12,8 +12,7 @@ const Main = () => {
           <th>Price</th>
           <th>Quantity</th>
           <th>Subtotal</th>
-          <th>Info</th>
-          <th>Delete</th>
+          <th>&nbsp;</th>
         </tr>
       </thead>
       <tbody>

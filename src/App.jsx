@@ -37,38 +37,13 @@ import ProtectedRoute from "./components/protected/ProtectedRoute";
 import PublicRoute from "./components/protected/PublicRoute";
 import NotFound from "./components/NotFound";
 import Loading from "./components/loading/Loading";
-import { useDispatch } from "react-redux";
-import { setAuthStatus } from "./redux/slices/authSlice";
 import useValidateToken from "./hooks/token/useValidateToken";
-import { addUser } from "./redux/slices/userSlice";
 import Admin from "./components/admin/Admin";
 import ScrollToTop from "./components/scroll/ScrollToTop";
 import useFetchShippingInfo from "./hooks/settings/useFetchShippingInfo";
 import useFetchCart from "./hooks/cart/useFetchCart";
 
 const App = () => {
-  const dispatch = useDispatch();
-
-  const { loading: loadingUserValidation, user } = useValidateToken();
-  const { loading: loadingFetchCart } = useFetchCart();
-  const { loading: loadingShippingInfo } = useFetchShippingInfo();
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    dispatch(setAuthStatus(!!token));
-
-    if (user && !loadingUserValidation) {
-      dispatch(addUser(user));
-    }
-  }, [dispatch, loadingUserValidation, user]);
-
-  const isLoading =
-    loadingShippingInfo || loadingFetchCart || loadingUserValidation;
-
-  if (isLoading) {
-    return <Loading />;
-  }
-
   return (
     <Router>
       <Toaster />
@@ -80,6 +55,16 @@ const App = () => {
 
 const MainComponent = () => {
   const location = useLocation();
+  const { loading: loadingUserValidation } = useValidateToken();
+  const { loading: loadingFetchCart } = useFetchCart();
+  const { loading: loadingShippingInfo } = useFetchShippingInfo();
+
+  const isLoading =
+    loadingShippingInfo || loadingFetchCart || loadingUserValidation;
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   const excludeHeaderFooterRoutes = [
     "/login",

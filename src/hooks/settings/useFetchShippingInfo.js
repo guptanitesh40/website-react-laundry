@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setShippingInfo } from "../../redux/slices/shippingSlice";
 
 const useFetchShippingInfo = () => {
@@ -8,8 +8,14 @@ const useFetchShippingInfo = () => {
   const [loading, setLoading] = useState(true);
   const baseURL = import.meta.env.VITE_BASE_URL;
   const token = localStorage.getItem("token");
+  const authStatus = useSelector((state) => state.auth.isAuthenticated);
 
   useEffect(() => {
+    if (!authStatus || !token) {
+      setLoading(false);
+      return;
+    }
+
     const fetchShippingInfo = async () => {
       try {
         const response = await fetch(`${baseURL}/settings`, {
@@ -31,7 +37,7 @@ const useFetchShippingInfo = () => {
       }
     };
     fetchShippingInfo();
-  }, [baseURL, dispatch, token]);
+  }, [authStatus, baseURL, dispatch, token]);
 
   return { loading };
 };

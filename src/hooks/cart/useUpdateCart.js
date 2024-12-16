@@ -15,11 +15,17 @@ const useUpdateCart = () => {
           quantity: quantity,
         }),
       });
+
+      const data = await response.json();
+
       if (!response.ok) {
         toast.error(`Failed to update cart!`);
+        return null;
       }
+      return data;
     } catch {
       toast.error("Failed to update cart!");
+      return null;
     }
   };
 

@@ -3,9 +3,16 @@ import { CgCloseR } from "react-icons/cg";
 import useAddressOperation from "../../hooks/address/useAddressOperation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import useAddAddress from "../../hooks/address/useAddAddress";
+import { addAddress as addAddressAction } from "../../redux/slices/addressSlice";
+import { useDispatch } from "react-redux";
 
 const AddAddressModel = ({ setIsOpen, isOpen, address, flag }) => {
-  const { addAddress, editAddress } = useAddressOperation();
+  const dispatch = useDispatch();
+
+  const { addAddress, loading: loadingAddAddress } = useAddAddress();
+
+  const { editAddress } = useAddressOperation();
   const [formData, setFormData] = useState({
     full_name: "",
     phone_number: "",
@@ -33,24 +40,12 @@ const AddAddressModel = ({ setIsOpen, isOpen, address, flag }) => {
       await editAddress(formData, address.address_id);
       setIsOpen(false);
     } else {
-      const res = await addAddress(formData);
-      setFormData({
-        full_name: "",
-        phone_number: "",
-        address_type: "1",
-        building_number: "",
-        area: "",
-        landmark: "",
-        pincode: "",
-        city: "",
-        state: "",
-        country: "",
-      });
-      if (res) {
-        toast.success(res);
+      const result = await addAddress(formData);
+      if (result) {
+        dispatch(addAddressAction(result));
         setIsOpen(false);
       } else {
-        toast.error("Unable to add address");
+        toast.error("Failed to add address");
       }
     }
   };
@@ -90,7 +85,7 @@ const AddAddressModel = ({ setIsOpen, isOpen, address, flag }) => {
 
   return (
     <section
-      className={`fixed inset-0 bg-black/95 flex justify-center items-center z-50 ${
+      className={`fixed inset-0 bg-[#F7F8FD] flex justify-center items-center z-50 ${
         isOpen ? "block" : "hidden"
       }`}
     >
@@ -102,7 +97,10 @@ const AddAddressModel = ({ setIsOpen, isOpen, address, flag }) => {
             onClick={onCloseBtnClick}
           />
         </div>
-        <form className="grid grid-cols-2 w-full gap-x-10 gap-y-12">
+        <form
+          onSubmit={handleSubmit}
+          className="grid grid-cols-2 w-full gap-x-10 gap-y-12"
+        >
           <div className="flex flex-col gap-3">
             <label
               htmlFor="full_name"
@@ -278,11 +276,15 @@ const AddAddressModel = ({ setIsOpen, isOpen, address, flag }) => {
 
           <div className="flex justify-start items-end row-start-6">
             <button
-              type="button"
+              type="submit"
               className="text-white bg-blue-700 text-[1.4rem] font-medium px-6 py-4 rounded-md"
-              onClick={handleSubmit}
+              disabled={loadingAddAddress}
             >
-              Add Address
+              {flag
+                ? loadingAddAddress
+                  ? "Adding Address..."
+                  : "Add Address"
+                : "Edit Address"}
             </button>
           </div>
         </form>
@@ -309,4 +311,5 @@ AddAddressModel.propTypes = {
   }),
   flag: PropTypes.bool.isRequired,
 };
+
 export default AddAddressModel;

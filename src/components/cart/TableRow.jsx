@@ -1,29 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { HiOutlineMinus, HiOutlinePlus } from "react-icons/hi";
-import { FaTrash } from "react-icons/fa";
+import { FaRegEdit, FaTrash } from "react-icons/fa";
 import useDeleteProduct from "../../hooks/newCart/useDeleteProduct";
 import useUpdateProductQuantity from "../../hooks/newCart/useUpdateProductQuantity";
 import { useDispatch } from "react-redux";
 import { addDescription, deleteItem } from "../../redux/slices/cartSlice";
 import { updateQty } from "../../redux/slices/cartSlice";
-import { MdVerified } from "react-icons/md";
-import toast from "react-hot-toast";
+import useAddItemDesc from "../../hooks/newCart/useAddItemDesc";
 
 const TableRow = ({ item }) => {
   const dispatch = useDispatch();
   const { deleteProduct, loading: loadingDelProduct } = useDeleteProduct();
   const { updateProductQuantity, loading: loadingUpdateQty } =
     useUpdateProductQuantity();
+  const { addItemDesc, loading: loadingAddDesc } = useAddItemDesc();
   const [quantity, setQuantity] = useState(item.quantity);
-  const [isChecked, setIsChecked] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [isDescAdded, setIsDescAdded] = useState(false);
-  const [description, setDescription] = useState("");
-  const { cart_id, product_name, service_name, price } = item;
-
-  if (loadingUpdateQty) {
-    toast.success("Loading...")
-  }
+  const [itemDescription, setItemDescription] = useState("");
+  const { cart_id, product_name, service_name, price, description } = item;
 
   const handleUpClick = async () => {
     let newQuantity = quantity + 1;
@@ -58,56 +54,55 @@ const TableRow = ({ item }) => {
     }
   };
 
-  const handleSave = () => {
-    if (description) {
-      dispatch(addDescription({ cart_id, description }));
-      setIsChecked(false);
+  const handleSave = async () => {
+    const result = await addItemDesc(cart_id, itemDescription);
+    if (result) {
+      dispatch(addDescription({ cart_id, itemDescription }));
+      setIsOpen(false);
       setIsDescAdded(true);
     }
   };
+
+  useEffect(() => {
+    if (item?.description) {
+      setItemDescription(item?.description);
+      setIsDescAdded(true);
+    }
+  }, [item?.description]);
 
   return (
     <tr className="relative">
       <td className="items-detail-cell space-y-1">
         <h3>{product_name}</h3>
         <p>{service_name}</p>
-        <p>Material: A</p>
+        {description && !isOpen ? <p>{description}</p> : <p>&nbsp;</p>}
       </td>
       <td className="text-center">₹{price}</td>
       <td>
         <span className="flex justify-center items-center">
-          <button className="inc-dec-btn">
-            <HiOutlineMinus
-              className="stroke-[#B9BCCF]"
-              onClick={handleDownClick}
-            />
+          <button className="inc-dec-btn overflow-hidden">
+            <span className="py-[1.1rem] pl-[1.2rem] cursor-pointer" onClick={handleDownClick}>
+              <HiOutlineMinus className="indec-icon" />
+            </span>
             {quantity}
-            <HiOutlinePlus
-              className="stroke-[#B9BCCF]"
-              onClick={handleUpClick}
-            />
+            <span className="py-[1.1rem] pr-[1.2rem] cursor-pointer" onClick={handleUpClick}>
+              <HiOutlinePlus className="indec-icon" />
+            </span>
           </button>
         </span>
       </td>
       <td className="text-center">₹{price * quantity}</td>
-      <td className="text-center">
-        {isDescAdded ? (
-          <span className="inline-block h-12 w-12">
-            <MdVerified className="h-full w-full fill-green-500" />
-          </span>
-        ) : (
-          <input
-            type="checkbox"
-            checked={isChecked}
-            onChange={() => setIsChecked(!isChecked)}
-            value=""
-            className="w-10 h-10 my-2 text-[var(--black)] bg-gray-100 border-2 rounded-3xl border-gray-300"
-          />
-        )}
-      </td>
-      <td className="text-center">
+      <td className="flex justify-around items-start">
         <span
-          className="mx-auto h-14 w-14 bg-[rgba(103,113,130,0.2)] rounded-full flex justify-center items-center cursor-pointer"
+          role="button"
+          onClick={() => setIsOpen(!isOpen)}
+          className="h-14 w-14 bg-[rgba(103,113,130,0.2)] rounded-full flex justify-center items-center cursor-pointer"
+        >
+          <FaRegEdit className="inline-block h-8 w-8 fill-[var(--primary)]" />
+        </span>
+
+        <span
+          className="h-14 w-14 bg-[rgba(103,113,130,0.2)] rounded-full flex justify-center items-center cursor-pointer"
           onClick={() => handleDelClick(cart_id)}
         >
           {loadingDelProduct ? (
@@ -135,12 +130,12 @@ const TableRow = ({ item }) => {
           )}
         </span>
       </td>
-      {isChecked && (
+      {isOpen && (
         <td className="description-cell col-span-full">
           <div className="relative">
             <textarea
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
+              value={itemDescription}
+              onChange={(e) => setItemDescription(e.target.value)}
               rows="2"
               placeholder="Description"
             ></textarea>
@@ -148,8 +143,15 @@ const TableRow = ({ item }) => {
               aria-label="save-description"
               className="save-description"
               onClick={handleSave}
+              disabled={loadingAddDesc}
             >
-              save
+              {loadingAddDesc ? (
+                <div className="w-[3.5rem] flex justify-center items-center">
+                  <span className="small-spinner animate-spin"></span>
+                </div>
+              ) : (
+                "save"
+              )}
             </button>
           </div>
         </td>
@@ -165,6 +167,7 @@ TableRow.propTypes = {
     service_name: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     quantity: PropTypes.number.isRequired,
+    description: PropTypes.string,
   }).isRequired,
 };
 

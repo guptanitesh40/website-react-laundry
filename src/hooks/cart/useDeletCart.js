@@ -20,9 +20,14 @@ const useDeletCart = () => {
             maxWidth: "400px",
           },
         });
+        return data;
+      } else {
+        toast.error("Unable to delete item from cart!");
+        return null;
       }
     } catch {
       toast.error("Unable to delete item from cart!");
+      return null;
     }
   };
 
