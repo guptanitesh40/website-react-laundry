@@ -11,6 +11,7 @@ import {
   FaAngleDoubleRight,
   FaAngleLeft,
   FaAngleRight,
+  FaStar,
 } from "react-icons/fa";
 import useGetOrders02 from "../../hooks/dashboard/useGetOrders02";
 import { IoMdDownload } from "react-icons/io";
@@ -35,6 +36,7 @@ const Home = () => {
   const [sortOrder, setSortOrder] = useState("asc");
   const [invoice, setInvoice] = useState(0);
   const [modelProp, setModelProp] = useState("");
+  const [currentFb, setCurrentFb] = useState({});
   const { downloadInvoice, loading: loadingInvoice } = useDownloadInvoice();
   const navigate = useNavigate();
 
@@ -71,9 +73,10 @@ const Home = () => {
     await downloadInvoice(order_id);
   };
 
-  const handleGiveFeedBack = (order_id) => {
+  const handleGiveFeedBack = (order_id, feedback) => {
     setModelIsOpen(true);
     setModelProp(order_id);
+    setCurrentFb(feedback);
   };
 
   useEffect(() => {
@@ -97,7 +100,7 @@ const Home = () => {
 
   return (
     <>
-      <div className="flex flex-col gap-8">
+      <div className="max-w-full flex flex-col gap-8">
         <div className="flex gap-14">
           <div className="status-card flex gap-8 items-center">
             <span className="bg-[#FFE0EB] inline-block h-[6rem] w-[6rem] rounded-full">
@@ -221,6 +224,7 @@ const Home = () => {
                       paid_amount,
                       order_status,
                       order_status_name,
+                      feedback,
                     } = order;
 
                     return (
@@ -234,7 +238,7 @@ const Home = () => {
                         </td>
                         <td>₹{total}</td>
                         <td>₹{kasar_amount}</td>
-                        <td>{paid_amount || "₹0"}</td>
+                        <td>{"₹" + paid_amount || "0"}</td>
                         <td
                           style={{ padding: "5px", textAlign: "left" }}
                           className="flex items-center justify-center"
@@ -330,9 +334,19 @@ const Home = () => {
                         >
                           <div className="relative group">
                             <IconButton
-                              onClick={() => handleGiveFeedBack(order_id)}
+                              onClick={() =>
+                                handleGiveFeedBack(order_id, feedback)
+                              }
                             >
-                              <CiStar className="inline-block h-9 w-9 cursor-pointer fill-[var(--primary)]" />
+                              {feedback ? (
+                                <FaStar
+                                  className={`inline-block h-9 w-9 cursor-pointer fill-[var(--primary)]`}
+                                />
+                              ) : (
+                                <CiStar
+                                  className={`inline-block h-9 w-9 cursor-pointer fill-[var(--primary)]`}
+                                />
+                              )}
                             </IconButton>
 
                             <div
@@ -344,7 +358,7 @@ const Home = () => {
                                 transform: "translateX(-50%)",
                               }}
                             >
-                              Give Feedback
+                              {feedback ? "View Feedback" : "Give Feedback"}
                               <div
                                 className="tooltip-arrow"
                                 data-popper-arrow
@@ -502,7 +516,11 @@ const Home = () => {
         </div>
       </div>
       {modelIsOpen && (
-        <FeedbackModel order_id={modelProp} setModelIsOpen={setModelIsOpen} />
+        <FeedbackModel
+          order_id={modelProp}
+          setModelIsOpen={setModelIsOpen}
+          feedback={currentFb}
+        />
       )}
     </>
   );

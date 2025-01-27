@@ -1,23 +1,28 @@
 import { FaHome } from "react-icons/fa";
-import { FiLogOut } from "react-icons/fi";
-import { LuShoppingCart } from "react-icons/lu";
+import { LuLogOut, LuShoppingCart } from "react-icons/lu";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setAuthStatus } from "../../redux/slices/authSlice";
+import { useState } from "react";
 
 const Navbar = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [isOpen, setIsOpen] = useState(false);
 
   const onLogoutClick = (e) => {
     e.preventDefault();
     localStorage.clear();
     dispatch(setAuthStatus(false));
     navigate("/login");
+  };
+
+  const onHomeClick = () => {
+    navigate("/");
   };
 
   const routeMap = {
@@ -33,12 +38,10 @@ const Navbar = () => {
   if (!profile_image) {
     profile_image = "/default_pfp.png";
   }
+
   return (
-    <div className="flex">
-      <Link to="/">
-        <img src="/dash-logo.png" alt="Logo" className="dash-logo" />
-      </Link>
-      <div className="bg-[var(--primary)] grow flex justify-between items-center px-8">
+    <>
+      <div className="bg-[var(--primary)] flex justify-between items-center px-8">
         <p className="text-[2rem] leading-[2.4rem] font-semibold text-white tracking-wide">
           {routeMap[pathname]}
         </p>
@@ -57,30 +60,44 @@ const Navbar = () => {
               </div>
             )}
           </Link>
-          <span className="inline-block h-[4.6rem] w-[4.6rem] group relative">
+          <span
+            className="inline-block h-[4.6rem] w-[4.6rem] group relative cursor-pointer"
+            onClick={() => setIsOpen(!isOpen)}
+          >
             <img
               src={profile_image}
               alt="Avatar"
               className="h-full w-full rounded-full border border-white/20"
             />
-            <div className="dashboard-menu-container group-hover:block">
-              <div className="dashboard-avatar-menu ">
-                <div className="dash-menu-container z-10">
-                  <Link to="/">
-                    <FaHome className="h-[2.4rem] w-[2.4rem] fill-[#676788]" />
-                    <span>home</span>
-                  </Link>
-                  <Link to="" onClick={onLogoutClick}>
-                    <FiLogOut className="h-[2.4rem] w-[2.4rem] stroke-[#676788]" />
-                    <span>logout</span>
-                  </Link>
-                </div>
+            {isOpen && (
+              <div className="absolute right-0 mt-3 w-48 bg-white shadow-lg rounded-lg border border-[#B9BCCF4D] z-10">
+                <div className="absolute top-[-6px] right-7 w-4 h-4 bg-white rotate-45 border-t border-l border-[#B9BCCF4D] -z-10"></div>
+                <ul className="flex flex-col py-2">
+                  <li
+                    className="flex items-center gap-3 px-3 py-2 hover:bg-gray-100 cursor-pointer"
+                    onClick={onHomeClick}
+                  >
+                    <FaHome className="w-8 h-8 text-[#676788]" />
+                    <span className="text-2xl text-[var(--black)] font-medium">
+                      Home
+                    </span>
+                  </li>
+                  <li
+                    className="flex items-center gap-3 px-3 py-2 hover:bg-gray-100 cursor-pointer"
+                    onClick={onLogoutClick}
+                  >
+                    <LuLogOut className="w-8 h-8 text-[#676788]" />
+                    <span className="text-2xl text-[var(--black)] font-medium">
+                      Logout
+                    </span>
+                  </li>
+                </ul>
               </div>
-            </div>
+            )}
           </span>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

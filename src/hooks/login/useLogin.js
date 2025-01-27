@@ -1,12 +1,16 @@
+import { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 const useLogin = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const baseURL = import.meta.env.VITE_BASE_URL;
   const role_id = 5;
+
   const login = async (username, password) => {
     try {
+      setLoading(true);
       const response = await fetch(`${baseURL}/auth/login`, {
         method: "POST",
         headers: {
@@ -44,10 +48,12 @@ const useLogin = () => {
           className: "toast-error",
         }
       );
+    } finally {
+      setLoading(false);
     }
   };
 
-  return { login };
+  return { login, loading };
 };
 
 export default useLogin;

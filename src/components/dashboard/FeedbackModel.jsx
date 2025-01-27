@@ -1,16 +1,29 @@
 import "./feedbackmodel.css";
-import PropTypes from "prop-types";
-import { useState } from "react";
+import PropTypes, { oneOfType } from "prop-types";
+import { useEffect, useState } from "react";
 import { FaStar } from "react-icons/fa";
 import useSendFeedback from "../../hooks/feedback/useSendFeedback";
 
-const FeedbackModel = ({ order_id, setModelIsOpen }) => {
+const FeedbackModel = ({ order_id, setModelIsOpen, feedback }) => {
   const { sendFeedBack, loading } = useSendFeedback();
   const [error, setError] = useState({});
   const [rating, setRating] = useState(0);
   const [message, setMessage] = useState("");
+  const [isFbAvaileble, setIsFbAvaileble] = useState(false);
+
+  useEffect(() => {
+    if (feedback) {
+      const { comment, rating } = feedback;
+      setMessage(comment);
+      setRating(rating);
+      setIsFbAvaileble(true);
+    }
+  }, [feedback, isFbAvaileble]);
 
   const handleClick = (value) => {
+    if (isFbAvaileble) {
+      return;
+    }
     setRating(value);
   };
 
@@ -103,6 +116,7 @@ const FeedbackModel = ({ order_id, setModelIsOpen }) => {
               id="message"
               rows={4}
               value={message}
+              readOnly={isFbAvaileble}
               onChange={(e) => setMessage(e.target.value)}
               className="w-full text-[1.4rem] leading-[2.4rem] text-[var(--black)] border-[1.5px] border-indigo-200 focus:border-indigo-500 focus:outline-none rounded-xl p-4"
             ></textarea>
@@ -115,7 +129,13 @@ const FeedbackModel = ({ order_id, setModelIsOpen }) => {
         </div>
 
         <div>
-          <button className="submit-review" onClick={handleSubmit}>
+          <button
+            className={`submit-review ${
+              isFbAvaileble ? "disabled-submit" : ""
+            }`}
+            onClick={handleSubmit}
+            disabled={!!isFbAvaileble}
+          >
             {loading ? (
               <span className="inline-block h-9 w-9 border-2 border-white border-r-transparent rounded-full animate-spin my-[-5px] mx-[1.5rem]"></span>
             ) : (
@@ -131,5 +151,12 @@ const FeedbackModel = ({ order_id, setModelIsOpen }) => {
 FeedbackModel.propTypes = {
   order_id: PropTypes.number.isRequired,
   setModelIsOpen: PropTypes.func.isRequired,
+  feedback: oneOfType([
+    PropTypes.string,
+    PropTypes.shape({
+      comment: PropTypes.string,
+      rating: PropTypes.number,
+    }),
+  ]),
 };
 export default FeedbackModel;

@@ -10,7 +10,7 @@ import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 
 const Login = () => {
   const dispatch = useDispatch();
-  const { login } = useLogin();
+  const { login, loading } = useLogin();
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
 
@@ -56,115 +56,110 @@ const Login = () => {
   };
 
   return (
-    <section className="h-[100vh] px-6 py-12">
-      <div className="flex flex-col gap-8 justify-center items-center">
-        <form className="login-form-container">
-          <div className="flex flex-col justify-center items-center gap-10">
-            <img
-              src="sc-logo.png"
-              alt="Sikka Cleaner Logo"
-              loading="lazy"
-              className="h-12 w-auto"
-            />
-            <h2 className="text-center text-3xl font-bold leading-9 tracking-tight text-gray-900">
-              Sign in to your account
-            </h2>
-          </div>
+    <section className=" flex justify-center items-center p-6 h-[100vh] w-[100vw]">
+      <form className="login-form-container">
+        <div className="flex flex-col justify-center items-center gap-8 laptop-l:gap-6">
+          <img
+            src="sc-logo.png"
+            alt="Sikka Cleaner Logo"
+            loading="lazy"
+            className="h-16 w-auto laptop-l:h-14"
+          />
+          <h2 className="text-[2.4rem] leading-[1.5] font-bold text-[var(--primary)] laptop-l:text-[2rem]">
+            Login in to your account
+          </h2>
+        </div>
 
-          <div
-            className={`flex flex-col ${
-              errors.username || errors.password ? "gap-6" : "gap-9"
-            }`}
-          >
-            <div>
-              <label
-                htmlFor="username"
-                className="block text-lg font-medium leading-6 text-gray-900"
-              >
-                Username
-              </label>
-              <div className="mt-4">
-                <input
-                  id="username"
-                  name="username"
-                  placeholder="email or mobile number"
-                  className="text-xl block font-medium w-full rounded-md py-4 px-6 text-gray-900 shadow-sm placeholder:text-gray-400 leading-6 border-blue-300 border-[1.5px] focus:border-blue-600 focus:outline-none tracking-wide"
-                  value={formdata.username}
-                  onChange={handleChange}
-                />
-              </div>
-              {errors.username && (
-                <p className="pt-2 text-base font-medium text-red-500">
-                  {errors.username}
-                </p>
-              )}
-            </div>
-            <div>
-              <div className="flex items-center justify-between">
-                <label
-                  htmlFor="password"
-                  className="block text-lg font-medium leading-6 text-gray-900"
-                >
-                  Password
-                </label>
-                <div className="text-lg">
-                  <Link
-                    to="/forget-password"
-                    className="font-semibold text-indigo-600 hover:text-indigo-500"
-                  >
-                    Forgot password?
-                  </Link>
-                </div>
-              </div>
-              <div className="mt-2 relative">
-                <input
-                  id="password"
-                  name="password"
-                  type={showPassword ? "text" : "password"}
-                  placeholder="password"
-                  className="text-xl block font-medium w-full rounded-md py-4 px-6 pr-14 text-gray-900 shadow-sm placeholder:text-gray-400 leading-6 border-blue-300 border-[1.5px] focus:border-blue-600 focus:outline-none tracking-wide"
-                  value={formdata.password}
-                  onChange={handleChange}
-                />
-                <span
-                  className="absolute inline-block top-1/2 right-4 -translate-y-1/2 cursor-pointer"
-                  onClick={() => setShowPassword(!showPassword)}
-                >
-                  {showPassword ? (
-                    <IoMdEyeOff className="h-8 w-8 fill-indigo-400" />
-                  ) : (
-                    <IoMdEye className="h-8 w-8 fill-indigo-400" />
-                  )}
-                </span>
-              </div>
-              {errors.password && (
-                <p className="pt-2 text-base font-medium text-red-500">
-                  {errors.password}
-                </p>
-              )}
-            </div>
-          </div>
-
+        <div
+          className={`flex flex-col ${
+            errors.username || errors.password ? "gap-6" : "gap-10"
+          }`}
+        >
           <div>
-            <button
-              type="submit"
-              className="flex w-full justify-center rounded-md bg-indigo-600 px-6 py-4 text-lg font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              onClick={(e) => handleSubmit(e)}
-            >
-              Login
-            </button>
+            <label htmlFor="username" className="form-label">
+              Username
+            </label>
+            <div className="mt-4">
+              <input
+                id="username"
+                name="username"
+                placeholder="Email or mobile number"
+                className="form-input"
+                value={formdata.username}
+                onChange={handleChange}
+              />
+            </div>
+            {errors.username && (
+              <p className="error-label">{errors.username}</p>
+            )}
           </div>
-          <p className="text-center text-lg text-gray-500">
-            Not a member?
-            <Link
-              to="/signup"
-              className="ml-4 font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-            >
-              Register
-            </Link>
-          </p>
-        </form>
-      </div>
+          <div>
+            <div className="flex items-center justify-between">
+              <label htmlFor="password" className="form-label">
+                Password
+              </label>
+              <div className="text-lg">
+                <Link
+                  to="/forget-password"
+                  className="forget-link"
+                  aria-label="Forget password"
+                  title="Forget password"
+                >
+                  Forgot password ?
+                </Link>
+              </div>
+            </div>
+            <div className="mt-2 relative">
+              <input
+                id="password"
+                name="password"
+                type={showPassword ? "text" : "password"}
+                placeholder="password"
+                className="form-input"
+                value={formdata.password}
+                onChange={handleChange}
+              />
+              <span
+                className="absolute inline-block top-1/2 right-4 -translate-y-1/2 cursor-pointer"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? (
+                  <IoMdEyeOff className="h-8 w-8 fill-[#83848a]" />
+                ) : (
+                  <IoMdEye className="h-8 w-8 fill-[#83848a]" />
+                )}
+              </span>
+            </div>
+            {errors.password && (
+              <p className="error-label">{errors.password}</p>
+            )}
+          </div>
+        </div>
+
+        <div>
+          <button
+            type="submit"
+            className="login-btn"
+            title="login"
+            aria-label="login"
+            onClick={(e) => handleSubmit(e)}
+            disabled={loading}
+          >
+            {loading ? "Logging in..." : "Login"}
+          </button>
+        </div>
+        <p className="text-center text-lg text-[#83848a]">
+          Not a member?
+          <Link
+            to="/signup"
+            className="ml-4 text-[#818cf8]"
+            aria-label="register now"
+            title="register"
+          >
+            Register
+          </Link>
+        </p>
+      </form>
     </section>
   );
 };

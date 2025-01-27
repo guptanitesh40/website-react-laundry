@@ -1,26 +1,32 @@
 .dashboard-container {
   max-width: 144rem;
-  height: 100vh;
+  min-height: 100vh;
+  height: auto;
   margin: 0 auto;
+  box-shadow: 0 0 0.5rem 0.5rem rgba(0, 0, 0, 0.1);
+
+  display: grid;
+  grid-template-columns: 28rem 1fr;
+  grid-template-rows: auto 1fr;
+}
+
+.dash-logo {
+  display: inline-block;
+  max-width: 100%;
+  height: auto;
+  cursor: pointer;
+  border-bottom: 1px solid #b9bccf4d;
 }
 
 .cus-info-container,
 .order-list-container,
 .common-container {
-  border-radius: 8px;
+  border-radius: 7.5px;
   background-color: white;
   border: 1px solid #b9bccf4d;
 }
 
 /* Dashboard - Navbar */
-
-.dash-logo {
-  display: inline-block;
-  max-width: 28rem;
-  height: auto;
-  border-bottom: 1px solid #b9bccf4d;
-  border-left: 1px solid #b9bccf4d;
-}
 
 .cart-item {
   display: flex;
@@ -49,7 +55,7 @@
 .dash-sidebar li {
   display: inline-block;
   list-style: none;
-  margin: 0 4rem;
+  padding: 0 4rem 0 3rem;
 }
 
 .dash-icons-container > * {
@@ -92,6 +98,26 @@
   color: var(--primary) !important;
 }
 
+.active-dash-link {
+  position: relative;
+  transition: all 0.3s;
+}
+
+.active-dash-link::before {
+  content: "";
+  display: inline-block;
+  height: 125%;
+  width: 6px;
+  background-color: var(--secondary);
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+}
+
 /* Dashboard -  Home */
 
 .status-card {
@@ -130,7 +156,7 @@
 }
 
 .orders-table {
-  width: 100%;
+  max-width: 100%;
   text-align: center;
   table-layout: auto;
 }
@@ -232,7 +258,6 @@
 .info-label {
   color: #676788;
   display: inline-block;
-  width: 12rem;
   font-weight: 400;
   text-transform: capitalize;
   font-size: 1.4rem;
@@ -262,19 +287,14 @@
 .cus-detail-container {
   background-color: white;
   border: 1px solid #b9bccf4d;
-  border-radius: 0.8rem;
+  border-radius: 1.5rem;
 }
 
 .profile-img-container {
+  position: relative;
   display: inline-block;
-  height: 12rem;
-  width: 12rem;
-}
-
-.user-detail .readonly-input {
-  color: rgb(160, 163, 187) !important;
-  cursor: not-allowed;
-  background-color: rgba(211, 211, 211, 0.1);
+  max-height: 12rem;
+  max-width: 12rem;
 }
 
 .edit-profile-img {
@@ -286,6 +306,16 @@
   position: absolute;
   bottom: 0;
   right: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-detail .readonly-input {
+  color: rgb(160, 163, 187) !important;
+  cursor: not-allowed;
+  background-color: rgba(211, 211, 211, 0.1);
 }
 
 .user-detail label {

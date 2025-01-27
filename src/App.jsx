@@ -63,6 +63,7 @@ const App = () => {
             fontWeight: "500",
             maxWidth: "500px",
           },
+          duration: 100000,
         }}
       />
       <ScrollToTop />
