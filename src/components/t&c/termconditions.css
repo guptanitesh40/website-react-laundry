@@ -1,30 +1,3 @@
-.tc-list li {
-  padding-left: 3.5rem;
-  letter-spacing: 0.4px;
-  color: var(--primary);
-  font-size: 1.8rem;
-  line-height: 3.4rem;
-  font-weight: 600;
-  position: relative;
-  padding-bottom: 2rem;
-}
-
-.tc-list li::before {
-  content: "✔";
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 2.2rem;
-  width: 2.2rem;
-  font-size: 1.4rem;
-  color: white;
-  background-color: #ffb81f;
-  border-radius: 50%;
-  position: absolute;
-  top: 9%;
-  left: 2px;
-}
-
 .inner-sub-title {
   font-size: 2.4rem;
   line-height: 3.4rem;
@@ -32,4 +5,40 @@
   letter-spacing: 0.6px;
   color: var(--primary);
   margin: 1rem 0 2rem;
+}
+
+@media only screen and (max-width: 100em) {
+  .inner-sub-title {
+    font-size: 2.2rem;
+    line-height: 1.5;
+    letter-spacing: 0.4px;
+    margin: 0.75rem 0 1.5rem;
+  }
+}
+
+@media only screen and (max-width: 90em) {
+  .inner-sub-title {
+    font-size: 2rem;
+    letter-spacing: 0.2px;
+    margin: 0.5rem 0 1rem;
+  }
+}
+
+@media only screen and (max-width: 80em) {
+  .inner-sub-title {
+    font-size: 1.8rem;
+    letter-spacing: normal;
+  }
+}
+
+@media only screen and (max-width: 71.25em) {
+  .inner-sub-title {
+    font-size: 1.6rem;
+  }
+}
+
+@media only screen and (max-width: 60.875em) {
+  .inner-sub-title {
+    font-size: 1.4rem;
+  }
 }

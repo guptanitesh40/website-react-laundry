@@ -20,7 +20,6 @@
   max-width: 100%;
   height: auto;
   border-radius: 1.4rem;
-  background-color: red;
 }
 
 .social-link {
@@ -195,12 +194,10 @@
   }
 
   .mobile-footer > * {
-    border: 0.01px solid rgba(255, 255, 255, 0.05);
     border-radius: 5px;
     width: 30rem;
     place-self: center;
     padding: 1.5rem !important;
-    /* box-shadow: 0 0 10px 1px rgba(255, 255, 255, 0.05); */
   }
 
   .sitemap-list {

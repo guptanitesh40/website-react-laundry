@@ -1,4 +1,5 @@
 .dashboard-container {
+  width: 100%;
   max-width: 144rem;
   min-height: 100vh;
   height: auto;
@@ -16,6 +17,10 @@
   height: auto;
   cursor: pointer;
   border-bottom: 1px solid #b9bccf4d;
+}
+
+.mobile-dash-logo {
+  display: none;
 }
 
 .cus-info-container,
@@ -204,7 +209,7 @@
 
 .current-page-num {
   font-size: 1.4rem;
-  line-height: 1.4rem;
+  line-height: 1;
   color: #676788;
   padding: 2.2rem;
 }
@@ -287,7 +292,7 @@
 .cus-detail-container {
   background-color: white;
   border: 1px solid #b9bccf4d;
-  border-radius: 1.5rem;
+  border-radius: 1rem;
 }
 
 .profile-img-container {
@@ -348,16 +353,26 @@
 
 /* Dashboard - price list view */
 
-.price-list-table {
-  table-layout: auto;
-  cursor: default;
-  width: 100%;
-  text-align: center;
+.price-list-table-container {
   background-color: white;
-  border-radius: 1.2rem;
-  border-collapse: collapse;
-  overflow: hidden;
+  border-radius: 1rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e3ec;
+}
+
+.allow-x-scroll {
+  overflow-x: auto;
+  display: block;
+}
+
+.price-list-table {
+  max-width: 100%;
+  display: table;
+  cursor: default;
+  text-align: center;
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 100%;
 }
 
 .price-list-table th {
@@ -380,12 +395,6 @@
   border: 1px solid #e0e3ec;
 }
 
-.price-list-table thead tr,
-.price-list-table tbody tr {
-  display: grid;
-  grid-template-columns: 0.5fr 0.8fr 1fr 1fr 0.8fr;
-}
-
 .pagination-column td {
   padding: 0;
 }
@@ -395,7 +404,7 @@
   width: 24rem;
   border: 1px solid rgb(209 213 219);
   border-radius: 4px;
-  padding: 1.2rem 4rem 1.2rem 1.2rem;
+  padding: 1.2rem 4.5rem 1.2rem 1.2rem;
   font-size: 1.6rem;
   line-height: 1.8rem;
 }
@@ -413,14 +422,14 @@
 
 .rpp-label {
   font-size: 1.4rem;
-  line-height: 1.4rem;
+  line-height: 1;
   color: #676788;
   font-weight: 500;
 }
 
 .rpp-dropdown {
   font-size: 1.4rem;
-  line-height: 1.4rem;
+  line-height: 1;
   color: #676788;
   font-weight: 500;
   border: 1px solid #676788;
@@ -430,6 +439,14 @@
 
 .rpp-dropdown:focus {
   outline: none;
+}
+
+.filled-ud-arrow {
+  fill: #676788;
+}
+
+.pad-0 {
+  padding: 0 !important;
 }
 
 /* Dashboard - write a review */
@@ -456,15 +473,6 @@
   font-weight: 500;
   padding: 1.2rem 2.4rem;
   border-radius: 999px;
-}
-
-.new-address-btn {
-  border: 1px solid var(--primary);
-  padding: 1.2rem 1.6rem;
-}
-
-.new-address-btn span {
-  font-weight: 500;
 }
 
 .order-status-label-1 {
@@ -496,6 +504,11 @@
 .order-status-label-11 {
   background-color: rgb(245, 238, 238);
   color: rgba(77, 77, 235, 0.787);
+}
+
+.order-status-label-12 {
+  background-color: rgba(255, 0, 0, 0.1);
+  color: var(--secondary);
 }
 
 .dashboard-menu-container {
@@ -554,4 +567,517 @@
 
 .dash-menu-container a:hover {
   background-color: rgba(103, 103, 136, 0.2);
+}
+
+/* Saved Addresses */
+
+.addresses-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 3rem;
+  row-gap: 4rem;
+  align-items: start;
+}
+
+.add-btn {
+  border-radius: 999px;
+  border: 1px solid var(--primary);
+  padding: 1.2rem 1.6rem;
+  font-size: 1.8rem;
+  line-height: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.add-btn span {
+  font-size: 1.6rem;
+  line-height: 1;
+  font-weight: 500;
+  color: var(--primary);
+}
+
+@media only screen and (max-width: 83.75em) {
+  .dashboard-container {
+    grid-template-columns: 25rem 1fr;
+  }
+
+  .cart-item {
+    height: 2.2rem;
+    width: 2.2rem;
+    border-width: 0.75px;
+    font-size: 1.2rem;
+    line-height: 1;
+    transform: translate(45%, -25%);
+  }
+
+  .dash-sidebar li {
+    padding: 0 0 0 2.5rem;
+  }
+
+  .dash-nav-link {
+    gap: 1.5rem;
+  }
+
+  .dash-icons-container > * {
+    height: 2.4rem;
+    width: 2.4rem;
+  }
+
+  .dash-sidebar li span {
+    font-size: 1.5rem;
+    line-height: 1;
+  }
+
+  .active-dash-link::before {
+    height: 120%;
+    width: 4px;
+  }
+
+  .dash-section-head {
+    font-size: 2rem;
+    line-height: normal;
+  }
+
+  .cus-detail-container {
+    border-radius: 1.25rem;
+  }
+
+  .profile-img-container {
+    max-height: 10.5rem;
+    max-width: 10.5rem;
+  }
+
+  .edit-profile-img {
+    height: 3.2rem;
+    width: 3.2rem;
+    box-shadow: 0 0 0.5rem 0.5rem rgba(0, 0, 0, 0.1);
+  }
+
+  .user-detail label {
+    font-size: 1.25rem;
+    line-height: 1.5;
+  }
+
+  .user-detail input,
+  .user-detail textarea {
+    font-size: 1.4rem;
+    line-height: 1.5rem;
+    border-radius: 3px;
+    padding: 1.15rem 1.25rem;
+  }
+
+  .update-btn {
+    font-size: 1.4rem;
+    line-height: 1;
+    font-weight: 500;
+    padding: 1.25rem 2.5rem;
+  }
+}
+
+@media only screen and (max-width: 80em) {
+  .addresses-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem;
+  }
+
+  .add-btn {
+    padding: 1rem;
+    font-size: 1.6rem;
+    gap: 0.75rem;
+  }
+
+  .add-btn span {
+    font-size: 1.4rem;
+  }
+}
+
+@media only screen and (max-width: 71.25em) {
+  .dashboard-container {
+    grid-template-columns: 22.5rem 1fr;
+  }
+
+  .cart-item {
+    height: 2rem;
+    width: 2rem;
+    border-width: 0.5px;
+  }
+
+  .dash-sidebar li {
+    padding: 0 0 0 2rem;
+  }
+
+  .dash-nav-link {
+    gap: 1.25rem;
+  }
+
+  .dash-icons-container > * {
+    height: 2.2rem;
+    width: 2.2rem;
+  }
+
+  .dash-sidebar li span {
+    font-size: 1.4rem;
+  }
+
+  .dash-section-head {
+    font-size: 1.6rem;
+  }
+
+  .cus-detail-container {
+    border-radius: 1rem;
+  }
+
+  .profile-img-container {
+    max-width: 8.5rem;
+    max-width: 8.5rem;
+  }
+
+  .edit-profile-img {
+    height: 2.8rem;
+    width: 2.8rem;
+  }
+
+  .user-detail input,
+  .user-detail textarea {
+    font-size: 1.4rem;
+    line-height: 1.5rem;
+    border-radius: 3px;
+    padding: 1rem;
+  }
+
+  .price-list-table {
+    border-radius: 0.75rem;
+  }
+
+  .rpp-label {
+    font-size: 1.3rem;
+  }
+
+  .rpp-dropdown {
+    font-size: 1.3rem;
+    border-radius: 3px;
+  }
+
+  .price-list-table thead tr td:first-child {
+    border-top-right-radius: 0.75rem;
+    border-top-left-radius: 0.75rem;
+  }
+
+  .price-list-table tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 0.75rem;
+    border-bottom-left-radius: 0.75rem;
+  }
+
+  .searc-input {
+    width: 22rem;
+    border-radius: 3px;
+    padding: 1rem 3.5rem 1rem 1rem;
+    font-size: 1.4rem;
+    line-height: 1;
+  }
+
+  .search-icon {
+    right: 1rem;
+  }
+
+  .price-list-table th,
+  .price-list-table td {
+    border: 0.5px solid #e0e3ec;
+  }
+
+  .price-list-table th {
+    font-size: 1.3rem;
+    padding: 1.2rem 1rem;
+  }
+
+  .price-list-table td {
+    font-size: 1.3rem;
+    padding: 1.2rem 2rem;
+  }
+
+  .current-page-num {
+    font-size: 1.3rem;
+    padding: 2rem;
+  }
+
+  .pagination-btn {
+    height: 3rem;
+    width: 3rem;
+    border-radius: 5px;
+  }
+
+  .page-num {
+    font-size: 1.4rem;
+    line-height: 1;
+  }
+
+  .addresses-container {
+    grid-template-columns: repeat(auto-fill, minmax(30rem, 1fr));
+    gap: 2rem;
+  }
+
+  .add-btn {
+    padding: 0.75rem;
+    font-size: 1.4rem;
+    gap: 0.5rem;
+  }
+
+  .add-btn span {
+    font-size: 1.2rem;
+  }
+}
+
+@media only screen and (max-width: 64em) {
+  .dashboard-container {
+    grid-template-columns: 20rem 1fr;
+  }
+
+  .cart-item {
+    height: 1.75rem;
+    width: 1.75rem;
+    font-size: 0.8rem;
+    transform: translate(45%, -25%);
+  }
+
+  .active-dash-link::before {
+    width: 3px;
+  }
+
+  .dash-nav-link {
+    gap: 1rem;
+  }
+
+  .dash-icons-container > * {
+    height: 2rem;
+    width: 2rem;
+  }
+  .dash-sidebar li span {
+    font-size: 1.25rem;
+    line-height: 2rem;
+  }
+
+  .dash-section-head {
+    font-size: 1.5rem;
+  }
+
+  .cus-detail-container {
+    border-radius: 0.75rem;
+  }
+
+  .profile-img-container {
+    max-height: 7.5rem;
+    max-width: 7.5rem;
+  }
+
+  .edit-profile-img {
+    height: 2.4rem;
+    width: 2.4rem;
+  }
+
+  .user-detail label {
+    font-size: 1.1rem;
+  }
+
+  .user-detail input,
+  .user-detail textarea {
+    font-size: 1.25rem;
+    line-height: 1;
+  }
+
+  .update-btn {
+    font-size: 1.25rem;
+    padding: 1.15rem 2.3rem;
+  }
+}
+
+@media only screen and (max-width: 60.875em) {
+  .price-list-table {
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .price-list-table thead tr td:first-child {
+    border-top-right-radius: 0.5rem;
+    border-top-left-radius: 0.5rem;
+  }
+
+  .price-list-table tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+  }
+
+  .rpp-label {
+    font-size: 1.2rem;
+  }
+
+  .rpp-dropdown {
+    font-size: 1.2rem;
+    border-radius: 3px;
+  }
+
+  .searc-input {
+    width: 20rem;
+    border-radius: 3px;
+    padding: 0.75rem 3rem 0.75rem 0.75rem;
+    font-size: 1.2rem;
+  }
+
+  .search-icon {
+    right: 0.75rem;
+  }
+
+  .updown-icon {
+    height: 0.6rem;
+    width: 0.6rem;
+  }
+
+  .price-list-table td,
+  .price-list-table th {
+    font-size: 1.2rem;
+    padding: 1rem 0.8rem;
+  }
+
+  .current-page-num {
+    font-size: 1.2rem;
+    padding: 1.75rem;
+  }
+
+  .pagination-btn {
+    height: 2.75rem;
+    width: 2.75rem;
+    border-radius: 4px;
+  }
+
+  .page-num {
+    font-size: 1.2rem;
+  }
+
+  .price-list-table thead tr,
+  .price-list-table tbody tr {
+    grid-template-columns: 0.4fr 0.6fr 0.8fr 0.8fr 0.6fr;
+  }
+
+  .addresses-container {
+    grid-template-columns: repeat(auto-fill, minmax(26rem, 1fr));
+  }
+}
+
+@media only screen and (max-width: 55em) {
+  .dashboard-container {
+    grid-template-columns: 17.5rem 1fr;
+  }
+
+  .profile-img-container {
+    align-self: center;
+  }
+
+  .cus-detail-container {
+    border-radius: 0.5rem;
+  }
+
+  .current-page-num {
+    padding: 1rem 0;
+  }
+
+  .scroll-container {
+    width: 67.5rem;
+    overflow-y: hidden;
+    overflow-x: auto;
+  }
+
+  .price-list-table {
+    table-layout: auto;
+  }
+
+  .price-list-table thead tr,
+  .price-list-table tbody tr {
+    grid-template-columns: 12rem 12.5rem 17rem 17rem 12rem;
+  }
+}
+
+@media only screen and (max-width: 38.4375em) {
+  .dashboard-container {
+    grid-template-columns: 5rem 1fr;
+  }
+
+  .dash-logo {
+    display: none;
+  }
+
+  .mobile-dash-logo {
+    display: inline-block;
+  }
+  .dash-sidebar li {
+    padding: 0 0 0 1.5rem;
+  }
+
+  .dash-nav-link {
+    gap: 0;
+  }
+
+  .dash-nav-link span:last-child {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 27.5em) {
+  .dashboard-container {
+    grid-template-columns: 4.5rem 1fr;
+  }
+
+  .dash-sidebar li {
+    padding: 0 0 0 1rem;
+  }
+
+  .addresses-container {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+@media only screen and (max-width: 20em) {
+  .dashboard-container {
+    grid-template-columns: 4rem 1fr;
+  }
+  .dash-section-head {
+    font-size: 1.4rem;
+  }
+
+  .profile-img-container {
+    max-width: 6rem;
+    max-height: 6rem;
+  }
+
+  .edit-profile-img {
+    height: 2rem;
+    width: 2rem;
+  }
+
+  .user-detail label {
+    font-size: 1rem;
+  }
+
+  .user-detail input,
+  .user-detail textarea {
+    font-size: 1rem;
+    padding: 0.75rem;
+  }
+
+  .update-btn {
+    font-size: 1rem;
+    padding: 1rem 2rem;
+  }
+
+  .cart-item {
+    height: 1.5rem;
+    width: 1.5rem;
+  }
+
+  .dash-icons-container > * {
+    height: 1.75rem;
+    width: 1.75rem;
+  }
 }

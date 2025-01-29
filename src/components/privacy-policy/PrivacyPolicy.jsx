@@ -4,8 +4,8 @@ const PrivacyPolicy = () => {
   return (
     <section className="policies-space">
       <div className="secondary-container">
-        <div className="flex justify-center items-center mb-28">
-          <h1 className="policies-heading">privacy & policy</h1>
+        <div className="flex justify-center items-center mb-24 laptop-l:mb-16 laptop-md:mb-12 laptop:mb-10 laptop-s:mb-8 tab-m:mb-6 tab:mb-8 mb-l:mb-6 mb:mb-4">
+          <h1 className="faq-heading">privacy & policy</h1>
         </div>
         <div>
           <h2 className="policies-sub-heading">privacy & policy</h2>
@@ -30,7 +30,9 @@ const PrivacyPolicy = () => {
             </p>
             <br />
             <p className="desc-title">1. Information we collect</p>
-            <p className="desc-title ml-20">1.1 Information You Provide</p>
+            <p className="desc-title ml-20 laptop-l:ml-16 laptop-md:ml-14 laptop:ml-12 laptop-s:ml-10">
+              1.1 Information You Provide
+            </p>
             <br />
             <p>
               Sikka Cleaners collects information from you when you choose to
@@ -79,7 +81,7 @@ const PrivacyPolicy = () => {
               registration and privacy settings on those third party services.
             </p>
             <br />
-            <p className="desc-title ml-20">
+            <p className="desc-title ml-20 laptop-l:ml-16 laptop-md:ml-14 laptop:ml-12 laptop-s:ml-10">
               1.2 Information Automatically Collected
             </p>
             <br />
@@ -158,7 +160,7 @@ const PrivacyPolicy = () => {
               of cookies or other tracking technologies.
             </p>
             <br />
-            <p className="desc-title ml-20">
+            <p className="desc-title ml-20 laptop-l:ml-16 laptop-md:ml-14 laptop:ml-12 laptop-s:ml-10">
               1.3 Information Collected From Other Sources
             </p>
             <br />
@@ -173,7 +175,9 @@ const PrivacyPolicy = () => {
               internal business analysis or other business purposes.
             </p>
             <br />
-            <p className="desc-title ml-20">1.4 Combination of Information</p>
+            <p className="desc-title ml-20 laptop-l:ml-16 laptop-md:ml-14 laptop:ml-12 laptop-s:ml-10">
+              1.4 Combination of Information
+            </p>
             <br />
             <p>
               We may combine the information we receive from and about you,

@@ -50,15 +50,12 @@ const SavedAddress = () => {
 
   return (
     <>
-      <div className="p-14 border border-[#b9bccf4d] bg-white rounded-2xl">
-        <div className="grid grid-cols-2 gap-x-12 gap-y-16 items-start">
+      <div className="p-14 border border-[#b9bccf4d] bg-white rounded-2xl laptop:rounded-xl laptop:p-10 laptop-s:rounded-lg tab-m:p-9 tab:p-8 mb-l:p-6">
+        <div className="addresses-container">
           <div className="col-span-full justify-self-end">
-            <button
-              className="new-address-btn address-btn flex items-center gap-4 rounded-full"
-              onClick={handleAddClick}
-            >
-              <FaPlus className="inline-block h-[1.6rem] w-[1.6rem] fill-[var(--secondary)]" />
-              <span className="leading-[1.8rem]">Add New Address</span>
+            <button className="add-btn" onClick={handleAddClick}>
+              <FaPlus className="inline-block h-[1.6rem] w-[1.6rem] fill-[var(--secondary)] laptop:h-[1.4rem] laptop:w-[1.4rem] laptop-s:h-[1.2rem] laptop-s:w-[1.2rem]" />
+              <span>Add New Address</span>
             </button>
           </div>
           {addresses &&
@@ -78,34 +75,34 @@ const SavedAddress = () => {
               return (
                 <div
                   key={address_id}
-                  className="border border-[#b9bccf4d] rounded-xl"
+                  className="border border-[#b9bccf4d] rounded-2xl laptop:rounded-xl laptop-s:rounded-lg"
                 >
-                  <div className="flex flex-col items-start gap-3 px-6 py-8 border-b border-[#b9bccf4d]">
-                    <span className="bg-[#f0f0f0] px-2 py-2.5 rounded-md uppercase text-[1.1rem] text-[#878787] font-semibold">
+                  <div className="flex flex-col items-start gap-4 px-6 py-8 border-b border-[#b9bccf4d] laptop:p-6 laptop:gap-3 laptop-s:p-5 mb-l:p-4">
+                    <span className="bg-[#f0f0f0] p-3 rounded-lg uppercase text-xl text-[#878787] font-semibold laptop:p-2 laptop:text-lg laptop:rounded-md laptop-s:text-base">
                       {addressMapping[address_type]}
                     </span>
-                    <div className="flex items-center justify-start gap-6">
-                      <h4 className="text-[1.4rem] text-[var(--black)] font-semibold">
+                    <div className="flex items-center justify-start gap-6 laptop:gap-4">
+                      <h4 className="text-[1.5rem] text-[var(--black)] font-semibold laptop:text-[1.4rem] laptop:leading-[1.5] laptop-s:text-[1.2rem]">
                         {full_name}
                       </h4>
-                      <h4 className="text-[1.4rem] text-[var(--black)] font-semibold">
+                      <h4 className="text-[1.5rem] text-[var(--black)] font-semibold laptop:text-[1.3rem] laptop:leading-[1.5] laptop-s:text-[1.2rem]">
                         {phone_number}
                       </h4>
                     </div>
-                    <p className="text-[1.4rem] leading-10 w-[80%]">{`${building_number}, ${area}, ${landmark}, ${city}, ${pincode} `}</p>
+                    <p className="text-[1.5rem] leading-10 w-[80%] laptop:text-[1.4rem] laptop:w-[90%] laptop:leading-[1.75] laptop-s:text-[1.2rem] tab-m:w-full">{`${building_number}, ${area}, ${landmark}, ${city}, ${pincode} `}</p>
                   </div>
-                  <div className="flex items-stretch justify-stretch">
-                    <div className="basis-[50%] border-r border-[#b9bccf4d]">
+                  <div className="flex items-stretch justify-center">
+                    <div className="basis-1/2 border-r border-[#b9bccf4d]">
                       <button
-                        className="text-2xl text-[var(--primary)] font-medium py-5 w-full"
+                        className="text-2xl text-[var(--primary)] font-medium py-5 w-full laptop:text-[1.4rem] laptop-s:text-[1.2rem] laptop-s:py-4 mb:py-3"
                         onClick={() => handleEdit(address)}
                       >
                         Edit
                       </button>
                     </div>
-                    <div className="basis-[50%]">
+                    <div className="basis-1/2">
                       <button
-                        className="text-2xl text-[var(--primary)] font-medium h-full w-full text-center"
+                        className="text-2xl text-[var(--primary)] font-medium h-full w-full text-center laptop:text-[1.4rem] laptop-s:text-[1.2rem] laptop-s:py-4 mb:py-3"
                         disabled={loadingDelAdd}
                         onClick={() => handleDelete(address_id)}
                       >

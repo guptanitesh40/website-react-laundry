@@ -1,10 +1,13 @@
+import { useState } from "react";
 import toast from "react-hot-toast";
 
 const useUpdateUserDetail = () => {
+  const [loading, setLoading] = useState(false);
   const baseURL = import.meta.env.VITE_BASE_URL;
   const token = localStorage.getItem("token");
 
   const updateUserDetail = async (formData) => {
+    setLoading(true);
     let newFormData = new FormData();
     newFormData.append("first_name", formData.first_name);
     newFormData.append("last_name", formData.last_name);
@@ -51,9 +54,11 @@ const useUpdateUserDetail = () => {
         }
       );
       return null;
+    } finally {
+      setLoading(false);
     }
   };
-  return { updateUserDetail };
+  return { updateUserDetail, loading };
 };
 
 export default useUpdateUserDetail;

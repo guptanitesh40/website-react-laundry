@@ -8,15 +8,23 @@ const Sidebar = () => {
   let path = location.pathname;
 
   const menuItems = [
-    { icon: <AiFillHome />, label: "Dashboard", route: "/dashboard/home" },
-    { icon: <IoPerson />, label: "Profile", route: "/dashboard/profile" },
     {
-      icon: <IoNewspaper />,
+      icon: <AiFillHome className="dash-icon" />,
+      label: "Dashboard",
+      route: "/dashboard/home",
+    },
+    {
+      icon: <IoPerson className="dash-icon" />,
+      label: "Profile",
+      route: "/dashboard/profile",
+    },
+    {
+      icon: <IoNewspaper className="dash-icon" />,
       label: "Price List View",
       route: "/dashboard/price-list",
     },
     {
-      icon: <FaLocationDot />,
+      icon: <FaLocationDot className="dash-icon" />,
       label: "Saved Addresses",
       route: "/dashboard/saved-addresses",
     },
@@ -24,7 +32,7 @@ const Sidebar = () => {
 
   return (
     <>
-      <ul className="dash-sidebar flex flex-col gap-12">
+      <ul className="dash-sidebar flex flex-col gap-12 laptop-s:gap-10 tab:gap-8">
         {menuItems.map((item, index) => (
           <li
             key={index}

@@ -4,12 +4,12 @@ const RefundPolicy = () => {
   return (
     <section className="policies-space">
       <div className="secondary-container">
-        <div className="flex justify-center items-center mb-28">
-          <h1 className="policies-heading">Refund Policy / Cancellation</h1>
+        <div className="flex justify-center items-center mb-24 laptop-l:mb-16 laptop-md:mb-12 laptop:mb-10 laptop-s:mb-8 tab-m:mb-6 tab:mb-8 mb-l:mb-6 mb:mb-4">
+          <h1 className="faq-heading">Refund Policy / Cancellation</h1>
         </div>
         <div>
           <h2 className="policies-sub-heading">Refund Policy / Cancellation</h2>
-          <ul className="cr-list">
+          <ul className="tc-list">
             <li>
               Any extra amount paid by customer for retail order can be refunded
               by the company if customer ask.
