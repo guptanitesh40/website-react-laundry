@@ -56,7 +56,7 @@ const Login = () => {
   };
 
   return (
-    <section className=" flex justify-center items-center p-6 h-[100vh] w-[100vw]">
+    <section className="flex justify-center items-center p-6 h-[100vh] w-[100vw] overflow-y-auto">
       <form className="login-form-container">
         <div className="flex flex-col justify-center items-center gap-8 laptop-l:gap-6">
           <img
@@ -65,7 +65,7 @@ const Login = () => {
             loading="lazy"
             className="h-16 w-auto laptop-l:h-14"
           />
-          <h2 className="text-[2.4rem] leading-[1.5] font-bold text-[var(--primary)] laptop-l:text-[2rem]">
+          <h2 className="text-[2.4rem] leading-[1.5] font-bold text-[var(--black)] laptop-l:text-[2rem]">
             Login in to your account
           </h2>
         </div>
@@ -98,7 +98,7 @@ const Login = () => {
               <label htmlFor="password" className="form-label">
                 Password
               </label>
-              <div className="text-lg">
+              <div>
                 <Link
                   to="/forget-password"
                   className="forget-link"
@@ -148,8 +148,8 @@ const Login = () => {
             {loading ? "Logging in..." : "Login"}
           </button>
         </div>
-        <p className="text-center text-lg text-[#83848a]">
-          Not a member?
+        <p className="text-center text-xl text-[#83848a]">
+          Don&apos;t have any account ?
           <Link
             to="/signup"
             className="ml-4 text-[#818cf8]"

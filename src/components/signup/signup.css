@@ -1,12 +1,12 @@
 .signup-form-container {
   width: 62rem;
-  border: 1px solid #dbdfe9;
-  padding: 2.4rem 2.8rem;
-  padding-bottom: 4rem;
-  border-radius: 4px;
+  border: 1px solid rgba(131, 132, 138, 0.5);
+  padding: 2.4rem 2.8rem 4rem;
+  border-radius: 1rem;
 
   display: flex;
   flex-direction: column;
   gap: 2.5rem;
-  box-shadow: 3px 3px 12px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 0.5rem 0.25rem rgba(0, 0, 0, 0.1);
 }
+

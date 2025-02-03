@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect } from "react";
+import { lazy, Suspense } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -56,14 +56,11 @@ const App = () => {
     <Router>
       <Toaster
         toastOptions={{
-          className: "toast",
           style: {
-            fontSize: "16px",
-            borderRadius: "10px",
-            fontWeight: "500",
-            maxWidth: "500px",
+            fontWeight: 400,
+            maxWidth: "400px",
           },
-          duration: 4000,
+          className: "toast",
         }}
       />
       <ScrollToTop />

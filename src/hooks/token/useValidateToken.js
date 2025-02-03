@@ -33,11 +33,18 @@ const useValidateToken = () => {
           dispatch(addUser(data?.data?.user));
           dispatch(setAuthStatus(true));
         } else {
-          toast.error(data?.message || "Token validation failed!");
+          toast.error(
+            data?.message || "Your session has expired. Please log in again.",
+            {
+              className: "toast-error",
+            }
+          );
           handleLogout();
         }
       } catch {
-        toast.error("Failed to validate user token.");
+        toast.error("Oops! Something went wrong. Please log in again.", {
+          className: "toast-error",
+        });
       } finally {
         setLoading(false);
       }

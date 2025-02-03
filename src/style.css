@@ -405,6 +405,7 @@ h3 {
   left: 2px;
 }
 
+
 @media only screen and (max-width: 100em) {
   .inc-dec-btn {
     font-size: 1.4rem;

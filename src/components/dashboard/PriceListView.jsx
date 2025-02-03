@@ -92,7 +92,7 @@ const PriceListView = () => {
     <div className="price-list-table-container">
       <div className="px-8 py-6 laptop-s:px-6 laptop-s:py-4 tab-m:p-4">
         <form
-          className="flex items-center justify-between relative"
+          className="flex items-center justify-between relative tab:flex-wrap tab:gap-3 mb-l:flex-col"
           onSubmit={(e) => e.preventDefault()}
         >
           <div className="flex items-center justify-center gap-4 tab-m:gap-3">
@@ -130,17 +130,25 @@ const PriceListView = () => {
         <table className="price-list-table">
           <thead>
             <tr className="bg-[#F7F8FD]">
-              <th>index</th>
-              <th onClick={() => handleSort("category_name")}>
+              <th className="min-w-[12.5rem] tab-l:min-w-40 tab-s:min-w-32 mb-l:min-w-24">
+                index
+              </th>
+              <th
+                className="min-w-[20rem] tab-l:min-w-[17.5rem] tab-s:min-w-[15rem] mb-l:min-w-[12.5rem]"
+                onClick={() => handleSort("category_name")}
+              >
                 <div className="flex items-center justify-center gap-2 cursor-pointer tab-m:gap-1">
                   <span>category</span>
                   <span className="flex flex-col">
-                    <IoCaretUp className="updown-icon filled-ud-arrow" />
+                    <IoCaretUp className="updown-icon" />
                     <IoCaretDown className="updown-icon" />
                   </span>
                 </div>
               </th>
-              <th onClick={() => handleSort("product_name")}>
+              <th
+                className="min-w-[22.5rem] tab-l:min-w-[20rem] tab-s:min-w-[17.5rem] mb-l:min-w-[15rem]"
+                onClick={() => handleSort("product_name")}
+              >
                 <div className="flex items-center justify-center gap-2 cursor-pointer tab-m:gap-1">
                   <span>product</span>
                   <span className="flex flex-col">
@@ -149,7 +157,10 @@ const PriceListView = () => {
                   </span>
                 </div>
               </th>
-              <th onClick={() => handleSort("service_name")}>
+              <th
+                className="min-w-[22.5rem] tab-l:min-w-[20rem] tab-s:min-w-[17.5rem] mb-l:min-w-[15rem]"
+                onClick={() => handleSort("service_name")}
+              >
                 <div className="flex items-center justify-center gap-2 cursor-pointer tab-m:gap-1">
                   <span>service</span>
                   <span className="flex flex-col">
@@ -158,7 +169,10 @@ const PriceListView = () => {
                   </span>
                 </div>
               </th>
-              <th onClick={() => handleSort("price_price")}>
+              <th
+                className="min-w-[20rem] tab-l:min-w-[17.5rem] tab-s:min-w-[15rem] mb-l:min-w-[12.5rem]"
+                onClick={() => handleSort("price_price")}
+              >
                 <div className="flex items-center justify-center gap-2 cursor-pointer tab-m:gap-1">
                   <span>price</span>
                   <span className="flex flex-col">
@@ -188,26 +202,26 @@ const PriceListView = () => {
                     <td>{category_name}</td>
                     <td>{product_name}</td>
                     <td>{service_name}</td>
-                    <td>{price_price}</td>
+                    <td>&#8377; {price_price}</td>
                   </tr>
                 );
               })}
             {totalRows === 0 && (
               <tr>
-                <td className="col-span-5">No Item Found !</td>
+                <td colSpan={5}>No Item Found !</td>
               </tr>
             )}
           </tbody>
         </table>
       </div>
       {totalRows != 0 && (
-        <div className="flex items-center justify-between px-8 laptop-s:px-6 tab-l:px-4 tab-s:flex-wrap tab-s:p-4">
+        <div className="flex items-center justify-between px-8 laptop-s:px-6 tab-l:px-4 tab-s:flex-wrap tab-s:p-4 tab-s:gap-4 tab:gap-3 mb-l:flex-col">
           <p className="current-page-num font-medium">
             Showing {(currentPage - 1) * rpp + 1} to{" "}
             {currentPage === rows ? totalRows : currentPage * rpp} entries
           </p>
 
-          <div className="flex items-center gap-4 laptop-s:gap-3">
+          <div className="flex items-center justify-center gap-4 laptop-s:gap-3 mb-l:flex-wrap">
             <button
               className={`pagination-btn ${activeBtn === -2 && "active-page"}`}
               onClick={() => {
