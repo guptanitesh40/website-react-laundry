@@ -211,21 +211,31 @@ const OrderSummary = ({ instruction, paymentMethod, selectedAddId }) => {
   };
 
   useEffect(() => {
-    if (loadingTransactionId || verifyingPayement || placingOrder) {
+    if (
+      loadingTransactionId ||
+      verifyingPayement ||
+      placingOrder ||
+      loadingApplyCoupon
+    ) {
       setOpen(true);
     } else {
       setOpen(false);
     }
-  }, [loadingTransactionId, verifyingPayement, placingOrder]);
+  }, [
+    loadingTransactionId,
+    verifyingPayement,
+    placingOrder,
+    loadingApplyCoupon,
+  ]);
 
   return (
     <>
       {viewCoupon ? (
-        <div className="all-coupon-container space-y-10">
+        <div className="all-coupon-container space-y-10 laptop-l:space-y-8 laptop:space-y-6">
           <div className="flex justify-between items-center">
             <h3>Coupons</h3>
             <span
-              className="cursor-pointer inline-block h-10 w-10"
+              className="cursor-pointer inline-block h-10 w-10 laptop-l:h-8 laptop-l:w-8 laptop-md:h-7 laptop-md:w-7 tab-m:h-8 tab-m:w-8"
               onClick={() => setViewCoupon(!viewCoupon)}
             >
               <RxCross2 className="h-full w-full text-[var(--primary)]" />
@@ -233,7 +243,7 @@ const OrderSummary = ({ instruction, paymentMethod, selectedAddId }) => {
           </div>
           {loadingAllCoupons ? (
             <div className="flex justify-center items-center">
-              <span className="inline-block h-16 w-16 rounded-full border-[5px] border-gray-300 border-r-indigo-500 animate-spin"></span>
+              <span className="inline-block h-16 w-16 rounded-full border-[5px] border-gray-300 border-r-indigo-500 animate-spin laptop-md:h-14 laptop-md:w-14"></span>
             </div>
           ) : (
             <table className="coupon-table w-full">
@@ -244,16 +254,16 @@ const OrderSummary = ({ instruction, paymentMethod, selectedAddId }) => {
                       coupon;
                     return (
                       <tr key={coupon_id}>
-                        <td className="justify-self-start py-3">
-                          <RiDiscountPercentFill className="h-20 w-20 fill-[var(--secondary)] laptop-m:h-16 laptop-m:w-16" />
+                        <td className="justify-self-start py-3 laptop-md:py-2">
+                          <RiDiscountPercentFill className="h-20 w-20 fill-[var(--secondary)] laptop-l:h-16 laptop-l:w-16 laptop-md:h-14 laptop-md:w-14 tab-m:h-16 tab-m:w-16" />
                         </td>
                         <td>
-                          <p className="text-[1.8rem] text-[var(--black)] font-medium uppercase">
+                          <p className="text-[1.8rem] text-[var(--black)] font-medium uppercase laptop-l:text-[1.6rem] laptop-md:text-[1.4rem] laptop:text-[1.3rem] tab-m:text-[1.4rem]">
                             {code}
                           </p>
                         </td>
                         <td>
-                          <p className="text-[1.8rem] text-[var(--black)] uppercase">
+                          <p className="text-[1.8rem] text-[var(--black)] uppercase laptop-l:text-[1.6rem] laptop-md:text-[1.4rem] laptop:text-[1.3rem] tab-m:text-[1.4rem]">
                             {discount_type === 1
                               ? "₹" + discount_value + " OFF"
                               : discount_value + "%" + " OFF"}
@@ -272,7 +282,7 @@ const OrderSummary = ({ instruction, paymentMethod, selectedAddId }) => {
                   })
                 ) : (
                   <tr>
-                    <td className="col-span-full text-3xl font-medium text-[var(--black)]">
+                    <td className="col-span-full text-3xl font-medium text-[var(--black)] laptop-l:text-2xl laptop-md:text-xl">
                       No coupon code found !
                     </td>
                   </tr>
@@ -283,11 +293,11 @@ const OrderSummary = ({ instruction, paymentMethod, selectedAddId }) => {
         </div>
       ) : (
         <div className="flex flex-col">
-          <h4 className="cart-title">Order Summary</h4>
-          <div className="p-10 border-b border-[#b9bccf4d] flex flex-col gap-8">
+          <h4 className="cart-title cart-cart-title">Order Summary</h4>
+          <div className="p-10 border-b border-[#b9bccf4d] flex flex-col gap-8 laptop-l:gap-6 laptop-l:p-8 laptop-md:px-6 laptop:p-6 laptop:gap-4 tab-l:px-4 tab-m:p-6">
             <form
               onSubmit={handleApplyClick}
-              className="flex items-center gap-8"
+              className="flex items-center gap-8 laptop-l:gap-6 laptop:gap-4"
             >
               <div className="grow relative">
                 <input
@@ -296,7 +306,7 @@ const OrderSummary = ({ instruction, paymentMethod, selectedAddId }) => {
                   aria-label="Add Coupon Code"
                   value={couponCode}
                   onChange={(e) => setCouponCode(e.target.value)}
-                  className="w-full uppercase border border-[#EFF3FF] rounded-xl text-[1.8rem] leading-10 py-5 px-4 focus:ring-0 placeholder:lowercase"
+                  className="w-full uppercase border border-[#EFF3FF] rounded-xl text-[1.8rem] leading-10 py-5 px-4 focus:border-indigo-500 focus:outline-none placeholder:capitalize laptop-l:text-[1.6rem] laptop-l:leading-[1.5] laptop-l:py-4 laptop-l:px-3 laptop-l:rounded-lg laptop-md:text-[1.4rem] laptop-md:p-3 laptop:text-[1.3rem] laptop:rounded-md"
                 ></input>
                 {isCouponApplied.status && (
                   <span
@@ -321,19 +331,19 @@ const OrderSummary = ({ instruction, paymentMethod, selectedAddId }) => {
             </form>
             <div>
               <button
-                className="flex items-center gap-8"
+                className="flex items-center gap-8 laptop-l:gap-6 laptop-md:gap-4 laptop:gap-3"
                 onClick={handleViewMoreClick}
               >
-                <p className="text-[1.8rem] text-[var(--primary)] font-medium">
+                <p className="text-[1.8rem] text-[var(--primary)] font-medium laptop-l:text-[1.6rem] laptop-md:text-[1.4rem] laptop:text-[1.3rem] tab-m:text-[1.4rem]">
                   View More Offers
                 </p>
-                <span className="inline-block h-10 w-10">
+                <span className="inline-block h-10 w-10 laptop-l:h-8 laptop-l:w-8 laptop-md:h-7 laptop-md:w-7 laptop:h-6 laptop:w-6 tab-m:h-8 tab-m:w-8">
                   <IoIosArrowDown className="h-full w-full fill-[var(--primary)]" />
                 </span>
               </button>
             </div>
           </div>
-          <div className="px-12 py-12 flex flex-col gap-12">
+          <div className="px-12 py-12 flex flex-col gap-12 laptop-l:gap-10 laptop-l:p-10 laptop-md:px-6 laptop-md:py-8 laptop-md:gap-8 laptop:p-6 tab-l:px-4 tab-l:gap-7 cart-summary tab-m:p-6 tab-m:gap-8">
             <div className="place-center">
               <p>Sub Total</p>
               <h5>₹{subTotal}</h5>
@@ -359,17 +369,12 @@ const OrderSummary = ({ instruction, paymentMethod, selectedAddId }) => {
                 {isExpDel && (
                   <div className="relative group my-[-6px]">
                     <IconButton onClick={() => setExpDel(false)}>
-                      <IoIosRemoveCircle className="h-9 w-9 fill-[var(--secondary)]" />
+                      <IoIosRemoveCircle className="h-9 w-9 fill-[var(--secondary)] laptop-md:h-7 laptop-md:w-7 laptop:h-6 laptop:w-6" />
                     </IconButton>
 
                     <div
                       role="tooltip"
-                      className="absolute z-10 invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[var(--secondary)] text-white rounded-md shadow-sm px-3 py-2 text-lg text-nowrap"
-                      style={{
-                        top: "-30px",
-                        left: "50%",
-                        transform: "translateX(-50%)",
-                      }}
+                      className="absolute z-10 invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[var(--secondary)] text-white rounded-md shadow-sm px-3 py-2 text-lg text-nowrap -top-12 left-1/2 -translate-x-1/2 laptop-md:text-base laptop-md:-top-10 laptop-md:rounded-sm"
                     >
                       remove
                       <div className="tooltip-arrow" data-popper-arrow></div>

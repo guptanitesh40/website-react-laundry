@@ -41,7 +41,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="z-50 bg-[var(--primary)] flex justify-between items-center px-8 laptop-m:px-6 laptop-s:px-5 tab-l:px-4 tab:py-3 mb-l:py-2 mb:p-2">
+      <div className="grow bg-[var(--primary)] flex justify-between items-center px-8 laptop-m:px-6 laptop-s:px-5 tab-l:px-4 tab:py-3 mb-l:py-2 mb:p-2">
         <p className="text-[2rem] leading-[2.4rem] font-semibold text-white tracking-wide laptop-m:text-[1.8rem] laptop-m:leading-normal laptop-s:text-[1.6rem] laptop-s:font-medium tab-l:text-[1.4rem] mb:text-[1.2rem]">
           {routeMap[pathname]}
         </p>
@@ -71,7 +71,7 @@ const Navbar = () => {
             />
             {isOpen && (
               <div className="absolute right-0 mt-3 w-48 bg-white shadow-lg rounded-lg border border-[#B9BCCF4D] z-10 tab-l:w-40 mb-l:w-32">
-                <div className="absolute top-[-6px] right-7 w-4 h-4 bg-white rotate-45 border-t border-l border-[#B9BCCF4D] -z-10 laptop-m:right-6 tab-l:right-5"></div>
+                <div className="absolute top-[-6px] right-7 w-4 h-4 bg-white rotate-45 border-t border-l border-[#B9BCCF4D] -z-10 laptop-m:right-6 tab-l:right-5 mb:right-4"></div>
                 <ul className="flex flex-col py-2 tab-l:py-1">
                   <li
                     className="flex items-center gap-3 px-3 py-2 hover:bg-gray-100 cursor-pointer mb-l:gap-2 mb-l:px-2 mb-l:py-1"

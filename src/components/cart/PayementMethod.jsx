@@ -4,40 +4,40 @@ import { FaCcAmazonPay } from "react-icons/fa";
 
 const PayementMethod = ({ setPayementMethod }) => {
   return (
-    <form className="flex flex-col gap-12">
+    <form className="flex flex-col gap-12 laptop-l:gap-10">
       <h4 className="cart-sub-title">Select Payment Method</h4>
-      <label className="border-[1.5px] border-black cursor-pointer p-6 rounded-md flex justify-between items-center shadow w-[50rem]  transition-all duration-300">
-        <div className="flex items-center space-x-5">
+      <label className="border border-gray-400 cursor-pointer p-6 rounded-md flex justify-between items-center shadow w-[45rem] transition-all duration-300 laptop-md:p-4 laptop-md:w-[38rem] laptop-md:pr-6 laptop:w-[32.5rem]">
+        <div className="flex items-center space-x-5 laptop-l:space-x-6 laptop-md:space-x-4 laptop:space-x-3">
           <div className="flex items-center">
-            <BsCreditCard2Back className="inline-block h-14 w-14 fill-[var(black)]" />
+            <BsCreditCard2Back className="inline-block h-12 w-12 fill-[var(black)] laptop-md:h-10 laptop-md:w-10" />
           </div>
-          <h2 className="text-[2.2rem] leading-[3.5rem] capitalize">
+          <h2 className="text-[2rem] leading-[1.75] capitalize laptop-l:text-[1.8rem] laptop-md:text-[1.6rem] laptop:text-[1.5rem]">
             Cash On Delivery
           </h2>
         </div>
         <input
           type="radio"
           name="payment"
-          className="appearance-none h-8 w-8 border-2 border-black rounded-full checked:bg-black checked:border-transparent checked:ring-2 checked:ring-black checked:ring-offset-2"
+          className="styled-radio"
           onChange={() => {
             setPayementMethod(1);
           }}
         />
       </label>
 
-      <label className="border-[1.5px] border-black cursor-pointer p-6 rounded-md flex justify-between items-center shadow w-[50rem]  transition-all duration-300">
-        <div className="flex items-center space-x-5">
+      <label className="border border-gray-400 cursor-pointer p-6 rounded-md flex justify-between items-center shadow w-[45rem]  transition-all duration-300 laptop-md:p-4 laptop-md:w-[38rem] laptop-md:pr-6 laptop:w-[32.5rem]">
+        <div className="flex items-center space-x-5 laptop-l:space-x-6 laptop-md:space-x-4 laptop:space-x-3">
           <div className="flex items-center">
-            <FaCcAmazonPay className="inline-block h-14 w-14 fill-[var(black)]" />
+            <FaCcAmazonPay className="inline-block h-12 w-12 fill-[var(black)] laptop-md:h-10 laptop-md:w-10" />
           </div>
-          <h2 className="text-[2.2rem] leading-[3.5rem] capitalize">
+          <h2 className="text-[2rem] leading-[1.75] capitalize laptop-l:text-[1.8rem] laptop-md:text-[1.6rem] laptop:text-[1.5rem]">
             Online Payement
           </h2>
         </div>
         <input
           type="radio"
           name="payment"
-          className="appearance-none h-8 w-8 border-2 border-black rounded-full checked:bg-black checked:border-transparent checked:ring-2 checked:ring-black checked:ring-offset-2"
+          className="styled-radio"
           onChange={() => {
             setPayementMethod(2);
           }}

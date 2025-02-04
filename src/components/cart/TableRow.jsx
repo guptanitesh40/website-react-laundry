@@ -89,37 +89,45 @@ const TableRow = ({ item }) => {
 
   return (
     <tr className="relative">
+      <td className="items-detail-cell space-y-1 tab-l:space-y-0">
+        <h3>{product_name}</h3>
+        <p>{service_name}</p>
+        {description && !isOpen ? (
+          <p>
+            {description.length > 20
+              ? description.slice(0, 20) + "..."
+              : description}
+          </p>
+        ) : (
+          ""
+        )}
+      </td>
       <td className="text-center">
         <img
           src={product_image}
           alt="Product Image"
-          className="inline-block max-w-32 max-h-40 h-auto"
+          className="inline-block w-32 h-32 rounded-lg border laptop-l:h-28 laptop-l:w-28 laptop-md:h-24 laptop-md:w-24 laptop-m:rounded-md laptop:rounded tab-s:h-[5.5rem] tab-s:w-[5.5rem]"
         />
-      </td>
-      <td className="items-detail-cell space-y-1">
-        <h3>{product_name}</h3>
-        <p>{service_name}</p>
-        {description && !isOpen ? <p>{description}</p> : <p>&nbsp;</p>}
       </td>
       <td className="text-center">₹{price}</td>
       <td>
         <span className="flex justify-center items-center">
-          <button className="inc-dec-btn overflow-hidden">
+          <button className="inc-dec-btn overflow-hidden new-add-btn">
             {loadingQuantityUpdate ? (
-              <span className="h-[4.1rem] w-[9.1rem] flex justify-center items-center">
-                <span className="inline-block h-10 w-10 rounded-full border-4 border-gray-200 border-t-[var(--secondary)] animate-spin"></span>
+              <span className="h-[4.1rem] w-[9.1rem] flex justify-center items-center laptop-l:w-[8.4rem] laptop-l:h-[3.9rem] laptop-md:w-[6.9rem] laptop-md:h-[3.3rem] laptop-m:w-[6.8rem] laptop:h-[3.1rem] tab-l:-[7rem] tab-m:w-[6.1rem] tab-s:w-20 tab-s:h-10">
+                <span className="inline-block h-10 w-10 rounded-full border-4 border-gray-200 border-t-[var(--secondary)] animate-spin tab-s:h-8 tab-s:w-8 tab-s:border-[3px]"></span>
               </span>
             ) : (
               <>
                 <span
-                  className="py-[1.1rem] pl-[1.2rem] cursor-pointer"
+                  className="py-[1.1rem] pl-[1.2rem] cursor-pointer laptop-l:py-[1rem] laptop-l:pl-[1.1rem] laptop-md:py-[0.85rem] laptop-md:pl-4 laptop:py-3 laptop:pl-3"
                   onClick={() => handleDownClick(cart_id)}
                 >
                   <HiOutlineMinus className="indec-icon" />
                 </span>
                 {quantity}
                 <span
-                  className="py-[1.1rem] pr-[1.2rem] cursor-pointer"
+                  className="py-[1.1rem] pr-[1.2rem] cursor-pointer laptop-l:py-[1rem] laptop-l:pr-[1.2rem] laptop-md:py-[0.85rem] laptop-md:pr-4 laptop:py-3 laptop:pr-3"
                   onClick={() => handleUpClick(cart_id)}
                 >
                   <HiOutlinePlus className="indec-icon" />
@@ -130,24 +138,24 @@ const TableRow = ({ item }) => {
         </span>
       </td>
       <td className="text-center">₹{price * quantity}</td>
-      <td className="flex justify-around items-start">
+      <td className="flex justify-around items-start laptop-l:justify-center laptop-l:gap-8 tab-l:gap-6">
         <span
           role="button"
           onClick={() => setIsOpen(!isOpen)}
-          className="h-14 w-14 bg-[rgba(103,113,130,0.2)] rounded-full flex justify-center items-center cursor-pointer"
+          className="h-14 w-14 bg-[rgba(103,113,130,0.2)] rounded-full flex justify-center items-center cursor-pointer laptop-l:h-12 laptop-l:w-12"
         >
-          <FaRegEdit className="inline-block h-8 w-8 fill-[var(--primary)]" />
+          <FaRegEdit className="inline-block h-8 w-8 fill-[var(--primary)] laptop-l:h-6 laptop-l:w-6" />
         </span>
 
         <span
-          className="h-14 w-14 bg-[rgba(103,113,130,0.2)] rounded-full flex justify-center items-center cursor-pointer"
+          className="h-14 w-14 bg-[rgba(103,113,130,0.2)] rounded-full flex justify-center items-center cursor-pointer laptop-l:h-12 laptop-l:w-12"
           onClick={() => handleDelClick(cart_id)}
         >
           {loadingDelProduct ? (
             <div role="status">
               <svg
                 aria-hidden="true"
-                className="w-9 h-9 text-white animate-spin fill-blue-600"
+                className="w-9 h-9 text-white animate-spin fill-blue-600 laptop-l:h-8 laptop-l:w-8"
                 viewBox="0 0 100 101"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -164,7 +172,7 @@ const TableRow = ({ item }) => {
               <span className="sr-only">Loading...</span>
             </div>
           ) : (
-            <FaTrash className="inline-block h-8 w-8 fill-[var(--secondary)]" />
+            <FaTrash className="inline-block h-8 w-8 fill-[var(--secondary)] laptop-l:h-6 laptop-l:w-6" />
           )}
         </span>
       </td>
@@ -183,13 +191,7 @@ const TableRow = ({ item }) => {
               onClick={handleSave}
               disabled={loadingDescriptionSave}
             >
-              {loadingDescriptionSave ? (
-                <div className="w-[3.5rem] flex justify-center items-center">
-                  <span className="small-spinner animate-spin"></span>
-                </div>
-              ) : (
-                "save"
-              )}
+              {loadingDescriptionSave ? "saving.." : "save"}
             </button>
           </div>
         </td>

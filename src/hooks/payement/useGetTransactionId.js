@@ -33,7 +33,7 @@ const useGetTransactionId = () => {
         });
         return;
       }
-      return data?.razorpay_order_id;
+      return data?.data?.razorpay_order_id;
     } catch {
       toast.error(
         "An error occurred while creating the order. Please check your connection.",

@@ -37,19 +37,19 @@ const AddAddress = ({ setSelectAddId }) => {
 
   return (
     <>
-      <div className="flex flex-col gap-12">
-        <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-12 laptop-md:gap-10">
+        <div className="flex items-center justify-between flex-wrap">
           <h4 className="cart-sub-title">Select Address</h4>
           <button
-            className="address-btn flex items-center gap-4"
+            className="address-btn flex items-center gap-4 laptop-l:gap-3 laptop-md:gap-2"
             onClick={handleAddAddressClick}
           >
-            <FaPlus className="inline-block h-[1.6rem] w-[1.6rem] fill-[var(--secondary)]" />
+            <FaPlus className="inline-block h-[1.6rem] w-[1.6rem] fill-[var(--secondary)] laptop-l:h-5 laptop-l:w-5 laptop-md:h-4 laptop-md:w-4 tab-m:h-5 tab-m:w-5" />
             <span>Add New Address</span>
           </button>
         </div>
 
-        <div className="flex flex-col gap-8">
+        <div className="grid grid-cols-2 gap-x-8 gap-y-10 justify-center laptop-md:gap-8 laptop:gap-6 tab-l:grid-cols-1 tab-l:gap-8 tab-m:grid-cols-2 tab-s:grid-cols-1">
           {loadingFetchAddress ? (
             <>
               <AddressShimmer />
@@ -77,54 +77,47 @@ const AddAddress = ({ setSelectAddId }) => {
               };
 
               return (
-                <div
+                <label
                   key={address_id}
-                  className="flex items-center gap-6 p-8 border border-[#e0e0e0] rounded-xl"
+                  className={`flex items-center gap-8 p-8 border rounded-xl cursor-pointer relative laptop-l:p-7 laptop-md:rounded-lg laptop-md:p-6 laptop-md:gap-6 laptop:p-5 tab-l:p-6 tab-l:rounded-md`}
                 >
-                  <div>
-                    <input
-                      type="radio"
-                      name="address"
-                      className="appearance-none h-8 w-8 border-2 border-black rounded-full checked:bg-black checked:border-transparent checked:ring-2 checked:ring-black checked:ring-offset-2"
-                      onChange={() => {
-                        setSelectAddId(address_id);
-                      }}
-                    />
-                  </div>
-                  <div className="grow flex flex-col gap-3 items-start rounded-sm relative">
-                    <span className="bg-[#f0f0f0] px-2 py-2.5 rounded-md uppercase text-[1.1rem] text-[#878787] font-semibold">
+                  <input
+                    type="radio"
+                    name="address"
+                    className="styled-radio"
+                    onChange={() => {
+                      setSelectAddId(address_id);
+                    }}
+                  />
+                  <div className="flex flex-col gap-3 items-start laptop-md:gap-2 tab-l:grow">
+                    <span className="bg-[#f0f0f0] px-2 py-2.5 rounded-md uppercase text-[1.2rem] text-[#878787] font-semibold laptop-l:text-[1rem] laptop-md:p-2">
                       {typeMapping[address_type]}
                     </span>
-                    <div className="flex gap-4">
-                      <h4 className="text-[1.4rem] text-[var(--black)] font-semibold">
-                        {full_name}
-                      </h4>
-                      <h4 className="text-[1.4rem] text-[var(--black)] font-semibold">
-                        {phone_number}
-                      </h4>
+                    <div className="flex gap-4 text-[1.6rem] text-[var(--black)] font-semibold laptop-l:text-[1.4rem] laptop:text-[1.3rem] tab-m:text-[1.4rem]">
+                      <h4>{full_name}</h4>
+                      <h4>{phone_number}</h4>
                     </div>
-                    <span className="text-[1.4rem] text-[var(--black)] font-normal">
+                    <span className="text-[1.6rem] leading-[1.75] text-[var(--black)] font-normal laptop-l:text-[1.4rem] laptop:text-[1.3rem]">
                       {`${building_number}, ${area}, ${landmark}, ${city}, ${state} - `}
-                      <h4 className="inline-block text-[1.4rem] text-[var(--black)] font-semibold">
+                      <h4 className="inline-block text-[1.4rem] text-[var(--black)] font-semibold laptop:text-[1.2rem]">
                         {pincode}
                       </h4>
                     </span>
-
-                    <div className="del-edit-menu relative">
-                      <span className="three-dots">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                      </span>
-                      <ul className="shortcut">
-                        <li onClick={() => onEditClick(address)}>Edit</li>
-                        <li onClick={() => onDelClick(address_id)}>
-                          {loadingDelAdd ? "Deleting.." : "Delete"}
-                        </li>
-                      </ul>
-                    </div>
                   </div>
-                </div>
+                  <div className="del-edit-menu">
+                    <span className="three-dots">
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                    </span>
+                    <ul className="shortcut">
+                      <li onClick={() => onEditClick(address)}>Edit</li>
+                      <li onClick={() => onDelClick(address_id)}>
+                        {loadingDelAdd ? "Deleting.." : "Delete"}
+                      </li>
+                    </ul>
+                  </div>
+                </label>
               );
             })
           ) : (

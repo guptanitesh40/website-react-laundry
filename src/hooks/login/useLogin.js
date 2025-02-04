@@ -8,6 +8,13 @@ const useLogin = () => {
   const baseURL = import.meta.env.VITE_BASE_URL;
   const role_id = 5;
 
+  if (!baseURL) {
+    toast.error("baseURL is not defined", {
+      className: "toast-error",
+    });
+    return;
+  }
+
   const login = async (username, password) => {
     try {
       setLoading(true);
@@ -26,7 +33,7 @@ const useLogin = () => {
       const data = await response.json();
 
       if (data.statusCode == 200) {
-        toast.success(data.message || "user login successful!", {
+        toast.success(data.message || "Login successfull", {
           className: "toast-success",
         });
         localStorage.setItem("token", data.data.token);
@@ -34,12 +41,9 @@ const useLogin = () => {
         navigate("/");
         return data.data;
       } else {
-        toast.error(
-          "Invalid credentials. Please check your username and password.",
-          {
-            className: "toast-error",
-          }
-        );
+        toast.error("Invalid username or password.", {
+          className: "toast-error",
+        });
       }
     } catch {
       toast.error(

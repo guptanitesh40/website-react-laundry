@@ -2,8 +2,8 @@ import PropTypes from "prop-types";
 
 const AddInstruction = ({ instruction, setInstruction }) => {
   return (
-    <div className="flex flex-col gap-8">
-      <label htmlFor="addInstruction" className="cart-sub-title">
+    <div className="flex flex-col gap-8 laptop-md:gap-7">
+      <label htmlFor="addInstruction" className="cart-sub-title cursor-pointer">
         Add Instruction
       </label>
       <textarea
@@ -11,7 +11,7 @@ const AddInstruction = ({ instruction, setInstruction }) => {
         id="addInstruction"
         value={instruction}
         onChange={(e) => setInstruction(e.target.value)}
-        className="border border-[border-[#B9BCCF4D] rounded-md focus:outline-none focus:ring-1 px-4 py-6 font-[var(--black)]"
+        className="border border-[#B9BCCF4D] rounded-lg focus:outline-none focus:border-indigo-500 px-4 py-6 font-[var(--black)] text-[1.8rem] laptop-l:text-[1.6rem] laptop-l:px-3 laptop-l:py-5 laptop-md:text-[1.5rem] laptop-md:py-4 laptop-md:px-2 laptop:text-[1.4rem]"
         placeholder="Write Message here ..."
       ></textarea>
     </div>
