@@ -24,8 +24,8 @@ const Navbar = () => {
 
   const onLogoutClick = () => {
     localStorage.clear();
-    navigate("/login");
     dispatch(setAuthStatus(false));
+    navigate("/");
   };
 
   const onProfileClick = () => {

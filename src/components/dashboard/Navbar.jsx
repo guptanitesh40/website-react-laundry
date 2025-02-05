@@ -18,7 +18,7 @@ const Navbar = () => {
     e.preventDefault();
     localStorage.clear();
     dispatch(setAuthStatus(false));
-    navigate("/login");
+    navigate("/");
   };
 
   const onHomeClick = () => {
@@ -45,6 +45,7 @@ const Navbar = () => {
         <p className="text-[2rem] leading-[2.4rem] font-semibold text-white tracking-wide laptop-m:text-[1.8rem] laptop-m:leading-normal laptop-s:text-[1.6rem] laptop-s:font-medium tab-l:text-[1.4rem] mb:text-[1.2rem]">
           {routeMap[pathname]}
         </p>
+
         <div className="flex items-center justify-center gap-6 laptop-s:gap-5 tab-l:gap-4">
           <Link
             to="/cart"

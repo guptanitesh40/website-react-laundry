@@ -348,17 +348,20 @@ const OrderSummary = ({ instruction, paymentMethod, selectedAddId }) => {
               <p>Sub Total</p>
               <h5>₹{subTotal}</h5>
             </div>
-            <div className="place-center">
-              <p>
-                Applied Coupon
-                {isCouponApplied.status && (
-                  <span className="applied-coupon">
-                    {`( ${isCouponApplied?.code} )`}
-                  </span>
-                )}
-              </p>
-              <h5>₹{discountValue}</h5>
-            </div>
+            {isCouponApplied?.status && (
+              <div className="place-center">
+                <p>
+                  Applied Coupon
+                  {isCouponApplied.status && (
+                    <span className="applied-coupon">
+                      {`( ${isCouponApplied?.code} )`}
+                    </span>
+                  )}
+                </p>
+                <h5>₹{discountValue}</h5>
+              </div>
+            )}
+
             <div className="place-center">
               <p>Shipping Charge</p>
               <h5>₹{shippingCharge}</h5>
@@ -383,7 +386,7 @@ const OrderSummary = ({ instruction, paymentMethod, selectedAddId }) => {
                 )}
               </div>
               {isExpDel ? (
-                <h5>₹{express_charge}</h5>
+                <h5>₹{express_charge || 0}</h5>
               ) : (
                 <button className="edc-btn" onClick={() => setExpDel(true)}>
                   add
@@ -398,7 +401,7 @@ const OrderSummary = ({ instruction, paymentMethod, selectedAddId }) => {
                 {Number(subTotal) -
                   Number(discountValue) +
                   Number(shippingCharge) +
-                  (isExpDel && express_charge)}
+                  (isExpDel && Number(express_charge || 0))}
               </h5>
             </div>
             <button

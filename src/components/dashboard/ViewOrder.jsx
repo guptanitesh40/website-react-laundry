@@ -36,7 +36,7 @@ const ViewOrder = () => {
   };
 
   const psMap = {
-    1: "Pending payemtn",
+    1: "Pending payement",
     2: "Full payement received",
     3: "Partial payement received",
   };
@@ -67,40 +67,47 @@ const ViewOrder = () => {
 
       <div className="flex justify-between items-start">
         <div className="basis-[48.8%] space-y-8">
-          <div className="py-8 px-12 order-list-container flex flex-col gap-6 shadow-sm">
-            <div className="text-[1.6rem] text-[var(--black)] font-medium mb-2">
-              Order items
+          <div className="py-8 px-12 order-list-container shadow-sm">
+            <div className="flex justify-between items-center gap-10 mb-2">
+              <div className="text-[1.6rem] text-[var(--black)] font-medium">
+                Order items
+              </div>
+              <span className="text-[#676788] text-xl font-medium">
+                Total items : {order?.items?.length}
+              </span>
             </div>
-            {order?.items?.map((item) => {
-              const { item_id, product, category, quantity, service } = item;
-              return (
-                <div
-                  key={item_id}
-                  className="border border-[#b9bccf4d] rounded-lg py-3 px-4 bg-slate-50"
-                >
-                  <div className="flex justify-between items-center">
-                    <div className="flex justify-start gap-6">
-                      <img
-                        src={product.image}
-                        alt="product image"
-                        className="inline-block h-20 w-20 rounded-lg border"
-                      />
-                      <div className="flex flex-col justify-evenly">
-                        <h3 className="text-[1.2rem] font-medium leading-[1.5]">
-                          {product.name} ({`${quantity}x`})
-                        </h3>
-                        <h4 className="text-[1.2rem] text-[#78829d] font-normal leading-[1.5]">
-                          Category: {category.name}
-                        </h4>
+            <div className="flex flex-col gap-6 max-h-[50rem] overflow-y-auto -mr-4 pr-4 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200">
+              {order?.items?.map((item) => {
+                const { item_id, product, category, quantity, service } = item;
+                return (
+                  <div
+                    key={item_id}
+                    className="border border-[#b9bccf4d] rounded-lg py-3 px-4 bg-slate-50"
+                  >
+                    <div className="flex justify-between items-center">
+                      <div className="flex justify-start gap-6">
+                        <img
+                          src={product.image}
+                          alt="product image"
+                          className="inline-block h-20 w-20 rounded-lg border"
+                        />
+                        <div className="flex flex-col justify-evenly">
+                          <h3 className="text-[1.2rem] font-medium leading-[1.5]">
+                            {product.name} ({`${quantity}x`})
+                          </h3>
+                          <h4 className="text-[1.2rem] text-[#78829d] font-normal leading-[1.5]">
+                            Category: {category.name}
+                          </h4>
+                        </div>
                       </div>
+                      <span className="text-[1.1rem] text-[var(--secondary)] border-[0.5px] border-green-500 p-2 rounded-lg">
+                        Service : {service?.name}
+                      </span>
                     </div>
-                    <span className="text-[1.1rem] text-[var(--secondary)] border-[0.5px] border-green-500 p-2 rounded-lg">
-                      Service : {service?.name}
-                    </span>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
 
           <div className="cus-info-container shadow-sm">
