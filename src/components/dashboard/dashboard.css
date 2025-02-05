@@ -121,11 +121,22 @@
 
 /* Dashboard -  Home */
 
+.paynow-btn {
+  align-self: flex-start;
+  font-size: 1.4rem;
+  background-color: var(--primary);
+  color: white;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+}
+
 .status-card {
   flex-basis: 32%;
   border-radius: 6px;
   background-color: white;
   padding: 1.5rem;
+  box-shadow: 0 0 2px 0.5px rgba(0, 0, 0, 0.1);
 }
 
 .card-label {
@@ -171,7 +182,7 @@
 .orders-table thead tr,
 .orders-table tbody tr {
   display: grid;
-  grid-template-columns: 12rem 18rem 15rem 12rem 12rem 12rem 15rem 7rem 7rem 7rem;
+  grid-template-columns: 12rem 18rem 15rem 12rem 12rem 12rem 15rem 5.5rem 5.5rem 5.5rem 5.5rem;
 }
 
 .orders-table thead tr {
@@ -957,6 +968,10 @@
   .orders-table tbody tr {
     grid-template-columns: 10rem 18rem 14rem 10rem 10rem 10rem 15rem 6rem 6rem 6rem;
   }
+
+  .status-card {
+    padding: 1rem;
+  }
 }
 
 @media only screen and (max-width: 60.875em) {
@@ -1049,6 +1064,10 @@
 
   .current-page-num {
     padding: 1rem 0;
+  }
+
+  .booking-title {
+    text-align: center;
   }
 }
 

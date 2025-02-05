@@ -61,6 +61,7 @@ const App = () => {
             maxWidth: "400px",
           },
           className: "toast",
+          duration: 2000,
         }}
       />
       <ScrollToTop />
