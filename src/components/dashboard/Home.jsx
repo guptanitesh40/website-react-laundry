@@ -17,9 +17,15 @@ import { IoMdDownload } from "react-icons/io";
 import useDownloadInvoice from "../../hooks/invoice/useDownloadInvoice";
 import { CiStar } from "react-icons/ci";
 
-import { IconButton } from "@mui/material";
+import { Backdrop, CircularProgress, IconButton } from "@mui/material";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import FeedbackModel from "./FeedbackModel";
+import toast from "react-hot-toast";
+import useGetTransactionId from "../../hooks/payement/useGetTransactionId";
+import useVerifyPayement from "../../hooks/payement/useVerifyPayement";
+import useClearDue from "../../hooks/cleardue/useClearDue";
+import { useSelector } from "react-redux";
+import CancelIcon from "@mui/icons-material/Cancel";
 
 const Home = () => {
   const { getOrders } = useGetOrders();
@@ -38,8 +44,17 @@ const Home = () => {
   const [currentFb, setCurrentFb] = useState({});
   const { downloadInvoice, loading: loadingInvoice } = useDownloadInvoice();
   const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
+  const [dueOrderIds, setDueOrderIds] = useState([]);
+  const [isDueCleared, setIsDueCleared] = useState(false);
 
+  const { getTransactionId } = useGetTransactionId();
+  const { verifyPayement } = useVerifyPayement();
+  const { clearDue } = useClearDue();
   const [modelIsOpen, setModelIsOpen] = useState(false);
+  const userData = useSelector((state) => state?.user?.user);
+
+  const [currentTime, setCurrentTime] = useState(dayjs());
 
   const handlePageClick = async (page) => {
     setLoading(true);
@@ -78,11 +93,85 @@ const Home = () => {
     setCurrentFb(feedback);
   };
 
+  const handlePaynow = async () => {
+    if (!totalDueAmt || totalDueAmt <= 0) {
+      toast("No due amount to clear.", {
+        className: "toast-success",
+      });
+      return;
+    }
+
+    setOpen(true);
+    const razorpay_order_id = await getTransactionId(totalDueAmt);
+
+    if (!razorpay_order_id) {
+      toast.error("Failed to generated transaction id !", {
+        className: "toast-error",
+      });
+      setOpen(false);
+      return;
+    } else {
+      try {
+        const { first_name, last_name, mobile_number } = userData;
+
+        const options = {
+          key: import.meta.env.RAZORPAY_KEY,
+          aount: totalDueAmt * 100,
+          currency: "INR",
+          description: "Due Payement",
+          order_id: razorpay_order_id,
+          handler: async function (response) {
+            const res = await verifyPayement(response);
+            if (!res.status) {
+              return;
+            } else {
+              const result = await clearDue(
+                totalDueAmt,
+                razorpay_order_id,
+                dueOrderIds
+              );
+              if (result.status) {
+                setIsDueCleared(true);
+              }
+            }
+          },
+          prefill: {
+            name: first_name + " " + last_name,
+            email: "user@gmail.com",
+            contact: mobile_number,
+          },
+          theme: {
+            color: "#161F5F",
+          },
+        };
+
+        const razorpay = new window.Razorpay(options);
+        razorpay.open();
+      } catch {
+        toast.error(
+          "Failed to initiate online payement please try again letter!",
+          {
+            className: "toast-error",
+          }
+        );
+      } finally {
+        setOpen(false);
+      }
+    }
+  };
+
+  const handleCancelOrder = (order_id) => {
+    toast.success(`#${order_id} Calceling the order ...`, {
+      className: "toast-success",
+    });
+  };
+
   useEffect(() => {
     const fetchOrders = async () => {
       const result = await getOrders();
       if (result) {
-        SetTotalDueAmt(result?.totalPendingAmount?.total_pending_due_amount);
+        setDueOrderIds(result.order_ids);
+        SetTotalDueAmt(result?.total_pending_due_amount);
         setIpoCount(result.inProgressCount);
         setTotalRows(result.count);
         setCount(Math.ceil(result.count / 10));
@@ -92,6 +181,14 @@ const Home = () => {
     };
     fetchOrders();
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isDueCleared]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTime(dayjs());
+    }, 60000);
+
+    return () => clearInterval(interval);
   }, []);
 
   if (loading) {
@@ -101,32 +198,41 @@ const Home = () => {
   return (
     <>
       <div className="flex flex-col gap-8 laptop-s:gap-6">
-        <div className="flex gap-14 laptop:gap-10 laptop-s:gap-8 tab-l:gap-6">
-          <div className="status-card flex gap-8 items-center laptop-s:gap-6 tab-l:gap-4">
+        <div className="text-[1.6rem] text-primary flex gap-4">
+          <span>Date & Time :</span>
+          <span className="font-semibold">
+            {currentTime.format("ddd D MMM, hh:mm A")}
+          </span>
+        </div>
+        <div className="flex items-start gap-14 laptop:gap-10 laptop-s:gap-8 tab-l:gap-6">
+          <div className="status-card flex gap-8 items-center laptop-s:gap-6 tab-l:gap-4 tab-s:flex-col">
             <span className="bg-[#FFE0EB] inline-block h-24 w-24 rounded-full laptop:h-20 laptop:w-20 tab-l:h-16 tab-l:w-16">
               <RiMoneyRupeeCircleFill className="inline-block p-5 h-full w-full fill-[#FF82AC] laptop:p-4 tab-l:p-3" />
             </span>
-            <div className="flex flex-col gap-4 tab-l:gap-3">
+            <div className="flex flex-col gap-4 tab-l:gap-3 tab-s:gap-2 tab-s:items-center">
               <p className="card-label">Total Pending Due Amount</p>
               <p className="card-price">₹{totalDueAmt || "0"}</p>
+              <button className="paynow-btn" onClick={handlePaynow}>
+                Pay Now
+              </button>
             </div>
           </div>
 
-          <div className="status-card flex gap-8 items-center laptop-s:gap-6 tab-l:gap-4">
+          <div className="status-card flex gap-8 items-center laptop-s:gap-6 tab-l:gap-4 tab-s:flex-col">
             <span className="bg-[#DCFAF8] inline-block h-24 w-24 rounded-full laptop:h-20 laptop:w-20 tab-l:h-16 tab-l:w-16">
               <IoNewspaper className="inline-block p-7 h-full w-full fill-[#16DBCC] laptop:p-5 tab-l:p-4" />
             </span>
-            <div className="flex flex-col gap-4 tab-l:gap-3">
+            <div className="flex flex-col gap-4 tab-l:gap-3 tab-s:gap-2 tab-s:items-center">
               <p className="card-label">Lifetime Total Order Number</p>
               <p className="card-price">{totalRows}</p>
             </div>
           </div>
 
-          <div className="status-card flex gap-8 items-center laptop-s:gap-6 tab-l:gap-4">
+          <div className="status-card flex gap-8 items-center laptop-s:gap-6 tab-l:gap-4 tab-s:flex-col">
             <span className="bg-[#FEF7E7] inline-block h-24 w-24 rounded-full laptop:h-20 laptop:w-20 tab-l:h-16 tab-l:w-16">
               <RiHourglassFill className="inline-block p-6 h-full w-full fill-[#F2B413] laptop:p-5 tab-l:p-4" />
             </span>
-            <div className="flex flex-col gap-4 tab-l:gap-3">
+            <div className="flex flex-col gap-4 tab-l:gap-3 tab-s:gap-2 tab-s:items-center">
               <p className="card-label">Total In Progress Orders</p>
               <p className="card-price">{ipoCount}</p>
             </div>
@@ -212,7 +318,7 @@ const Home = () => {
                         <IoCaretDown className="updown-icon" />
                       </span>
                     </th>
-                    <th className="col-span-3">actions</th>
+                    <th className="col-span-4">actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -231,7 +337,15 @@ const Home = () => {
                       } = order;
 
                       return (
-                        <tr key={index}>
+                        <tr
+                          key={index}
+                          onClick={() =>
+                            navigate("/dashboard/view-order", {
+                              state: { order_id },
+                            })
+                          }
+                          className="cursor-pointer"
+                        >
                           <td>{order_id}</td>
                           <td>
                             {dayjs(created_at).format("DD/MM/YYYY, hh:mm A")}
@@ -264,11 +378,12 @@ const Home = () => {
                           >
                             <div className="relative group">
                               <IconButton
-                                onClick={() =>
+                                onClick={(e) => {
+                                  e.stopPropagation();
                                   navigate("/dashboard/view-order", {
                                     state: { order_id },
-                                  })
-                                }
+                                  });
+                                }}
                               >
                                 <RemoveRedEyeOutlinedIcon
                                   sx={{
@@ -309,9 +424,10 @@ const Home = () => {
                                 <div className="relative group">
                                   <IconButton
                                     disabled={loadingInvoice}
-                                    onClick={() =>
-                                      handleDownloadClick(order_id)
-                                    }
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      handleDownloadClick(order_id);
+                                    }}
                                   >
                                     <IoMdDownload className="inline-block h-9 w-9 cursor-pointer fill-[var(--primary)]" />
                                   </IconButton>
@@ -341,9 +457,10 @@ const Home = () => {
                           >
                             <div className="relative group">
                               <IconButton
-                                onClick={() =>
-                                  handleGiveFeedBack(order_id, feedback)
-                                }
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleGiveFeedBack(order_id, feedback);
+                                }}
                               >
                                 {feedback ? (
                                   <FaStar
@@ -366,6 +483,43 @@ const Home = () => {
                                 }}
                               >
                                 {feedback ? "View Feedback" : "Give Feedback"}
+                                <div
+                                  className="tooltip-arrow"
+                                  data-popper-arrow
+                                ></div>
+                              </div>
+                            </div>
+                          </td>
+                          <td
+                            style={{ padding: "5px" }}
+                            className="flex items-center justify-center"
+                          >
+                            <div className="relative group">
+                              <IconButton
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleCancelOrder(order_id);
+                                }}
+                              >
+                                <CancelIcon
+                                  sx={{
+                                    height: "22.5px",
+                                    width: "22.5px",
+                                    color: "var(--primary)",
+                                  }}
+                                />
+                              </IconButton>
+
+                              <div
+                                role="tooltip"
+                                className="absolute z-10 invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[var(--primary)] text-white rounded-md shadow-sm px-3 py-2 text-sm text-nowrap"
+                                style={{
+                                  top: "-25px",
+                                  left: "50%",
+                                  transform: "translateX(-50%)",
+                                }}
+                              >
+                                Cancel Order
                                 <div
                                   className="tooltip-arrow"
                                   data-popper-arrow
@@ -529,6 +683,12 @@ const Home = () => {
           feedback={currentFb}
         />
       )}
+      <Backdrop
+        sx={(theme) => ({ color: "#fff", zIndex: theme.zIndex.drawer + 1 })}
+        open={open}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </>
   );
 };
