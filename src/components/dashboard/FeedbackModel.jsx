@@ -1,4 +1,3 @@
-import "./feedbackmodel.css";
 import PropTypes, { oneOfType } from "prop-types";
 import { useEffect, useState } from "react";
 import { FaStar } from "react-icons/fa";
