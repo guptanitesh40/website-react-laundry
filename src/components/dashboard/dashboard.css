@@ -19,14 +19,6 @@
   display: none;
 }
 
-.cus-info-container,
-.order-list-container,
-.common-container {
-  border-radius: 7.5px;
-  background-color: white;
-  border: 1px solid #b9bccf4d;
-}
-
 /* Dashboard - Navbar */
 
 .cart-item {
@@ -277,10 +269,19 @@
 }
 .active-page .page-icon-light {
   fill: white;
+  cursor: not-allowed;
 }
 
 .border-transparent {
   border-color: transparent;
+}
+
+/* View order */
+
+.common-container {
+  border-radius: 7.5px;
+  background-color: white;
+  border: 1px solid #b9bccf4d;
 }
 
 .info-label {
@@ -906,6 +907,10 @@
   .orders-table tbody td {
     padding: 0.8rem 1rem;
   }
+
+  .common-container {
+    border-radius: 5px;
+  }
 }
 
 @media only screen and (max-width: 64em) {
@@ -1156,6 +1161,18 @@
 
   .main-orders-container .current-page-num {
     padding: 1.5rem 0;
+  }
+
+  .info-label {
+    font-size: 1.3rem;
+    line-height: 2rem;
+  }
+
+  .info-ans {
+    color: var(--black);
+    font-weight: 400;
+    font-size: 1.3rem;
+    line-height: 2rem;
   }
 }
 

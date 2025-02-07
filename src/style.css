@@ -277,12 +277,10 @@ h3 {
 .enter-otp-container {
   padding: 3rem 0;
   min-width: 40rem;
-  /* max-width: 41rem; */
   display: flex;
   flex-direction: column;
   place-items: center;
   gap: 2rem;
-  /* border: 0.05px solid black; */
 }
 
 .enter-otp-container h2 {

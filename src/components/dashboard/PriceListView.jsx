@@ -223,11 +223,11 @@ const PriceListView = () => {
 
           <div className="flex items-center justify-center gap-4 laptop-s:gap-3 mb-l:flex-wrap">
             <button
-              className={`pagination-btn ${activeBtn === -2 && "active-page"}`}
+              className={`pagination-btn`}
               onClick={() => {
                 if (currentPage !== 1) {
                   setCurrentPage(1);
-                  setActiveBtn(-2);
+                  setActiveBtn(1);
                 }
               }}
             >
@@ -238,11 +238,11 @@ const PriceListView = () => {
               />
             </button>
             <button
-              className={`pagination-btn ${activeBtn === -1 && "active-page"}`}
+              className={`pagination-btn`}
               onClick={() => {
                 if (currentPage !== 1) {
                   setCurrentPage(currentPage - 1);
-                  setActiveBtn(-1);
+                  setActiveBtn(currentPage - 1);
                 }
               }}
             >
@@ -310,11 +310,11 @@ const PriceListView = () => {
               <span className="page-num">{rows}</span>
             </button>
             <button
-              className={`pagination-btn ${activeBtn === 100 && "active-page"}`}
+              className={`pagination-btn`}
               onClick={() => {
                 if (currentPage !== rows) {
                   setCurrentPage(currentPage + 1);
-                  setActiveBtn(100);
+                  setActiveBtn(currentPage + 1);
                 }
               }}
             >
@@ -325,11 +325,11 @@ const PriceListView = () => {
               />
             </button>
             <button
-              className={`pagination-btn ${activeBtn === 200 && "active-page"}`}
+              className={`pagination-btn`}
               onClick={() => {
                 if (currentPage !== rows) {
                   setCurrentPage(rows);
-                  setActiveBtn(200);
+                  setActiveBtn(rows);
                 }
               }}
             >

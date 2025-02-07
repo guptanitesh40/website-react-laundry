@@ -29,7 +29,7 @@ const CancelOrderModel = ({ setCancelModelIsOpen, order_id, setRefetch }) => {
   };
 
   return (
-    <div className="fixed inset-0 top-0 bg-black bg-opacity-75 flex justify-center items-center mb-l:p-8 mb:p-4">
+    <div className="fixed inset-0 top-0 bg-black bg-opacity-75 flex justify-center items-center mb-l:p-6 mb:p-4">
       <div className="border border-gray-300 rounded-xl bg-white px-14 py-16 flex flex-col gap-14 w-[40rem] relative laptop:px-12 laptop:py-14 laptop:w-[37.5rem] laptop:gap-12 tab-l:rounded-lg tab-l:px-10 tab-l:py-12 tab-l:w-[35rem] tab-l:gap-10 tab-s:gap-8">
         <button
           type="button"

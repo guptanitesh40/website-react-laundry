@@ -41,7 +41,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="grow bg-[var(--primary)] flex justify-between items-center px-8 laptop-m:px-6 laptop-s:px-5 tab-l:px-4 tab:py-3 mb-l:py-2 mb:p-2">
+      <div className="shadow-[0_0.5rem_1rem_rgba(0,0,0,0.1)] grow bg-[var(--primary)] flex justify-between items-center px-8 laptop-m:px-6 laptop-s:px-5 tab-l:px-4 tab:py-3 mb-l:py-2 mb:p-2">
         <p className="text-[2rem] leading-[2.4rem] font-semibold text-white tracking-wide laptop-m:text-[1.8rem] laptop-m:leading-normal laptop-s:text-[1.6rem] laptop-s:font-medium tab-l:text-[1.4rem] mb:text-[1.2rem]">
           {routeMap[pathname]}
         </p>
