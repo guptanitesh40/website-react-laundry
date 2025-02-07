@@ -45,53 +45,77 @@ const ViewOrder = () => {
     await downloadInvoice(location.state.order_id);
   };
 
+  const {
+    order_id,
+    express_delivery_charges,
+    items = [],
+    sub_total = 0,
+    shipping_charges,
+    kasar_amount,
+    coupon_code = "N/A",
+    coupon_discount = 0,
+    total = 0,
+    order_status,
+    user = {},
+    address_details,
+    payment_type,
+    payment_status,
+    transaction_id,
+    estimated_pickup_time,
+    estimated_delivery_time,
+  } = order;
+
+  const { first_name, last_name, email, mobile_number } = user;
+
   if (loadingComponent) {
     return <Loading />;
   }
 
   return (
-    <div className="flex flex-col gap-8">
-      <div className="text-[1.8rem] leading-[4rem] text-[var(--black)] font-semibold py-4 px-6 rounded-xl bg-white border border-[#b9bccf4d] flex items-center justify-between shadow-sm">
-        <span>Order Details : #{location.state.order_id}</span>
-        <span
-          className="flex justify-center items-center h-14 w-14 p-3 bg-gray-100 rounded-full border border-[#b9bccf4d] cursor-pointer"
-          onClick={hanldeInvoiceDownload}
-        >
-          {loading ? (
-            <span className="inline-block h-7 w-7 rounded-full border-2 border-indigo-100 border-t-indigo-600 border-r-indigo-600 animate-spin"></span>
-          ) : (
-            <IoMdDownload className="h-full w-full fill-[var(--primary)]" />
-          )}
-        </span>
+    <div className="flex flex-col gap-8 tab-s:gap-6">
+      <div className="text-[1.8rem] leading-[4rem] text-[var(--black)] font-semibold py-4 px-6 rounded-xl bg-white border border-[#b9bccf4d] flex items-center justify-between shadow-sm laptop-s:text-[1.6rem] laptop-s:leading-[3rem] laptop-s:rounded-lg tab-s:p-4 tab-s:text-[1.5rem]">
+        <span>Order Details : #{order_id}</span>
+        {order_status === 11 && (
+          <span
+            className="flex justify-center items-center h-14 w-14 p-3 bg-gray-100 rounded-full border border-[#b9bccf4d] cursor-pointer laptop-s:h-12 laptop-s:w-12 laptop-s:p-2"
+            onClick={hanldeInvoiceDownload}
+          >
+            {loading ? (
+              <span className="inline-block h-7 w-7 rounded-full border-2 border-indigo-100 border-t-indigo-600 border-r-indigo-600 animate-spin"></span>
+            ) : (
+              <IoMdDownload className="h-full w-full fill-[var(--primary)]" />
+            )}
+          </span>
+        )}
       </div>
 
-      <div className="flex justify-between items-start">
-        <div className="basis-[48.8%] space-y-8">
-          <div className="py-8 px-12 order-list-container shadow-sm">
-            <div className="flex justify-between items-center gap-10 mb-2">
-              <div className="text-[1.6rem] text-[var(--black)] font-medium">
+      <div className="grid grid-cols-2 laptop:grid-cols-1 gap-8 tab-s:gap-6">
+        <div className="space-y-8 tab-s:space-y-6">
+          <div className="py-10 px-12 common-container shadow-sm tab-s:py-8 tab-s:px-10 tab:py-6 tab:px-8 mb-l:py-4 mb-l:px-6">
+            <div className="flex justify-between items-center gap-8 mb-4">
+              <div className="text-[1.6rem] text-[var(--black)] font-medium tab-l:text-[1.5rem] tab-s:text-[1.4rem]">
                 Order items
               </div>
-              <span className="text-[#676788] text-xl font-medium">
-                Total items : {order?.items?.length}
+              <span className="text-[#676788] text-2xl font-medium tab-l:text-xl tab-s:text-lg">
+                Total items : {items?.length}
               </span>
             </div>
-            <div className="flex flex-col gap-6 max-h-[50rem] overflow-y-auto -mr-4 pr-4 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200">
-              {order?.items?.map((item) => {
+            <div className="flex flex-col gap-6 max-h-[50rem] overflow-y-auto -mr-12 pr-12 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 tab-s:-mr-10 tab-s:pr-10 tab:gap-4 tab:-mr-8 tab:pr-8 tab:overflow-x-auto tab:max-h-[37.5rem] mb-l:-mr-6 mb-l:pr-6 mb-l:max-h-[51rem]">
+              {items?.map((item) => {
                 const { item_id, product, category, quantity, service } = item;
                 return (
                   <div
                     key={item_id}
-                    className="border border-[#b9bccf4d] rounded-lg py-3 px-4 bg-slate-50"
+                    className="border border-[#b9bccf4d] rounded-lg py-3 px-4 bg-slate-50 tab:bg-"
                   >
-                    <div className="flex justify-between items-center">
-                      <div className="flex justify-start gap-6">
+                    <div className="flex justify-between items-center mb-l:gap-3 mb-l:flex-col">
+                      <div className="flex justify-start gap-6 tab:gap-4 mb-l:flex-col mb-l:items-center mb-l:gap-3">
                         <img
                           src={product.image}
                           alt="product image"
-                          className="inline-block h-20 w-20 rounded-lg border"
+                          className="inline-block h-24 w-24 rounded-lg tab:h-20 tab:w-20 mb-l:h-24 mb-l:w-24"
                         />
-                        <div className="flex flex-col justify-evenly">
+                        <div className="flex flex-col justify-evenly mb-l:gap-2 mb-l:items-center">
                           <h3 className="text-[1.2rem] font-medium leading-[1.5]">
                             {product.name} ({`${quantity}x`})
                           </h3>
@@ -100,8 +124,11 @@ const ViewOrder = () => {
                           </h4>
                         </div>
                       </div>
-                      <span className="text-[1.1rem] text-[var(--secondary)] border-[0.5px] border-green-500 p-2 rounded-lg">
-                        Service : {service?.name}
+                      <span className="text-lg text-[var(--secondary)] border-[0.5px] border-green-500 p-2 rounded-lg">
+                        <span className="tab:hidden mb-l:inline-block">
+                          Service :{" "}
+                        </span>
+                        <span>{service?.name}</span>
                       </span>
                     </div>
                   </div>
@@ -110,97 +137,90 @@ const ViewOrder = () => {
             </div>
           </div>
 
-          <div className="cus-info-container shadow-sm">
-            <div className="text-[1.6rem] text-[var(--black)] font-medium py-5 px-12 border-b border-[#b9bccf4d]">
+          <div className="common-container shadow-sm">
+            <div className="text-[1.6rem] text-[var(--black)] font-medium py-6 px-12 border-b border-[#b9bccf4d] tab-l:text-[1.5rem] tab-s:px-10 tab-s:text-[1.4rem] tab:px-8 mb-l:py-4 mb-l:px-6">
               Order summary
             </div>
-            <div className="text-[1.4rem] text-[var(--black)] font-medium py-8 px-12">
-              <div className="grid grid-cols-[20rem_1fr] gap-8 font-normal">
-                <span className="inline-block text-[#676788]">Sub Total</span>
-                <span>₹{order?.sub_total || "0"}</span>
-                <span className="inline-block text-[#676788]">
-                  Shipping charges
-                </span>
-                <span>₹{order?.shipping_charges || "0"}</span>
-                <span className="inline-block text-[#676788]">
-                  Express Delivery Charges
-                </span>
-                <span>₹{order?.express_delivery_charges || "0"}</span>
-                <span className="inline-block text-[#676788]">
-                  Kasar amount
-                </span>
-                <span>₹{order?.kasar_amount || "0"}</span>
-                <span className="inline-block text-[#676788]">Coupon Code</span>
-                <span>{order?.coupon_code || "N/A"}</span>
-                <span className="inline-block text-[#676788]">
-                  Coupon Discount
-                </span>
-                <span>₹{order?.coupon_discount || "0"}</span>
-                <span className="inline-block text-[#676788]">Total</span>
-                <span>₹{order?.total || "0"}</span>
-                {}
+            <div className="py-8 px-12 tab-s:px-10 tab:px-8 tab:py-6 mb-l:py-4 mb-l:px-6">
+              <div className="grid grid-cols-[20rem_1fr] gap-8 font-normal tab-s:grid-cols-[17.5rem_1fr] tab:gap-6 mb-l:gap-4 mb-l:grid-cols-[repeat(auto-fill,_minmax(12.5rem,_1fr))]">
+                <span className="info-label">Sub Total</span>
+                <span className="info-ans">₹{sub_total || "0"}</span>
+                <span className="info-label">Shipping charges</span>
+                <span className="info-ans">₹{shipping_charges}</span>
+                {express_delivery_charges > 0 && (
+                  <>
+                    <span className="info-label">Express Delivery Charges</span>
+                    <span className="info-ans">
+                      ₹{express_delivery_charges}
+                    </span>
+                  </>
+                )}
+                <span className="info-label">Kasar amount</span>
+                <span className="info-ans">₹{kasar_amount}</span>
+                <span className="info-label">Coupon Code</span>
+                <span className="info-ans">{coupon_code || "N/A"}</span>
+                <span className="info-label">Coupon Discount</span>
+                <span className="info-ans">₹{coupon_discount || "0"}</span>
+                <span className="info-label">Total</span>
+                <span className="info-ans">₹{total || "0"}</span>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="basis-[48.8%] space-y-8">
+        <div className="space-y-8 tab-s:space-y-6">
           <div className="common-container shadow-sm">
-            <div className="text-[1.6rem] text-[var(--black)] font-medium py-5 px-12 border-b border-[#b9bccf4d]">
+            <div className="text-[1.6rem] text-[var(--black)] font-medium py-6 px-12 border-b border-[#b9bccf4d] tab-l:text-[1.5rem] tab-s:px-10 tab-s:text-[1.4rem] tab:px-8 mb-l:py-4 mb-l:px-6">
               Customer information
             </div>
-            <div className="text-[1.4rem] text-[var(--black)] font-medium py-8 px-12">
-              <div className="grid grid-cols-[20rem_1fr] gap-8 font-normal">
+            <div className="text-[1.4rem] text-[var(--black)] font-medium py-8 px-12 tab-s:px-10 tab:px-8 tab:py-6 mb-l:py-4 mb-l:px-6">
+              <div className="grid grid-cols-[20rem_1fr] gap-8 font-normal tab-s:grid-cols-[15rem_1fr] tab:grid-cols-[12.5rem_1fr] tab:gap-6 mb-l:gap-4 mb-l:grid-cols-[repeat(auto-fill,_minmax(13.5rem,_1fr))]">
                 <span className="info-label">Name</span>
-                <span className="info-ans">
-                  {order?.user?.first_name + " " + order?.user?.last_name}
-                </span>
+                <span className="info-ans">{first_name + " " + last_name}</span>
                 <span className="info-label">Email</span>
-                <span className="info-ans">{order?.user?.email}</span>
+                <span className="info-ans">{email}</span>
                 <span className="info-label">Mobile Number</span>
-                <span className="info-ans">{order?.user?.mobile_number}</span>
+                <span className="info-ans">{mobile_number}</span>
               </div>
             </div>
           </div>
 
-          <div className="common-container py-6 px-12 space-y-4 shadow-sm">
-            <h3 className="text-[1.6rem] text-[var(--black)] font-medium capitalize">
+          <div className="common-container py-8 px-12 space-y-4 shadow-sm tab-s:px-10 tab:px-8 tab:py-6 tab:space-y-3 mb-l:py-4 mb-l:px-6">
+            <h3 className="text-[1.6rem] text-[var(--black)] font-medium capitalize tab-l:text-[1.5rem] tab-s:text-[1.4rem]">
               shipping address
             </h3>
-            <p className="info-label address">{order?.address_details}</p>
+            <p className="info-label address">{address_details}</p>
           </div>
 
           <div className="common-container shadow-sm">
-            <div className="text-[1.6rem] text-[var(--black)] font-medium py-5 px-12 border-b border-[#b9bccf4d]">
+            <div className="text-[1.6rem] text-[var(--black)] font-medium py-6 px-12 border-b border-[#b9bccf4d] tab-l:text-[1.5rem] tab-s:px-10 tab-s:text-[1.4rem] tab:px-8 mb-l:py-4 mb-l:px-6">
               Payement information
             </div>
-            <div className="text-[1.4rem] text-[var(--black)] font-medium py-8 px-12">
-              <div className="grid grid-cols-[20rem_1fr] gap-8 font-normal">
+            <div className="py-8 px-12 tab-s:px-10 tab:px-8 tab:py-6 mb-l:py-4 mb-l:px-6">
+              <div className="grid grid-cols-[20rem_1fr] gap-8 font-normal tab-s:grid-cols-[15rem_1fr] tab:grid-cols-[12.5rem_1fr] tab:gap-6 mb-l:gap-4 mb-l:grid-cols-[repeat(auto-fill,_minmax(12.5rem,_1fr))]">
                 <span className="info-label">payement type</span>
-                <span className="info-ans">{ptMap[order?.payment_type]}</span>
+                <span className="info-ans">{ptMap[payment_type]}</span>
                 <span className="info-label">payement status</span>
-                <span className="info-ans">{psMap[order?.payment_status]}</span>
+                <span className="info-ans">{psMap[payment_status]}</span>
                 <span className="info-label">Transaction ID</span>
-                <span className="info-ans">
-                  {order?.transaction_id || "N/A"}
-                </span>
+                <span className="info-ans">{transaction_id || "N/A"}</span>
               </div>
             </div>
           </div>
 
           <div className="common-container shadow-sm">
-            <div className="text-[1.6rem] text-[var(--black)] font-medium py-5 px-12 border-b border-[#b9bccf4d]">
+            <div className="text-[1.6rem] text-[var(--black)] font-medium py-6 px-12 border-b border-[#b9bccf4d] tab-l:text-[1.5rem] tab-s:px-10 tab-s:text-[1.4rem] tab:px-8 mb-l:py-4 mb-l:px-6">
               Estimated Delivery & Pickup
             </div>
-            <div className="text-[1.4rem] text-[var(--black)] font-medium py-8 px-12">
-              <div className="grid grid-cols-[20rem_1fr] gap-8 font-normal">
+            <div className="py-8 px-12 tab-s:px-10 tab:px-8 tab:py-6 mb-l:py-4 mb-l:px-6">
+              <div className="grid grid-cols-[20rem_1fr] gap-8 font-normal tab-s:grid-cols-[17.5rem_1fr] tab:grid-cols-[16rem_1fr] tab:gap-6 mb-l:gap-4 mb-l:grid-cols-[repeat(auto-fill,_minmax(15rem,_1fr))]">
                 <span className="info-label">Estimated Pickup Time:</span>
                 <span className="info-ans">
-                  {dayjs(order?.estimated_pickup_time).format("DD/MM/YYYY")}
+                  {dayjs(estimated_pickup_time).format("DD/MM/YYYY")}
                 </span>
                 <span className="info-label">Estimated Delivery Time:</span>
                 <span className="info-ans">
-                  {dayjs(order?.estimated_delivery_time).format("DD/MM/YYYY")}
+                  {dayjs(estimated_delivery_time).format("DD/MM/YYYY")}
                 </span>
               </div>
             </div>

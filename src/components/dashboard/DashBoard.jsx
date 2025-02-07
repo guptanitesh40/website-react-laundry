@@ -32,7 +32,7 @@ const DashBoard = () => {
             </span>
           </div>
         </div>
-        <div className="w-[calc(100%-28rem)] py-14 px-12 bg-[rgba(239,243,255,0.8)] relative laptop-m:py-12 laptop-m:px-10 laptop-s:py-10 laptop-s:px-8 tab-l:px-6 tab-l:py-8 tab:p-6 mb:p-4 laptop-m:w-[calc(100%-25rem)] laptop-s:w-[calc(100%-22.5rem)] tab-l:w-[calc(100%-20rem)] tab-s:w-[calc(100%-17.5rem)] tab:w-[calc(100%-5rem)] mb-l:p-4 mb-l:w-calc(100%-4.5rem) mb:w-calc(100%-4rem) overflow-y-auto max-h-full">
+        <div className="w-[calc(100%-28rem)] py-14 px-12 bg-[rgba(239,243,255,0.8)] relative laptop-m:py-12 laptop-m:px-10 laptop-s:py-10 laptop-s:px-8 tab-l:px-6 tab-l:py-8 tab:p-6 mb:p-4 laptop-m:w-[calc(100%-25rem)] laptop-s:w-[calc(100%-22.5rem)] tab-l:w-[calc(100%-20rem)] tab-s:w-[calc(100%-17.5rem)] tab:w-[calc(100%-5rem)] mb-l:p-4 mb-l:w-[calc(100%-4.5rem)] mb:w-[calc(100%-4rem)] overflow-y-auto max-h-full">
           <Outlet />
         </div>
       </div>

@@ -403,7 +403,7 @@ const Home = () => {
 
                               <div
                                 role="tooltip"
-                                className="absolute z-10 invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-primary text-white rounded-md shadow-sm px-3 py-2 text-sm text-nowrap"
+                                className="absolute z-10 invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-primary text-white rounded-md shadow-sm px-3 py-2 text-sm text-nowrap tab:hidden"
                                 style={{
                                   top: "-25px",
                                   left: "50%",
@@ -448,7 +448,7 @@ const Home = () => {
                               {order_status === 11 && (
                                 <div
                                   role="tooltip"
-                                  className="absolute z-10 invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[var(--primary)] text-white rounded-md shadow-sm px-3 py-2 text-sm text-nowrap"
+                                  className="absolute z-10 invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[var(--primary)] text-white rounded-md shadow-sm px-3 py-2 text-sm text-nowrap tab:hidden"
                                   style={{
                                     top: "-25px",
                                     left: "50%",
@@ -489,7 +489,7 @@ const Home = () => {
 
                               <div
                                 role="tooltip"
-                                className="absolute z-10 invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[var(--primary)] text-white rounded-md shadow-sm px-3 py-2 text-sm text-nowrap"
+                                className="absolute z-10 invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[var(--primary)] text-white rounded-md shadow-sm px-3 py-2 text-sm text-nowrap tab:hidden"
                                 style={{
                                   top: "-25px",
                                   left: "50%",
@@ -527,7 +527,7 @@ const Home = () => {
 
                               <div
                                 role="tooltip"
-                                className={`absolute z-10 invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-white rounded-md shadow-sm px-3 py-2 text-sm text-nowrap ${
+                                className={`absolute z-10 invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-white rounded-md shadow-sm px-3 py-2 text-sm text-nowrap tab:hidden ${
                                   order_status === 12 || order_status === 13
                                     ? "bg-[var(--secondary)]"
                                     : "bg-[var(--primary)]"
@@ -572,30 +572,34 @@ const Home = () => {
                   </p>
                   <div className="flex items-center gap-4">
                     <button
-                      className={`pagination-btn ${
-                        activeBtn === -2 && "active-page"
-                      }`}
+                      className={`pagination-btn`}
                       onClick={() => {
                         if (currentPage !== 1) {
                           handlePageClick(1);
-                          setActiveBtn(-2);
+                          setActiveBtn(1);
                         }
                       }}
                     >
-                      <FaAngleDoubleLeft className="page-icon" />
+                      <FaAngleDoubleLeft
+                        className={`${
+                          currentPage == 1 ? "page-icon-light" : "page-icon"
+                        }`}
+                      />
                     </button>
                     <button
-                      className={`pagination-btn ${
-                        activeBtn === -1 && "active-page"
-                      }`}
+                      className={`pagination-btn`}
                       onClick={() => {
                         if (currentPage !== 1) {
                           handlePageClick(currentPage - 1);
-                          setActiveBtn(-1);
+                          setActiveBtn(currentPage - 1);
                         }
                       }}
                     >
-                      <FaAngleLeft className="page-icon" />
+                      <FaAngleLeft
+                        className={`${
+                          currentPage == 1 ? "page-icon-light" : "page-icon"
+                        }`}
+                      />
                     </button>
                     <button
                       className={`pagination-btn ${
@@ -660,32 +664,28 @@ const Home = () => {
                         </button>
                       </>
                     )}
-                    <button
-                      className={`pagination-btn ${
-                        activeBtn === 100 && "active-page"
-                      }`}
-                    >
+                    <button className={`pagination-btn`}>
                       <FaAngleRight
-                        className="page-icon"
+                        className={`${
+                          currentPage == count ? "page-icon-light" : "page-icon"
+                        }`}
                         onClick={() => {
                           if (currentPage !== count) {
                             handlePageClick(currentPage + 1);
-                            setActiveBtn(100);
+                            setActiveBtn(currentPage + 1);
                           }
                         }}
                       />
                     </button>
-                    <button
-                      className={`pagination-btn ${
-                        activeBtn === 200 && "active-page"
-                      }`}
-                    >
+                    <button className={`pagination-btn`}>
                       <FaAngleDoubleRight
-                        className="page-icon"
+                        className={`${
+                          currentPage == count ? "page-icon-light" : "page-icon"
+                        }`}
                         onClick={() => {
                           if (currentPage !== count) {
                             handlePageClick(count);
-                            setActiveBtn(200);
+                            setActiveBtn(count);
                           }
                         }}
                       />
