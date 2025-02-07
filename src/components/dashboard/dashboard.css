@@ -1,10 +1,10 @@
 .dashboard-container {
   width: 100%;
   max-width: 144rem;
-  min-height: 100vh;
-  height: auto;
+  height: 100vh;
   margin: 0 auto;
   box-shadow: 0 0 0.5rem 0.5rem rgba(0, 0, 0, 0.1);
+  overflow: hidden;
 }
 
 .dash-logo {
@@ -17,14 +17,6 @@
 
 .mobile-dash-logo {
   display: none;
-}
-
-.cus-info-container,
-.order-list-container,
-.common-container {
-  border-radius: 7.5px;
-  background-color: white;
-  border: 1px solid #b9bccf4d;
 }
 
 /* Dashboard - Navbar */
@@ -42,7 +34,7 @@
   font-weight: 500;
   text-align: center;
   color: #fff;
-  z-index: 1;
+  z-index: 0;
   background-color: var(--secondary);
 
   position: absolute;
@@ -121,22 +113,22 @@
 
 /* Dashboard -  Home */
 
-.paynow-btn {
-  align-self: flex-start;
-  font-size: 1.4rem;
-  background-color: var(--primary);
-  color: white;
-  font-weight: 500;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
+.icon-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: 3.75rem;
+  width: 3.75rem;
+  background-color: rgba(128, 128, 128, 0.1);
+  border-radius: 50%;
 }
 
 .status-card {
-  flex-basis: 32%;
+  flex-basis: 33.33%;
   border-radius: 6px;
   background-color: white;
   padding: 1.5rem;
-  box-shadow: 0 0 2px 0.5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 2px 0.5px rgba(0, 0, 0, 0.05);
 }
 
 .card-label {
@@ -149,6 +141,16 @@
   font-size: 1.7rem;
   line-height: 1.2;
   font-weight: 500;
+}
+
+.paynow-btn {
+  align-self: flex-start;
+  font-size: 1.4rem;
+  background-color: var(--primary);
+  color: white;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
 }
 
 .booking-title {
@@ -267,10 +269,19 @@
 }
 .active-page .page-icon-light {
   fill: white;
+  cursor: not-allowed;
 }
 
 .border-transparent {
   border-color: transparent;
+}
+
+/* View order */
+
+.common-container {
+  border-radius: 7.5px;
+  background-color: white;
+  border: 1px solid #b9bccf4d;
 }
 
 .info-label {
@@ -465,19 +476,6 @@
 
 /* Dashboard - write a review */
 
-.rating-star-container {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 1rem;
-}
-
-.star {
-  display: inline-block;
-  height: 4.6rem;
-  width: 4.6rem;
-}
-
 .submit-review {
   display: inline-block;
   line-height: normal;
@@ -520,7 +518,8 @@
   color: rgba(77, 77, 235, 0.787);
 }
 
-.order-status-label-12 {
+.order-status-label-12,
+.order-status-label-13 {
   background-color: rgba(255, 0, 0, 0.1);
   color: var(--secondary);
 }
@@ -712,7 +711,7 @@
   }
 
   .status-card {
-    border-radius: 6px;
+    border-radius: 4px;
   }
 
   .card-label {
@@ -723,8 +722,18 @@
     font-size: 1.6rem;
   }
 
+  .paynow-btn {
+    font-size: 1.2rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: 0.25rem;
+  }
+
   .booking-title {
-    font-size: 1.7rem;
+    font-size: 1.6rem;
+  }
+
+  .main-orders-container {
+    border-radius: 0.75rem;
   }
 }
 
@@ -864,12 +873,15 @@
   }
 
   .status-card {
-    border-radius: 5px;
     padding: 1.5rem 1rem;
   }
 
   .card-label {
     font-size: 1.2rem;
+  }
+
+  .paynow-btn {
+    padding: 0.3rem 0.6rem;
   }
 
   .card-price {
@@ -894,6 +906,10 @@
 
   .orders-table tbody td {
     padding: 0.8rem 1rem;
+  }
+
+  .common-container {
+    border-radius: 5px;
   }
 }
 
@@ -964,9 +980,27 @@
     box-shadow: none;
   }
 
+  .orders-table tbody td {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   .orders-table thead tr,
   .orders-table tbody tr {
-    grid-template-columns: 10rem 18rem 14rem 10rem 10rem 10rem 15rem 6rem 6rem 6rem;
+    grid-template-columns: 10rem 18rem 14rem 10rem 10rem 10rem 15rem 5.5rem 5.5rem 5.5rem 5.5rem;
+  }
+
+  .paynow-btn {
+    align-self: center;
+  }
+
+  .main-orders-container {
+    border-radius: 0.5rem;
+  }
+
+  .main-orders-container .current-page-num {
+    padding: 1.75rem 0;
   }
 
   .status-card {
@@ -1067,7 +1101,37 @@
   }
 
   .booking-title {
+    font-size: 1.5rem;
+  }
+
+  .paynow-btn {
+    font-size: 1.1rem;
+    margin-top: 0.5rem;
+  }
+
+  .status-card {
+    border-radius: 2px;
+  }
+
+  .card-label {
     text-align: center;
+  }
+
+  .orders-table thead th {
+    padding: 0.6rem 0.8rem;
+    font-size: 1.1rem;
+    line-height: 2;
+  }
+
+  .orders-table tbody td {
+    padding: 0.6rem 0.8rem;
+    font-size: 1.1rem;
+    line-height: 2;
+  }
+
+  .icon-button {
+    height: 3.5rem;
+    width: 3.5rem;
   }
 }
 
@@ -1094,6 +1158,22 @@
   .dash-nav-link span:last-child {
     display: none;
   }
+
+  .main-orders-container .current-page-num {
+    padding: 1.5rem 0;
+  }
+
+  .info-label {
+    font-size: 1.3rem;
+    line-height: 2rem;
+  }
+
+  .info-ans {
+    color: var(--black);
+    font-weight: 400;
+    font-size: 1.3rem;
+    line-height: 2rem;
+  }
 }
 
 @media only screen and (max-width: 27.5em) {
@@ -1111,6 +1191,14 @@
   }
 
   .current-page-num {
+    padding: 0.5rem 0;
+  }
+
+  .card-label {
+    font-size: 1.3rem;
+  }
+
+  .main-orders-container .current-page-num {
     padding: 0.5rem 0;
   }
 }
@@ -1156,5 +1244,9 @@
   .dash-icons-container > * {
     height: 1.75rem;
     width: 1.75rem;
+  }
+
+  .booking-title {
+    font-size: 1.4rem;
   }
 }
