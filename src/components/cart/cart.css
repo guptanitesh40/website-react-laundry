@@ -3,8 +3,8 @@
 }
 
 .cart-container {
-  padding: 0 15rem;
-  max-width: 192rem;
+  padding: 0 8rem;
+  max-width: 178rem;
   margin: 0 auto;
 }
 
@@ -62,7 +62,7 @@
 
 .description-cell textarea {
   width: 100%;
-  padding: 1rem 10rem 1rem 1.5rem;
+  padding: 1rem 10rem 1rem 1rem;
   border: 1px solid rgb(104, 113, 130, 0.8);
   border-radius: 4px;
   font-size: 1.6rem;
@@ -318,6 +318,10 @@
 }
 
 .styled-radio:focus {
+  outline-color: var(--secondary);
+}
+
+.styled-radio:checked {
   outline-color: var(--secondary);
 }
 
@@ -760,7 +764,7 @@
 
   .cart-table thead tr,
   .cart-table tbody tr {
-    grid-template-columns: 1.75fr 10rem 1fr 1fr 1fr 1fr;
+    grid-template-columns: 21.5rem 10rem 12.5rem 12.5rem 12.5rem 12.5rem;
   }
 }
 
@@ -769,10 +773,14 @@
     padding: 0 2.5rem;
   }
 
+  .cart-table thead tr,
+  .cart-table tbody tr {
+    grid-template-columns: 20rem 8rem 10rem 10rem 10rem 10rem;
+  }
+
   .cart-table thead tr th,
   .cart-table tbody tr td {
     padding: 1rem;
-    font-size: 1.2rem;
   }
 
   .items-detail-cell h3 {
@@ -780,21 +788,39 @@
   }
 
   .items-detail-cell p {
-    font-size: 1.2rem;
-  }
-
-  .new-add-btn {
-    font-size: 1rem;
+    font-size: 1.25rem;
   }
 
   .new-add-btn .indec-icon {
-    height: 1rem;
-    width: 1rem;
+    height: 1.25rem;
+    width: 1.25rem;
   }
 }
 
 @media only screen and (max-width: 27.5em) {
+  .section-cart {
+    padding: 2rem 0;
+  }
+
+  .cart-cart-title {
+    padding: 1.5rem 2rem;
+  }
+
+  .cart-container {
+    padding: 0 2rem;
+  }
 }
 
 @media only screen and (max-width: 20em) {
+  .cart-container {
+    padding: 0 1.5rem;
+  }
+
+  .cart-cart-title {
+    padding: 1rem;
+  }
+
+  .all-coupon-container {
+    padding: 1rem;
+  }
 }

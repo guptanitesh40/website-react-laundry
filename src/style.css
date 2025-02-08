@@ -120,7 +120,7 @@ h3 {
 
 .inc-dec-btn {
   display: inline-block;
-  border: 0.5px solid #b9bccf;
+  border: 1px solid #b9bccf;
   border-radius: 999px;
   font-size: 1.6rem;
   line-height: 1.6rem;
