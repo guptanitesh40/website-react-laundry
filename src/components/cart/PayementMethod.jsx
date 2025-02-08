@@ -4,9 +4,9 @@ import { FaCcAmazonPay } from "react-icons/fa";
 
 const PayementMethod = ({ setPayementMethod }) => {
   return (
-    <form className="flex flex-col gap-12 laptop-l:gap-10">
+    <form className="flex flex-col gap-12 laptop-l:gap-10 mb-l:gap-8">
       <h4 className="cart-sub-title">Select Payment Method</h4>
-      <label className="border border-gray-400 cursor-pointer p-6 rounded-md flex justify-between items-center shadow w-[45rem] transition-all duration-300 laptop-md:p-4 laptop-md:w-[38rem] laptop-md:pr-6 laptop:w-[32.5rem]">
+      <label className="border border-gray-400 cursor-pointer p-6 rounded-xl flex justify-between items-center shadow w-[45rem] transition-all duration-300 laptop-l:rounded-lg laptop-md:p-4 laptop-md:w-[38rem] laptop-md:pr-6 laptop:w-[32.5rem] tab-m:w-[35rem] tab-m:rounded-md mb-l:w-full">
         <div className="flex items-center space-x-5 laptop-l:space-x-6 laptop-md:space-x-4 laptop:space-x-3">
           <div className="flex items-center">
             <BsCreditCard2Back className="inline-block h-12 w-12 fill-[var(black)] laptop-md:h-10 laptop-md:w-10" />
@@ -25,7 +25,7 @@ const PayementMethod = ({ setPayementMethod }) => {
         />
       </label>
 
-      <label className="border border-gray-400 cursor-pointer p-6 rounded-md flex justify-between items-center shadow w-[45rem]  transition-all duration-300 laptop-md:p-4 laptop-md:w-[38rem] laptop-md:pr-6 laptop:w-[32.5rem]">
+      <label className="border border-gray-400 cursor-pointer p-6 rounded-xl flex justify-between items-center shadow w-[45rem]  transition-all duration-300 laptop-l:rounded-lg laptop-md:p-4 laptop-md:w-[38rem] laptop-md:pr-6 laptop:w-[32.5rem] tab-m:w-[35rem] tab-m:rounded-md mb-l:w-full">
         <div className="flex items-center space-x-5 laptop-l:space-x-6 laptop-md:space-x-4 laptop:space-x-3">
           <div className="flex items-center">
             <FaCcAmazonPay className="inline-block h-12 w-12 fill-[var(black)] laptop-md:h-10 laptop-md:w-10" />

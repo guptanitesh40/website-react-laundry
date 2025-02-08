@@ -294,7 +294,7 @@ const OrderSummary = ({ instruction, paymentMethod, selectedAddId }) => {
       ) : (
         <div className="flex flex-col">
           <h4 className="cart-title cart-cart-title">Order Summary</h4>
-          <div className="p-10 border-b border-[#b9bccf4d] flex flex-col gap-8 laptop-l:gap-6 laptop-l:p-8 laptop-md:px-6 laptop:p-6 laptop:gap-4 tab-l:px-4 tab-m:p-6">
+          <div className="p-10 border-b border-[#b9bccf4d] flex flex-col gap-8 laptop-l:gap-6 laptop-l:p-8 laptop-md:px-6 laptop:p-6 laptop:gap-4 tab-l:px-4 tab-m:p-6 mb-l:px-8 mb:p-4">
             <form
               onSubmit={handleApplyClick}
               className="flex items-center gap-8 laptop-l:gap-6 laptop:gap-4"
@@ -343,7 +343,7 @@ const OrderSummary = ({ instruction, paymentMethod, selectedAddId }) => {
               </button>
             </div>
           </div>
-          <div className="px-12 py-12 flex flex-col gap-12 laptop-l:gap-10 laptop-l:p-10 laptop-md:px-6 laptop-md:py-8 laptop-md:gap-8 laptop:p-6 tab-l:px-4 tab-l:gap-7 cart-summary tab-m:p-6 tab-m:gap-8">
+          <div className="px-12 py-12 flex flex-col gap-12 laptop-l:gap-10 laptop-l:p-10 laptop-md:px-6 laptop-md:py-8 laptop-md:gap-8 laptop:p-6 tab-l:px-4 tab-l:gap-7 cart-summary tab-m:p-6 tab-m:gap-8 mb-l:px-8 mb:p-4">
             <div className="place-center">
               <p>Sub Total</p>
               <h5>₹{subTotal}</h5>
