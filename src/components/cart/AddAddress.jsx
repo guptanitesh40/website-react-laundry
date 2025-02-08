@@ -38,7 +38,7 @@ const AddAddress = ({ setSelectAddId }) => {
   return (
     <>
       <div className="flex flex-col gap-12 laptop-md:gap-10">
-        <div className="flex items-center justify-between flex-wrap">
+        <div className="flex items-center justify-between flex-wrap mb-l:gap-4 mb:justify-center">
           <h4 className="cart-sub-title">Select Address</h4>
           <button
             className="address-btn flex items-center gap-4 laptop-l:gap-3 laptop-md:gap-2"
@@ -79,7 +79,7 @@ const AddAddress = ({ setSelectAddId }) => {
               return (
                 <label
                   key={address_id}
-                  className={`flex items-center gap-8 p-8 border rounded-xl cursor-pointer relative laptop-l:p-7 laptop-md:rounded-lg laptop-md:p-6 laptop-md:gap-6 laptop:p-5 tab-l:p-6 tab-l:rounded-md`}
+                  className={`flex items-center gap-8 p-8 border rounded-xl cursor-pointer relative laptop-l:p-7 laptop-md:rounded-lg laptop-md:p-6 laptop-md:gap-6 laptop:p-5 tab-l:p-6`}
                 >
                   <input
                     type="radio"
@@ -111,7 +111,7 @@ const AddAddress = ({ setSelectAddId }) => {
                       <span></span>
                     </span>
                     <ul className="shortcut">
-                      <li onClick={() => onEditClick(address)}>Edit</li>
+                      <li onClick={() => onEditClick(address_id)}>Edit</li>
                       <li onClick={() => onDelClick(address_id)}>
                         {loadingDelAdd ? "Deleting.." : "Delete"}
                       </li>
