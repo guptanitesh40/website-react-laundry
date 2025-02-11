@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteItem, updateQty } from "../../redux/slices/cartSlice";
 import useDeleteProduct from "../../hooks/newCart/useDeleteProduct";
 import { addItem } from "../../redux/slices/cartSlice";
-import { Button } from "@mui/material";
 
 const CategoryItem = ({ categoryItem, category_id }) => {
   const navigate = useNavigate();
@@ -95,15 +94,15 @@ const CategoryItem = ({ categoryItem, category_id }) => {
     <div className="overflow-hidden">
       <div
         key={categoryItem.product_id}
-        className="cat-item-container flex gap-8 laptop-l:gap-6 laptop-m:gap-4"
+        className="cat-item-container flex gap-8 laptop-l:gap-6 laptop-m:gap-4 mb:flex-col mb:items-center"
       >
         <img
           src={categoryItem.product.image}
           alt="Service Image"
-          className="h-32 w-32 rounded-2xl laptop-l:h-28 laptop-l:w-28 laptop-l:rounded-xl laptop-md:h-24 laptop-md:w-24 laptop-md:rounded-lg laptop:h-20 laptop:w-20"
+          className="h-32 w-32 rounded-2xl laptop-l:h-28 laptop-l:w-28 laptop-l:rounded-xl laptop-md:h-24 laptop-md:w-24 laptop-md:rounded-lg laptop:h-20 laptop:w-20 laptop-s:rounded-md tab-l:h-24 tab-l:w-24 tab-l:rounded-lg"
         />
-        <div className="flex-grow flex justify-between items-center">
-          <div className="flex flex-col gap-6 laptop-md:gap-5">
+        <div className="flex-grow flex justify-between items-center mb-l:flex-wrap mb:flex-col mb:gap-3">
+          <div className="flex flex-col gap-6 laptop-md:gap-5 mb:gap-3 mb:items-center">
             <h5 className="cat-item-name">{categoryItem.product.name}</h5>
             <p className="cat-item-price">₹{categoryItem.price}</p>
           </div>
@@ -135,7 +134,7 @@ const CategoryItem = ({ categoryItem, category_id }) => {
             </button>
           ) : (
             <button
-              className="add-btn"
+              className="product-add-btn"
               aria-label="Add to cart"
               disabled={loadingAddToCart}
               onClick={() =>

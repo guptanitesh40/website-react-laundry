@@ -48,12 +48,13 @@ const Filter = () => {
 
   return (
     <div className="filter flex flex-col gap-12 laptop-l:gap-10 laptop-md:gap-8">
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center flex-wrap">
         <h5 className="text-filters">Filters</h5>
-        <h5 className="text-clear cursor-pointer" onClick={handleClearAll}>
+        <button className="text-clear" onClick={handleClearAll}>
           Clear all
-        </h5>
+        </button>
       </div>
+
       <div className="flex flex-col justify-center items-stretch gap-8 laptop-l:gap-6 laptop-m:gap-4">
         <p className="dd-title">Select cloth types</p>
         <FormControl fullWidth>
@@ -63,7 +64,7 @@ const Filter = () => {
               fontSize: "16px",
               position: "relative",
               "@media (max-width: 100em)": { fontSize: "15px" },
-              "@media (max-width: 90em)": { fontSize: "14px" },
+              "@media (max-width: 90em)": { fontSize: "12.5px" },
 
               ".MuiSelect-select": {
                 padding: "16px",
@@ -73,6 +74,9 @@ const Filter = () => {
                 "@media (max-width: 90em)": {
                   padding: "12px",
                 },
+                "@media (max-width: 71.25em)": {
+                  padding: "10px",
+                },
               },
             }}
             onClick={(e) => e.stopPropagation()}
@@ -80,7 +84,10 @@ const Filter = () => {
               PaperProps: {
                 sx: {
                   maxHeight: 300,
-                  "@media (max-width: 90em)": { maxHeight: 205 },
+                  "@media (max-width: 90em)": {
+                    maxHeight: 205,
+                    fontSize: "12px",
+                  },
                 },
               },
             }}
@@ -101,13 +108,14 @@ const Filter = () => {
                 <MenuItem
                   sx={{
                     fontSize: "16px",
-                    padding: "12px 20px",
+                    padding: "15px 20px",
                     textTransform: "capitalize",
                     "@media (max-width: 100em)": {
                       fontSize: "14px",
+                      padding: "12.5px 17.5px",
                     },
                     "@media (max-width: 90em)": {
-                      fontSize: "14px",
+                      fontSize: "12.5px",
                       padding: "10px 17.5px",
                     },
                     "@media (max-width: 38.4375em)": {
@@ -143,21 +151,23 @@ const Filter = () => {
             )}
           </Select>
         </FormControl>
-        <div className="flex items-center justify-start flex-wrap gap-6">
-          {filteredItems.length > 0 &&
-            filteredItems.map((item) => {
-              const { name } = item.product;
-              return (
-                <span className="selected-clothes" key={name}>
-                  <span>{name}</span>
-                  <RxCross2
-                    onClick={() => handleRemove(item)}
-                    className="h-8 w-8 cursor-pointer laptop-l:h-7 laptop-l:w-7"
-                  />
-                </span>
-              );
-            })}
-        </div>
+        {filteredItems.length > 0 && (
+          <div className="flex items-center justify-start flex-wrap gap-6 laptop-s:gap-4">
+            {filteredItems.length > 0 &&
+              filteredItems.map((item) => {
+                const { name } = item.product;
+                return (
+                  <span className="selected-clothes" key={name}>
+                    <span>{name}</span>
+                    <RxCross2
+                      onClick={() => handleRemove(item)}
+                      className="h-8 w-8 cursor-pointer laptop-l:h-7 laptop-l:w-7 laptop-md:h-6 laptop-md:w-6"
+                    />
+                  </span>
+                );
+              })}
+          </div>
+        )}
       </div>
     </div>
   );
