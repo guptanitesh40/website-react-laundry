@@ -26,8 +26,9 @@ const useFetchCart = () => {
           },
         });
         const data = await response.json();
+
         if (response.ok) {
-          dispatch(setCart(data?.data));
+          dispatch(setCart(data?.data?.carts));
         } else {
           toast.error("Failed to fetch your cart. Please try again.", {
             className: "toast-error",

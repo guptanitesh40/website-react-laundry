@@ -21,7 +21,7 @@ const SelectClothes = () => {
   return (
     <div className="select-clothes-container">
       <h4 className="service-title">Select Clothes</h4>
-      <div className="flex items-center gap-14 laptop-l:gap-12 laptop-md:gap-10">
+      <div className="flex items-center gap-14 max-w-full overflow-y-auto laptop-l:gap-12 laptop-md:gap-10 laptop-s:gap-8 mb-l:gap-6 mb-l:pb-4">
         {categories.length > 0 ? (
           categories.map((category) => {
             const { category_name, category_category_id } = category;
@@ -38,10 +38,12 @@ const SelectClothes = () => {
             );
           })
         ) : (
-          <p>No category found!</p>
+          <p className="text-3xl laptop-md:text-2xl laptop-s:text-xl">
+            No category found!
+          </p>
         )}
       </div>
-      <div className="flex flex-col gap-12 laptop-l:gap-10 laptop-m:gap-8">
+      <div className="flex flex-col gap-12 laptop-l:gap-10 laptop-md:gap-8">
         {loading ? (
           Array(5)
             .fill(0)
@@ -55,7 +57,9 @@ const SelectClothes = () => {
             />
           ))
         ) : (
-          <p>No products found for this category!</p>
+          <p className="text-3xl laptop-md:text-2xl laptop-s:text-xl">
+            No products found for this category!
+          </p>
         )}
       </div>
     </div>
