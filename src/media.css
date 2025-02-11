@@ -46,16 +46,6 @@
     padding: 0 7rem;
   }
 
-  .section-services h1 {
-    font-size: 5.2rem;
-    line-height: 6.8rem;
-    padding-bottom: 12.8rem;
-  }
-
-  .service-container {
-    padding: 0.6rem 0.8rem;
-  }
-
   .service-name {
     font-size: 1.5rem;
     line-height: normal;
@@ -121,20 +111,6 @@
 
   .tertiary-container {
     padding: 0 6rem;
-  }
-
-  .section-services {
-    padding: 2.5rem 0 2.5rem 0;
-  }
-
-  .section-services h1 {
-    font-size: 4.4rem;
-    line-height: 5.6rem;
-    padding: 8rem 0 12rem 0;
-  }
-
-  .service-container {
-    padding: 0.4rem 0.6rem;
   }
 
   .service-name {
@@ -263,26 +239,8 @@
     padding: 0 4rem;
   }
 
-  .section-services {
-    padding: 2rem 0 2rem 0;
-  }
-
-  .section-services h1 {
-    font-size: 3.4rem;
-    line-height: 4.4rem;
-    padding: 6rem 0 10rem 0;
-  }
-
-  .service-container {
-    padding: 0.4rem;
-  }
-
   .service-name {
     font-size: 1.2rem;
-  }
-
-  .service-container {
-    border-bottom: 2px solid transparent;
   }
 
   .active-service::before {
@@ -324,11 +282,6 @@
     padding: 1rem 1.2rem;
   }
 
-  .section-services h1 {
-    font-size: 2.8rem;
-    line-height: normal;
-    padding: 5rem 0 8rem 0;
-  }
 }
 
 /*****************/
@@ -363,11 +316,6 @@
 
   .tertiary-container {
     padding: 0 3rem;
-  }
-
-  .section-services h1 {
-    font-size: 2.4rem;
-    padding: 4rem 0 7rem 0;
   }
 }
 
@@ -404,10 +352,6 @@
   .floated-container h2 {
     font-size: 2.2rem;
     line-height: normal;
-  }
-
-  .service-container {
-    padding: 0.3rem;
   }
 
   .service-name {
