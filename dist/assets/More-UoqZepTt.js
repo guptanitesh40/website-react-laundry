@@ -1,0 +1,1 @@
+import{j as t}from"./index-lOlqRkzP.js";const r=()=>t.jsx("div",{children:t.jsx("p",{className:"text-center text-5xl font-extrabold shadow-2xl py-16 tracking-widest",children:"More Component"})});export{r as default};
