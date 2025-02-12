@@ -1,10 +1,13 @@
+import { useState } from "react";
 import toast from "react-hot-toast";
 
 const useGetOrders = () => {
   const baseURL = import.meta.env.VITE_BASE_URL;
   const token = localStorage.getItem("token");
+  const [loading, setLoading] = useState(false);
 
   const getOrders = async () => {
+    setLoading(true);
     try {
       const response = await fetch(`${baseURL}/orders`, {
         method: "GET",
@@ -31,10 +34,12 @@ const useGetOrders = () => {
         }
       );
       return false;
+    } finally {
+      setLoading(false);
     }
   };
 
-  return { getOrders };
+  return { getOrders, loading };
 };
 
 export default useGetOrders;

@@ -120,6 +120,7 @@
 }
 
 .hamburger {
+  width: 2.5rem;
   flex-basis: 70%;
   display: flex;
   flex-direction: column;
@@ -160,6 +161,7 @@
   position: fixed;
   inset: 0;
   background-color: transparent;
+  background-color: rgba(0, 0, 0, 0.5);
   z-index: 990;
   transition: all 0.6s;
   transform: translateX(100%);
@@ -193,6 +195,9 @@
   align-items: center;
   padding: 0.75rem 1rem;
   padding: 1rem;
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--primary);
   line-height: 1.25;
   transition: all 0.3s ease-in-out;
   border-radius: 0.3rem;
@@ -203,8 +208,8 @@
 }
 
 .nav-item .nav-icon {
-  height: 1.8rem;
-  width: 1.8rem;
+  height: 2rem;
+  width: 2rem;
 }
 
 .nav-item:hover {

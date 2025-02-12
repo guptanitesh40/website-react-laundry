@@ -35,6 +35,7 @@ const Branches = () => {
   return (
     <div
       className="border border-[#b9bccf4d] rounded-xl py-16 px-12 laptop-l:py-12 laptop-l:px-10 laptop-md:rounded-lg laptop-md:px-8 laptop-md:py-10 laptop-s:rounded-md laptop-s:py-8 laptop-s:px-6 tab-l:py-12 tab-l:px-8 tab-l:!p-0"
+      style={{ padding: 0 }}
       ref={dropdownRef}
     >
       <div className="relative">
@@ -51,7 +52,7 @@ const Branches = () => {
         </button>
 
         {isOpen && (
-          <div className="absolute z-10 bg-white rounded-lg shadow-lg w-full mt-2 laptop-md:bg-cyan-200">
+          <div className="absolute z-10 bg-white rounded-lg shadow-lg w-full mt-2">
             <ul className="py-2 text-[1.6rem] text-[var(--black)] laptop-l:text-[1.4rem] laptop-md:py-1 laptop-md:text-xl">
               {branches && branches.length > 0 ? (
                 branches.map((branch) => {

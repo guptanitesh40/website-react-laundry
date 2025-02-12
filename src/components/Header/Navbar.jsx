@@ -8,7 +8,15 @@ import { setAuthStatus } from "../../redux/slices/authSlice";
 import { useEffect, useState } from "react";
 import { RxCross2 } from "react-icons/rx";
 import { FaHome } from "react-icons/fa";
-import { IoMdSettings } from "react-icons/io";
+import { IoIosContact, IoIosPricetags } from "react-icons/io";
+import {
+  MdLocalLaundryService,
+  MdOutlineLocalLaundryService,
+  MdPermContactCalendar,
+} from "react-icons/md";
+import { HiUserGroup } from "react-icons/hi";
+import { LogoutOutlined } from "@mui/icons-material";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -26,10 +34,18 @@ const Navbar = () => {
     localStorage.clear();
     dispatch(setAuthStatus(false));
     navigate("/");
+    toast.success("User logged out successfully.", {
+      className: "toast-success",
+    });
   };
 
   const onProfileClick = () => {
     navigate("/dashboard/home");
+  };
+
+  const handleMobileLogout = () => {
+    toggleOpen();
+    onLogoutClick();
   };
 
   const toggleOpen = () => {
@@ -169,8 +185,8 @@ const Navbar = () => {
                 </Link>
               )}
 
-              {isLoggedIn ? (
-                <span className="inline-block h-[4.6rem] w-[4.6rem] relative group laptop-l:h-[4.2rem] laptop-l:w-[4.2rem] laptop:h-[4rem] laptop:w-[4rem] tab-l:h-[3.8rem] tab-l:w-[3.8rem] tab-m:hidden">
+              {isLoggedIn ? 
+                <span className="inline-block cursor-pointer h-[4.6rem] w-[4.6rem] relative group laptop-l:h-[4.2rem] laptop-l:w-[4.2rem] laptop:h-[4rem] laptop:w-[4rem] tab-l:h-[3.8rem] tab-l:w-[3.8rem] tab-m:hidden">
                   <img
                     src={profile_image}
                     alt="Avatar"
@@ -200,7 +216,7 @@ const Navbar = () => {
                     </div>
                   </div>
                 </span>
-              ) : (
+               : 
                 <Link
                   to="/login"
                   className="login"
@@ -210,7 +226,8 @@ const Navbar = () => {
                 >
                   Login
                 </Link>
-              )}
+              }
+
               <div className="h-[3.8rem] w-[3.8rem] justify-center items-center hidden tab-m:flex tab:h-[3.2rem] tab:w-[3.2rem]">
                 <div
                   className={`hamburger ${
@@ -245,7 +262,7 @@ const Navbar = () => {
             </h5>
             <RxCross2 className="h-9 w-9 cursor-pointer" onClick={toggleOpen} />
           </div>
-          <nav className="flex flex-col gap-2 p-2 font-sans text-[1.4rem] font-medium text-[var(--primary)]">
+          <nav className="flex flex-col gap-2 p-2 font-sans">
             <Link
               to="/"
               className={`nav-item ${
@@ -258,7 +275,6 @@ const Navbar = () => {
               </div>
               Home
             </Link>
-
             <Link
               to="/services"
               className={`nav-item ${
@@ -267,7 +283,7 @@ const Navbar = () => {
               onClick={toggleOpen}
             >
               <div>
-                <IoMdSettings className="nav-icon" />
+                <MdLocalLaundryService className="nav-icon" />
               </div>
               Our Services
             </Link>
@@ -280,7 +296,7 @@ const Navbar = () => {
               onClick={toggleOpen}
             >
               <div>
-                <IoMdSettings className="nav-icon" />
+                <MdOutlineLocalLaundryService className="nav-icon" />
               </div>
               Corporate Services
             </Link>
@@ -293,7 +309,7 @@ const Navbar = () => {
               onClick={toggleOpen}
             >
               <div>
-                <IoMdSettings className="nav-icon" />
+                <IoIosPricetags className="nav-icon" />
               </div>
               Price List
             </Link>
@@ -306,7 +322,7 @@ const Navbar = () => {
               onClick={toggleOpen}
             >
               <div>
-                <IoMdSettings className="nav-icon" />
+                <HiUserGroup className="nav-icon" />
               </div>
               About us
             </Link>
@@ -319,37 +335,34 @@ const Navbar = () => {
               onClick={toggleOpen}
             >
               <div>
-                <IoMdSettings className="nav-icon" />
+                <MdPermContactCalendar className="nav-icon" />
               </div>
               Contact us
             </Link>
 
-            <Link
-              to="/dashboard/home"
-              className={`nav-item ${
-                pathname === "/dashboard/home" ? "active-nav-item" : ""
-              }`}
-              onClick={toggleOpen}
-            >
-              <div>
-                <IoMdSettings className="nav-icon" />
-              </div>
-              Profile
-            </Link>
+            {isLoggedIn && (
+              <>
+                <Link
+                  to="/dashboard/home"
+                  className={`nav-item ${
+                    pathname === "/dashboard/home" ? "active-nav-item" : ""
+                  }`}
+                  onClick={toggleOpen}
+                >
+                  <div>
+                    <IoIosContact className="nav-icon" />
+                  </div>
+                  Profile
+                </Link>
 
-            <Link to="" className="nav-item" onClick={toggleOpen}>
-              <div>
-                <IoMdSettings className="nav-icon" />
-              </div>
-              Logout
-            </Link>
-
-            <Link to="/" className="nav-item" onClick={toggleOpen}>
-              <div>
-                <IoMdSettings className="nav-icon" />
-              </div>
-              Setting
-            </Link>
+                <button className="nav-item" onClick={handleMobileLogout}>
+                  <div>
+                    <LogoutOutlined className="nav-icon" />
+                  </div>
+                  Logout
+                </button>
+              </>
+            )}
           </nav>
         </div>
       </div>
