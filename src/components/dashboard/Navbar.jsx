@@ -6,13 +6,15 @@ import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setAuthStatus } from "../../redux/slices/authSlice";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import dayjs from "dayjs";
 
 const Navbar = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
+  const [currentTime, setCurrentTime] = useState(dayjs());
 
   const onLogoutClick = (e) => {
     e.preventDefault();
@@ -39,12 +41,25 @@ const Navbar = () => {
     profile_image = "/default_pfp.png";
   }
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTime(dayjs());
+    }, 60000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <>
       <div className="shadow-[0_0.5rem_1rem_rgba(0,0,0,0.1)] grow bg-[var(--primary)] flex justify-between items-center px-8 laptop-m:px-6 laptop-s:px-5 tab-l:px-4 tab:py-3 mb-l:py-2 mb:p-2">
-        <p className="text-[2rem] leading-[2.4rem] font-semibold text-white tracking-wide laptop-m:text-[1.8rem] laptop-m:leading-normal laptop-s:text-[1.6rem] laptop-s:font-medium tab-l:text-[1.4rem] mb:text-[1.2rem]">
-          {routeMap[pathname]}
-        </p>
+        <div className="flex justify-center items-center gap-8 laptop-m:gap-6 laptop-s:gap-5 tab-s:gap-4 mb-l:gap-0">
+          <p className="text-[2rem] leading-[2.4rem] font-semibold text-white tracking-wide laptop-m:text-[1.8rem] laptop-m:leading-normal laptop-s:text-[1.6rem] laptop-s:font-medium tab-l:text-[1.4rem] mb:text-[1.2rem]">
+            {routeMap[pathname]}
+          </p>
+          <p className="text-white text-[1.6rem] laptop-m:text-[1.4rem] laptop-s:text-xl mb-l:text-lg mb-l:hidden">
+            {currentTime.format("ddd D MMM, hh:mm A")}
+          </p>
+        </div>
 
         <div className="flex items-center justify-center gap-6 laptop-s:gap-5 tab-l:gap-4">
           <Link

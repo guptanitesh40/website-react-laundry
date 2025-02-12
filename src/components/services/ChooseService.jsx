@@ -56,7 +56,9 @@ const ChooseService = () => {
       <div className="services-con-container">
         <h1>Choose your Service</h1>
 
-        <div className="flex justify-center items-center">
+        {/* <div className="flex justify-center items-center"> */}
+        <div className="sticky top-0 flex justify-center items-center z-50">
+
           <div className="box-border max-w-[135rem] overflow-x-auto bg-white rounded-[8px] shadow-lg flex justify-start gap-16 py-12 px-12 scrollbar-thin laptop-l:gap-12 laptop-l:p-10 laptop-md:py-8 laptop-md:px-8 laptop-md:gap-10 laptop-md:rounded-[6px] laptop-s:px-7 laptop-s:py-7 laptop-s:rounded-lg laptop-s:gap-8 tab-m:px-6 tab-m:py-6 tab-s:gap-6 laptop-l:max-w-[110rem] laptop-md:max-w-[90rem] laptop-s:max-w-[85rem] tab-l:max-w-[75rem] tab-s:max-w-[65rem]">
             {services.map((service) => {
               const { name, image, service_id } = service;

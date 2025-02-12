@@ -1,54 +1,34 @@
-.loading {
-  --speed-of-animation: 0.9s;
-  --gap: 6px;
-  --first-color: #4c86f9;
-  --second-color: #49a84c;
-  --third-color: #f6bb02;
-  --fourth-color: #f6bb02;
-  --fifth-color: #2196f3;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100px;
-  height: 100px;
-  gap: 6px;
+.loader {
+  position: relative;
+  width: 64px;
+  height: 64px;
 }
 
-.loading span {
-  width: 4px;
-  height: 50px;
-  background: var(--first-color);
-  animation: scale var(--speed-of-animation) ease-in-out infinite;
+.loader div {
+  position: absolute;
+  border: 5px solid white;
+  border-radius: 50%;
+  animation: loader8435 1s ease-out infinite;
 }
 
-.loading span:nth-child(2) {
-  background: var(--second-color);
-  animation-delay: -0.8s;
-}
-
-.loading span:nth-child(3) {
-  background: var(--third-color);
-  animation-delay: -0.7s;
-}
-
-.loading span:nth-child(4) {
-  background: var(--fourth-color);
-  animation-delay: -0.6s;
-}
-
-.loading span:nth-child(5) {
-  background: var(--fifth-color);
+.loader div:nth-child(2) {
   animation-delay: -0.5s;
 }
 
-@keyframes scale {
-  0%,
-  40%,
-  100% {
-    transform: scaleY(0.05);
+@keyframes loader8435 {
+  0% {
+    top: 32px;
+    left: 32px;
+    width: 0;
+    height: 0;
+    opacity: 1;
   }
 
-  20% {
-    transform: scaleY(1);
+  100% {
+    top: 0;
+    left: 0;
+    width: 64px;
+    height: 64px;
+    opacity: 0;
   }
 }
