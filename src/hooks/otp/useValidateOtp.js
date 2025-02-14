@@ -1,11 +1,14 @@
+import { useState } from "react";
 import toast from "react-hot-toast";
 
 const useValidateOtp = () => {
+  const [loading, setLoading] = useState("");
   const baseURL = import.meta.env.VITE_BASE_URL;
   const token = localStorage.getItem("token");
 
   const validateOtp = async (otp, mobile_number) => {
     try {
+      setLoading(true);
       const response = await fetch(`${baseURL}/user/validate`, {
         method: "POST",
         headers: {
@@ -13,8 +16,8 @@ const useValidateOtp = () => {
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          mobile_number: mobile_number,
-          otp: otp,
+          mobile_number,
+          otp,
         }),
       });
       const data = await response.json();
@@ -31,9 +34,11 @@ const useValidateOtp = () => {
         className: "toast-error",
       });
       return { success: false };
+    } finally {
+      setLoading(false);
     }
   };
-  return { validateOtp };
+  return { validateOtp, loading };
 };
 
 export default useValidateOtp;

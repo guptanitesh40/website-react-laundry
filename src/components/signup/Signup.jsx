@@ -1,15 +1,21 @@
 import "./signup.css";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import useSignup from "../../hooks/signup/useSignup";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
+import useGenerateOtp from "../../hooks/signup/useGenerateOtp";
+import { addUser } from "../../redux/slices/userSlice";
+import { setAuthStatus } from "../../redux/slices/authSlice";
+import { useDispatch } from "react-redux";
 
 const Signup = () => {
-  const { signup, generateOtp } = useSignup();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { signup, loading } = useSignup();
+  const { generateOtp } = useGenerateOtp();
   const [mvalidation, setMvalidation] = useState("");
   const [errors, setErrors] = useState({});
-  const [isError, setIsError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -53,10 +59,14 @@ const Signup = () => {
     e.preventDefault();
     try {
       await signUpSchema.validate(formData, { abortEarly: false });
-      signup(formData);
+      const result = await signup(formData);
+      if (result) {
+        dispatch(addUser(result.user));
+        dispatch(setAuthStatus(!!result.token));
+        navigate("/");
+      }
       setErrors("");
     } catch (error) {
-      setIsError(true);
       const validationErrors = {};
       error.inner.forEach((error) => {
         validationErrors[error.path] = error.message;
@@ -79,52 +89,44 @@ const Signup = () => {
   };
 
   return (
-    <section className="flex justify-center items-center p-6 h-[100vh] w-[100vw] overflow-y-auto">
+    <section className="grid place-items-center p-6 min-h-screen w-full overflow-auto tab:p-8 mb-l:p-6 mb:p-4">
       <div className="signup-form-container">
-        <div className="flex flex-col justify-center items-center gap-4">
+        <div className="flex flex-col justify-center items-center gap-6 laptop-l:gap-4">
           <img
             src="sc-logo.png"
             alt="Sikka Cleaner Logo"
             loading="lazy"
-            className="h-16 w-auto"
+            className="h-16 w-auto laptop-l:h-14 mb:h-12"
           />
-          <h2 className="text-[2.4rem] leading-[1.5] font-bold text-[var(--black)] laptop-l:text-[2rem]">
+          <h2 className="text-[2.4rem] leading-[1.5] font-bold text-[var(--black)] laptop-l:text-[2rem] mb:text-[1.8rem]">
             Create an account
           </h2>
         </div>
         <div>
           <form
-            className={`grid grid-cols-2 ${isError ? "gap-8" : "gap-12"}`}
+            className={`grid grid-cols-2 gap-12 tab-s:gap-10 tab:grid-cols-1 tab:gap-8`}
             onSubmit={handleSubmit}
           >
             <div>
-              <label
-                htmlFor="first_name"
-                className="mb-4 block text-lg font-medium leading-6 text-gray-900"
-              >
+              <label htmlFor="first_name" className="signup-label">
                 First Name
               </label>
               <input
                 type="text"
                 id="first_name"
                 name="first_name"
-                placeholder="first name"
+                placeholder="First name"
                 value={formData.first_name}
                 onChange={handleChange}
-                className="text-xl block font-medium w-full rounded-md py-4 px-6 text-gray-900 shadow-sm placeholder:text-gray-400 leading-6 border-blue-300 border-[1.5px] focus:border-blue-600 focus:outline-none tracking-wide"
+                className="signup-input"
               />
               {errors.first_name && (
-                <p className="pt-2 text-base font-medium text-red-500">
-                  {errors.first_name}
-                </p>
+                <p className="signup-error-label">{errors.first_name}</p>
               )}
             </div>
 
             <div>
-              <label
-                htmlFor="last_name"
-                className="mb-4 block text-lg font-medium leading-6 text-gray-900"
-              >
+              <label htmlFor="last_name" className="signup-label">
                 Last Name
               </label>
               <input
@@ -134,20 +136,15 @@ const Signup = () => {
                 placeholder="last name"
                 value={formData.last_name}
                 onChange={handleChange}
-                className="text-xl block font-medium w-full rounded-md py-4 px-6 text-gray-900 shadow-sm placeholder:text-gray-400 leading-6 border-blue-300 border-[1.5px] focus:border-blue-600 focus:outline-none tracking-wide"
+                className="signup-input"
               />
               {errors.last_name && (
-                <p className="pt-2 text-base font-medium text-red-500">
-                  {errors.last_name}
-                </p>
+                <p className="signup-error-label">{errors.last_name}</p>
               )}
             </div>
 
             <div>
-              <label
-                htmlFor="mobile"
-                className="block text-lg font-medium leading-6 text-gray-900 mb-4"
-              >
+              <label htmlFor="mobile" className="signup-label">
                 Mobile Number
               </label>
               <div className="relative">
@@ -158,33 +155,22 @@ const Signup = () => {
                   placeholder="99099XXXXX"
                   value={formData.mobile_number}
                   onChange={handleChange}
-                  className="text-xl block font-medium w-full rounded-md py-4 px-6 text-gray-900 shadow-sm placeholder:text-gray-400 leading-6 border-blue-300 border-[1.5px] focus:border-blue-600 focus:outline-none tracking-wide"
+                  className="signup-input"
                 ></input>
-                <button
-                  type="button"
-                  className=" bg-blue-100 text-xl inline-block absolute top-0 right-0 h-full px-4 border border-blue-300 rounded-r-md"
-                  onClick={sendOtp}
-                >
+                <button type="button" className="send-btn" onClick={sendOtp}>
                   send
                 </button>
               </div>
               {(mvalidation && (
-                <p className="pt-2 text-base font-medium text-red-500">
-                  {mvalidation}
-                </p>
+                <p className="signup-error-label">{mvalidation}</p>
               )) ||
                 (errors.mobile_number && (
-                  <p className="pt-2 text-base font-medium text-red-500">
-                    {errors.mobile_number}
-                  </p>
+                  <p className="signup-error-label">{errors.mobile_number}</p>
                 ))}
             </div>
 
             <div>
-              <label
-                htmlFor="otp"
-                className="mb-4 block text-lg font-medium leading-6 text-gray-900"
-              >
+              <label htmlFor="otp" className="signup-label">
                 Otp
               </label>
               <input
@@ -194,20 +180,13 @@ const Signup = () => {
                 placeholder="otp"
                 value={formData.otp}
                 onChange={handleChange}
-                className="text-xl block font-medium w-full rounded-md py-4 px-6 text-gray-900 shadow-sm placeholder:text-gray-400 leading-6 border-blue-300 border-[1.5px] focus:border-blue-600 focus:outline-none tracking-wide"
+                className="signup-input"
               />
-              {errors.otp && (
-                <p className="pt-2 text-base font-medium text-red-500">
-                  {errors.otp}
-                </p>
-              )}
+              {errors.otp && <p className="signup-error-label">{errors.otp}</p>}
             </div>
 
             <div>
-              <label
-                htmlFor="email"
-                className="mb-4 block text-lg font-medium leading-6 text-gray-900"
-              >
+              <label htmlFor="email" className="signup-label">
                 Email
               </label>
               <input
@@ -217,20 +196,15 @@ const Signup = () => {
                 placeholder="user@gmail.com"
                 value={formData.email}
                 onChange={handleChange}
-                className="text-xl block font-medium w-full rounded-md py-4 px-6 text-gray-900 shadow-sm placeholder:text-gray-400 leading-6 border-blue-300 border-[1.5px] focus:border-blue-600 focus:outline-none tracking-wide"
+                className="signup-input"
               />
               {errors.email && (
-                <p className="pt-2 text-base font-medium text-red-500">
-                  {errors.email}
-                </p>
+                <p className="signup-error-label">{errors.email}</p>
               )}
             </div>
 
             <div>
-              <label
-                htmlFor="password"
-                className="mb-4 block text-lg font-medium leading-6 text-gray-900"
-              >
+              <label htmlFor="password" className="signup-label">
                 Password
               </label>
               <div className="relative">
@@ -241,92 +215,91 @@ const Signup = () => {
                   placeholder="password"
                   value={formData.password}
                   onChange={handleChange}
-                  className="text-xl block font-medium w-full rounded-md py-4 px-6 text-gray-900 shadow-sm placeholder:text-gray-400 leading-6 border-blue-300 border-[1.5px] focus:border-blue-600 focus:outline-none tracking-wide"
+                  className="signup-input"
                 />
                 <span
-                  className="absolute inline-block cursor-pointer top-1/2 right-4 -translate-y-1/2"
+                  className="absolute cursor-pointer top-1/2 right-4 -translate-y-1/2 h-12 w-12 flex justify-center items-center rounded-full hover:bg-gray-100"
                   onClick={() => setShowPassword(!showPassword)}
                 >
                   {showPassword ? (
-                    <IoMdEyeOff className="h-8 w-8 fill-indigo-400" />
+                    <IoMdEyeOff className="h-8 w-8 fill-[#83848a]" />
                   ) : (
-                    <IoMdEye className="h-8 w-8 fill-indigo-400" />
+                    <IoMdEye className="h-8 w-8 fill-[#83848a]" />
                   )}
                 </span>
               </div>
               {errors.password && (
-                <p className="pt-2 text-base font-medium text-red-500">
-                  {errors.password}
-                </p>
+                <p className="signup-error-label">{errors.password}</p>
               )}
             </div>
 
-            <div>
-              <label className="mb-4 block text-lg font-medium leading-6 text-gray-900">
-                Gender
-              </label>
-              <div className="flex items-center gap-4">
-                <input
-                  type="radio"
-                  name="gender"
-                  id="male"
-                  value="1"
-                  onChange={handleChange}
-                  className="appearance-none h-6 w-6 border-2 border-blue-600 rounded-full checked:bg-blue-600 checked:border-transparent focus:outline-none checked:ring-2 checked:ring-blue-500 checked:ring-offset-2"
-                />
+            <div className="col-span-2 tab:col-span-1">
+              <label className="signup-label">Gender</label>
+              <div className="flex items-center gap-4 mt-2 mb:max-w-full mb:overflow-x-auto">
                 <label
                   htmlFor="male"
-                  className="block text-lg font-medium leading-6 text-gray-900"
+                  className="inline-flex justify-center items-center gap-6 text-[1.3rem] font-normal leading-[1.5] border-[0.5px] border-[#83848a] px-6 py-4 rounded-lg mb-l:px-4 mb-l:gap-4 mb:rounded-[0.25rem]"
                 >
-                  Male
+                  <input
+                    type="radio"
+                    name="gender"
+                    id="male"
+                    value="1"
+                    onChange={handleChange}
+                    className="gender-radio-btn"
+                  />
+                  <span>Male</span>
                 </label>
-                <input
-                  type="radio"
-                  name="gender"
-                  id="female"
-                  value="2"
-                  onChange={handleChange}
-                  className="appearance-none h-6 w-6 border-2 border-blue-600 rounded-full checked:bg-blue-600 checked:border-transparent focus:outline-none checked:ring-2 checked:ring-blue-500 checked:ring-offset-2"
-                />
+
                 <label
                   htmlFor="female"
-                  className="block text-lg font-medium leading-6 text-gray-900"
+                  className="inline-flex justify-center items-center gap-6 text-[1.3rem] font-normal leading-[1.5] border-[0.5px] border-[#83848a] px-6 py-4 rounded-lg mb-l:px-4 mb-l:gap-4 mb:rounded-[0.25rem]"
                 >
-                  Female
+                  <input
+                    type="radio"
+                    name="gender"
+                    id="female"
+                    value="2"
+                    onChange={handleChange}
+                    className="gender-radio-btn"
+                  />
+                  <span>Female</span>
                 </label>
-                <input
-                  type="radio"
-                  name="gender"
-                  id="others"
-                  value="3"
-                  onChange={handleChange}
-                  className="appearance-none h-6 w-6 border-2 border-blue-600 rounded-full checked:bg-blue-600 checked:border-transparent focus:outline-none checked:ring-2 checked:ring-blue-500 checked:ring-offset-2"
-                />
+
                 <label
                   htmlFor="others"
-                  className="block text-lg font-medium leading-6 text-gray-900"
+                  className="inline-flex justify-center items-center gap-6 text-[1.3rem] font-normal leading-[1.5] border-[0.5px] border-[#83848a] px-6 py-4 rounded-lg mb-l:px-4 mb-l:gap-4 mb:rounded-[0.25rem]"
                 >
-                  Other
+                  <input
+                    type="radio"
+                    name="gender"
+                    id="others"
+                    value="3"
+                    className="gender-radio-btn"
+                    onChange={handleChange}
+                  />
+                  <span>Other</span>
                 </label>
               </div>
               {errors.gender && (
-                <p className="pt-2 text-base font-medium text-red-500">
-                  {errors.gender}
-                </p>
+                <p className="signup-error-label">{errors.gender}</p>
               )}
             </div>
 
             <button
               type="submit"
-              className="col-span-2 w-[40%] justify-self-center flex justify-center rounded-md bg-indigo-600 px-6 py-4 text-xl font-bold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              className="col-span-2 w-[40%] justify-self-center signup-button tab:col-span-1 tab:max-w-[20rem] tab:w-full mb:min-w-full"
+              disabled={loading}
             >
-              SignUp
+              {loading ? "Signing Up..." : "Sign Up"}
             </button>
           </form>
-          <p className="mt-10 text-center text-lg text-gray-500">
+          <p className="mt-10 text-center text-xl text-[#83848a] tab:mt-8">
             Alredy have an account ?
             <Link
               to="/login"
+              aria-label="register now"
+              title="login now"
               className="ml-4 font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
             >
               Login

@@ -55,7 +55,6 @@ const Home = () => {
   const [cancelModelIsOpen, setCancelModelIsOpen] = useState(false);
   const userData = useSelector((state) => state?.user?.user);
 
-  const [currentTime, setCurrentTime] = useState(dayjs());
   const [refetch, setRefetch] = useState(false);
 
   const handlePageClick = async (page) => {
@@ -125,8 +124,10 @@ const Home = () => {
           description: "Due Payement",
           order_id: razorpay_order_id,
           handler: async function (response) {
+            setOpen(true);
             const res = await verifyPayement(response);
             if (!res.status) {
+              setOpen(false);
               return;
             } else {
               const result = await clearDue(
@@ -137,6 +138,7 @@ const Home = () => {
               if (result.status) {
                 setRefetch((prev) => !prev);
               }
+              setOpen(false);
             }
           },
           prefill: {
@@ -165,6 +167,11 @@ const Home = () => {
   };
 
   const handleCancelOrder = (order_id, order_status) => {
+    if (order_status === 11) {
+      toast("Order is delivered and cannot be canceled.");
+      return;
+    }
+
     if (order_status === 12 || order_status === 13) {
       toast("Order is cancelled alredy");
       return;
@@ -176,6 +183,8 @@ const Home = () => {
 
   useEffect(() => {
     const fetchOrders = async () => {
+      setLoading(true);
+      setActiveBtn(1);
       const result = await getOrders();
       if (result) {
         setDueOrderIds(result.order_ids);
@@ -186,18 +195,11 @@ const Home = () => {
         setOrders(result.result);
         setLoading(false);
       }
+      setLoading(false);
     };
     fetchOrders();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [refetch]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTime(dayjs());
-    }, 60000);
-
-    return () => clearInterval(interval);
-  }, []);
 
   if (loading) {
     return <Loading />;
@@ -206,12 +208,6 @@ const Home = () => {
   return (
     <>
       <div className="flex flex-col gap-8 tab-l:gap-6 mb-l:gap-4">
-        <div className="text-[1.6rem] text-primary flex items-center gap-4 laptop:text-[1.4rem] laptop:gap-3 laptop-s:gap-2 mb:text-[1.2rem]">
-          <span>Date & Time :</span>
-          <span className="font-semibold">
-            {currentTime.format("ddd D MMM, hh:mm A")}
-          </span>
-        </div>
         <div className="flex items-start justify-between gap-14 laptop-m:gap-10 laptop:gap-8 tab-l:gap-6 tab-s:gap-4 tab-s:flex-wrap tab-s:items-stretch">
           <div className="status-card flex gap-8 items-center laptop:gap-6 tab-l:gap-4 tab-l:flex-col tab-s:min-w-[21rem] tab-s:flex-1 tab-s:order-last mb-l:order-first">
             <span className="bg-[#FFE0EB] inline-block h-24 w-24 rounded-full laptop:h-20 laptop:w-20 tab-l:h-[4.5rem] tab-l:w-[4.5rem] tab-s:h-16 tab-s:w-16">

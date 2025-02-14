@@ -12,9 +12,6 @@ const useFetchBranches = () => {
       try {
         const response = await fetch(`${baseURL}/branches/list`, {
           method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
         });
 
         if (!response.ok) {

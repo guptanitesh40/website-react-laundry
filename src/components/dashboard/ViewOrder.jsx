@@ -52,7 +52,7 @@ const ViewOrder = () => {
     sub_total = 0,
     shipping_charges,
     kasar_amount,
-    coupon_code = "N/A",
+    coupon_code,
     coupon_discount = 0,
     total = 0,
     order_status,
@@ -155,12 +155,27 @@ const ViewOrder = () => {
                     </span>
                   </>
                 )}
-                <span className="info-label">Kasar amount</span>
-                <span className="info-ans">₹{kasar_amount}</span>
-                <span className="info-label">Coupon Code</span>
-                <span className="info-ans">{coupon_code || "N/A"}</span>
-                <span className="info-label">Coupon Discount</span>
-                <span className="info-ans">₹{coupon_discount || "0"}</span>
+                {kasar_amount > 0 && (
+                  <>
+                    <span className="info-label">Kasar amount</span>
+                    <span className="info-ans">₹{kasar_amount}</span>
+                  </>
+                )}
+
+                {coupon_code && (
+                  <>
+                    <span className="info-label">Coupon Code</span>
+                    <span className="info-ans">{coupon_code}</span>
+                  </>
+                )}
+
+                {coupon_discount > 0 && (
+                  <>
+                    <span className="info-label">Coupon Discount</span>
+                    <span className="info-ans">₹{coupon_discount || "0"}</span>
+                  </>
+                )}
+
                 <span className="info-label">Total</span>
                 <span className="info-ans">₹{total || "0"}</span>
               </div>

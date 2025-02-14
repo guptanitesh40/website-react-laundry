@@ -1,8 +1,8 @@
-import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { useState } from "react";
 
 const useSignup = () => {
-  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const baseURL = import.meta.env.VITE_BASE_URL;
 
   const signup = async (formData) => {
@@ -11,6 +11,7 @@ const useSignup = () => {
       gender: Number(formData.gender),
     };
     try {
+      setLoading(true);
       const response = await fetch(`${baseURL}/auth/signup`, {
         method: "POST",
         headers: {
@@ -21,12 +22,12 @@ const useSignup = () => {
 
       const data = await response.json();
       if (response.ok) {
-        navigate("/");
         toast.success(data.message || "Signup successful!", {
           className: "toast-success",
         });
-        localStorage.setItem("token", data.data.token);
-        localStorage.setItem("user", JSON.stringify(data.data.user));
+        localStorage.setItem("token", data?.data?.token);
+        localStorage.setItem("user", JSON.stringify(data?.data?.user));
+        return data?.data;
       } else {
         toast.error(
           data.message ||
@@ -43,43 +44,12 @@ const useSignup = () => {
           className: "toast-error",
         }
       );
+    } finally {
+      setLoading(false);
     }
   };
 
-  const generateOtp = async (mobile) => {
-    try {
-      const response = await fetch(`${baseURL}/user/generate`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          mobile_number: mobile,
-          type: 1,
-        }),
-      });
-      const data = await response.json();
-
-      if (response.ok) {
-        toast.success(data.message || "OTP sent successfully!", {
-          className: "toast-success",
-        });
-      } else {
-        toast.error(
-          data?.message || "Unable to send OTP. Please try again later.",
-          {
-            className: "toast-error",
-          }
-        );
-      }
-    } catch {
-      toast.error("Failed to send OTP. Please try again later.", {
-        className: "toast-error",
-      });
-    }
-  };
-
-  return { signup, generateOtp };
+  return { signup, loading };
 };
 
 export default useSignup;

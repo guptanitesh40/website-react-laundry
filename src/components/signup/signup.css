@@ -10,3 +10,135 @@
   box-shadow: 0 0 0.5rem 0.25rem rgba(0, 0, 0, 0.1);
 }
 
+.signup-label {
+  display: block;
+  font-size: 1.5rem;
+  line-height: 1.5;
+  font-weight: 400;
+  margin-bottom: 2.5px;
+}
+
+.signup-input {
+  display: block;
+  font-size: 1.4rem;
+  line-height: 1.5;
+  font-weight: 400;
+  border-radius: 0.5rem;
+  padding: 1rem 1.5rem;
+  color: var(--black);
+  width: 100%;
+  border: 1px solid #83848a;
+}
+
+.gender-radio-btn {
+  appearance: none;
+  height: 1rem;
+  width: 1rem;
+  background-color: white;
+  border-radius: 99px;
+  outline: 4px solid #b9bccf;
+  outline-offset: 0;
+}
+
+.gender-radio-btn:focus {
+  outline-color: var(--secondary);
+}
+
+.gender-radio-btn:checked {
+  outline-color: var(--secondary);
+}
+
+.send-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 1.5rem;
+  height: 100%;
+  padding: 0 1rem;
+  color: white;
+  background-color: var(--primary);
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+}
+
+.signup-input::placeholder {
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: #83848a;
+}
+
+.signup-input:focus {
+  border-color: #818cf8;
+  border-color: rgb(37 99 235);
+  outline: none;
+}
+
+.signup-error-label {
+  font-size: 1.25rem;
+  line-height: 1.5;
+  color: var(--secondary);
+  text-transform: capitalize;
+  padding-top: 0.5rem;
+}
+
+.signup-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.5rem;
+  background-color: var(--primary);
+  padding: 1rem 1.5rem;
+  color: white;
+  font-size: 1.4rem;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+@media only screen and (max-width: 100em) {
+  .signup-label {
+    font-size: 1.4rem;
+  }
+}
+
+@media only screen and (max-width: 55em) {
+  .signup-form-container {
+    max-width: 62rem;
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 38.4375em) {
+  .signup-form-container {
+    max-width: 47.5rem;
+  }
+
+  .send-btn {
+    padding: 0 2rem;
+  }
+}
+
+@media only screen and (max-width: 27.5em) {
+  .signup-form-container {
+    padding: 1.75rem 2rem 2.75rem;
+    gap: 2rem;
+  }
+
+  .send-btn {
+    padding: 0 1.5rem;
+  }
+}
+
+@media only screen and (max-width: 20em) {
+  .signup-form-container {
+    border-radius: 0.5rem;
+  }
+
+  .signup-input {
+    border-radius: 0.25rem;
+    padding: 1rem 1.25rem;
+  }
+
+  .send-btn {
+    padding: 0 1rem;
+  }
+}

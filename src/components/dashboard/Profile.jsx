@@ -105,6 +105,7 @@ const Profile = () => {
   if (loading) {
     return <Loading />;
   }
+
   return (
     <>
       <h3 className="dash-section-head mb-8 laptop-m:mb-6 laptop-s:mb-5 tab-l:mb-6 mb:mb-4">
@@ -208,7 +209,7 @@ const Profile = () => {
 
                 <div className="flex flex-col gap-4 laptop-s:gap-3 tab-l:gap-2">
                   <label htmlFor="gender">gender</label>
-                  <div className="grow flex items-stretch justify-stretch gap-8 laptop-m:gap-6 mb:gap-4">
+                  <div className="grow flex items-stretch justify-start gap-8 laptop-m:gap-6 mb:gap-4">
                     <label
                       htmlFor="male"
                       className="flex items-center justify-center gap-2 border border-indigo-300 py-[1.25rem] rounded-lg px-4 tab-l:p-4 mb:p-3"

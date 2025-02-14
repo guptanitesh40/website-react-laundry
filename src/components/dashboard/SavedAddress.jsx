@@ -5,7 +5,7 @@ import { deleteAddress as deleteAddressAction } from "../../redux/slices/address
 import useFetchAddress from "../../hooks/address/useFetchAddress";
 import useDeleteAddress from "../../hooks/address/useDeleteAddress";
 import AddAddressModel from "../cart/AddAddressModel";
-import AddressShimmer from "./AddressShimmer";
+import Loading from "./Loading";
 
 const SavedAddress = () => {
   const dispatch = useDispatch();
@@ -45,7 +45,7 @@ const SavedAddress = () => {
   };
 
   if (loadingFetchAddress) {
-    return <AddressShimmer />;
+    return <Loading />;
   }
 
   return (
