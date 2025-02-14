@@ -1,6 +1,6 @@
 import "./login.css";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useLogin from "../../hooks/login/useLogin";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
@@ -10,6 +10,7 @@ import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 
 const Login = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { login, loading } = useLogin();
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
@@ -44,6 +45,7 @@ const Login = () => {
       if (result) {
         dispatch(addUser(result.user));
         dispatch(setAuthStatus(!!result.token));
+        navigate("/");
       }
       setErrors("");
     } catch (error) {
@@ -56,23 +58,23 @@ const Login = () => {
   };
 
   return (
-    <section className="flex justify-center items-center p-6 h-[100vh] w-[100vw] overflow-y-auto">
+    <section className="flex justify-center items-center p-6 h-[100vh] w-[100vw] overflow-y-auto mb-l:p-4">
       <form className="login-form-container">
-        <div className="flex flex-col justify-center items-center gap-8 laptop-l:gap-6">
+        <div className="flex flex-col justify-center items-center gap-8 laptop-l:gap-6 mb:gap-4">
           <img
             src="sc-logo.png"
             alt="Sikka Cleaner Logo"
             loading="lazy"
-            className="h-16 w-auto laptop-l:h-14"
+            className="h-16 w-auto laptop-l:h-14 mb:h-12"
           />
-          <h2 className="text-[2.4rem] leading-[1.5] font-bold text-[var(--black)] laptop-l:text-[2rem]">
+          <h2 className="text-[2.4rem] leading-[1.5] font-bold text-[var(--black)] laptop-l:text-[2rem] mb:text-[1.8rem]">
             Login in to your account
           </h2>
         </div>
 
         <div
           className={`flex flex-col ${
-            errors.username || errors.password ? "gap-6" : "gap-10"
+            errors.username || errors.password ? "gap-6" : "gap-10 mb:gap-8"
           }`}
         >
           <div>
@@ -120,7 +122,7 @@ const Login = () => {
                 onChange={handleChange}
               />
               <span
-                className="absolute inline-block top-1/2 right-4 -translate-y-1/2 cursor-pointer"
+                className="absolute top-1/2 right-4 -translate-y-1/2 cursor-pointer h-12 w-12 flex justify-center items-center rounded-full hover:bg-gray-100"
                 onClick={() => setShowPassword(!showPassword)}
               >
                 {showPassword ? (

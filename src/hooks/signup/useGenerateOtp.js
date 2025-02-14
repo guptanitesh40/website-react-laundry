@@ -8,33 +8,34 @@ const useGenerateOtp = () => {
   const generateOtp = async (mobile_number) => {
     try {
       setLoading(true);
-      const response = await fetch(`${baseURL}/auth/forgot-password`, {
+      const response = await fetch(`${baseURL}/user/generate`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          mobile_number: Number(mobile_number),
+          mobile_number,
+          type: 1,
         }),
       });
       const data = await response.json();
+
       if (response.ok) {
-        toast.success(data.message || "OTP sent successfully.", {
+        toast.success(data.message || "OTP sent successfully!", {
           className: "toast-success",
         });
-        return { success: true };
       } else {
         toast.error(
-          data.message || "Failed to send OTP. Please try again later.",
+          data?.message || "Unable to send OTP. Please try again later.",
           {
             className: "toast-error",
           }
         );
-        return { success: false };
       }
     } catch {
-      toast.error("Failed to send Otp");
-      return { success: false };
+      toast.error("Failed to send OTP. Please try again later.", {
+        className: "toast-error",
+      });
     } finally {
       setLoading(false);
     }

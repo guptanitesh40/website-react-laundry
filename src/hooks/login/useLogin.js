@@ -1,9 +1,7 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
 
 const useLogin = () => {
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const baseURL = import.meta.env.VITE_BASE_URL;
   const role_id = 5;
@@ -32,13 +30,12 @@ const useLogin = () => {
 
       const data = await response.json();
 
-      if (data.statusCode == 200) {
+      if (response.ok) {
         toast.success(data.message || "Login successfull", {
           className: "toast-success",
         });
-        localStorage.setItem("token", data.data.token);
-        localStorage.setItem("user", JSON.stringify(data.data.user));
-        navigate("/");
+        localStorage.setItem("token", data?.data?.token);
+        localStorage.setItem("user", JSON.stringify(data?.data?.user));
         return data.data;
       } else {
         toast.error("Invalid username or password.", {
