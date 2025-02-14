@@ -195,6 +195,7 @@ const Home = () => {
         setOrders(result.result);
         setLoading(false);
       }
+      setLoading(false);
     };
     fetchOrders();
     // eslint-disable-next-line react-hooks/exhaustive-deps

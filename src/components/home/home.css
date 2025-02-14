@@ -47,6 +47,7 @@
   width: 2rem;
   border-radius: 50%;
   background-color: #9c9da1;
+  cursor: pointer;
 }
 
 .dots .active-dot {

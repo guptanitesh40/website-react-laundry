@@ -21,7 +21,6 @@ const CorporateServices = lazy(() =>
 const Prices = lazy(() => import("./components/prices/Prices"));
 const About = lazy(() => import("./components/about/About"));
 const Contact = lazy(() => import("./components/contact/Contact"));
-const More = lazy(() => import("./components/more/More"));
 const Cart = lazy(() => import("./components/cart/Cart"));
 const Order = lazy(() => import("./components/order/Order"));
 const DashBoard = lazy(() => import("./components/dashboard/DashBoard"));
@@ -221,14 +220,6 @@ const MainComponent = () => {
             element={
               <Suspense fallback={<Loading />}>
                 <CorporateServices />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/more"
-            element={
-              <Suspense fallback={<Loading />}>
-                <More />
               </Suspense>
             }
           />
