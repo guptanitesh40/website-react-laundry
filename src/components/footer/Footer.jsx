@@ -20,7 +20,7 @@ const Footer = () => {
                 loading="lazy"
                 title="sikka cleaners"
               />
-              <div className="flex items-center gap-10 laptop-l:gap-8 laptop-m:gap-6 laptop-s:gap-4">
+              <div className="flex items-center gap-10 laptop-l:gap-8 laptop-m:gap-6 laptop-s:gap-4 mb-l:gap-6">
                 <a
                   href="https://www.facebook.com/sikkacleaners/"
                   target="__blank"
@@ -40,7 +40,7 @@ const Footer = () => {
                   <RiInstagramFill className="social-icon" />
                 </a>
               </div>
-              <p className="text-[1.6rem] leading-[1.25] laptop-l:text-[1.4rem] laptop-m:text-[1.3rem] laptop-s:text-lg">
+              <p className="text-[1.6rem] leading-[1.25] laptop-l:text-[1.4rem] laptop-m:text-[1.3rem] laptop-s:text-lg mb-l:text-xl">
                 &copy; 2024 Sikka Cleaners All rights reserved.
               </p>
               <a
@@ -49,7 +49,7 @@ const Footer = () => {
                 rel="noopener noreferrer"
                 title="admin login"
                 aria-label="admin login"
-                className="border border-[var(--secondary)] rounded-full p-[1.2rem] text-[1.4rem] font-semibold leading-[1.4] laptop-l:p-4 laptop-l:font-medium laptop-m:text-[1.2rem] laptop-s:p-3 laptop:text-lg"
+                className="border border-[var(--secondary)] rounded-full p-[1.2rem] text-[1.4rem] font-semibold leading-[1.4] laptop-l:p-4 laptop-l:font-medium laptop-m:text-[1.2rem] laptop-s:p-3 laptop:text-lg mb-l:px-4 mb-l:py-3 mb-l:text-xl"
               >
                 Admin Login
               </a>
@@ -100,8 +100,8 @@ const Footer = () => {
             <div className="basis-[30%] text-[1.8rem] leading-[2.2rem] laptop-l:basis-1/4 laptop-m:text-[1.6rem] laptop-m:leading-normal laptop-m:tracking-[1px] tab-s:px-10 tab:px-0">
               <h4 className="sitemap-title">contact</h4>
               <div className="contact flex flex-col gap-9 laptop-m:gap-6 mb-l:max-w-[22rem] mb-l:mx-auto">
-                <div className="flex items-center gap-4 laptop-l:text-[1.6rem] laptop-m:text-[1.4rem] laptop-m:gap-3 laptop-s:text-[1.25rem] laptop-s:gap-2">
-                  <FiPhoneCall className="block h-[2.4rem] w-[2.4rem] laptop-l:h-[2rem] laptop-l:w-[2rem] laptop-m:h-[1.8rem] laptop-m:w-[1.8rem] laptop-s:h-6 laptop-s:w-6" />
+                <div className="flex items-center gap-4 laptop-l:text-[1.6rem] laptop-m:text-[1.4rem] laptop-m:gap-3 laptop-s:text-[1.25rem] laptop-s:gap-2 mb-l:text-[1.4rem]  mb-l:gap-3">
+                  <FiPhoneCall className="block h-[2.4rem] w-[2.4rem] laptop-l:h-[2rem] laptop-l:w-[2rem] laptop-m:h-[1.8rem] laptop-m:w-[1.8rem] laptop-s:h-6 laptop-s:w-6 mb-l:h-7 mb-l:w-7" />
                   <a
                     href="tel:9879400838"
                     className="border-b border-white laptop-m:border-b-[0.5px] laptop-m:tracking-normal"
@@ -116,18 +116,18 @@ const Footer = () => {
                     9825600838
                   </a>
                 </div>
-                <div className="flex items-center justify-start gap-4 laptop-l:text-[1.6rem] laptop-m:text-[1.4rem] laptop-m:tracking-normal laptop-m:gap-3 laptop-s:text-[1.25rem]">
+                <div className="flex items-center justify-start gap-4 laptop-l:text-[1.6rem] laptop-m:text-[1.4rem] laptop-m:tracking-normal laptop-m:gap-3 laptop-s:text-[1.25rem] mb-l:text-[1.4rem]">
                   <span className="block">
-                    <MdOutlineEmail className="block h-[2.4rem] w-[2.4rem] laptop-l:h-[2.2rem] laptop-l:w-[2.2rem] laptop-m:h-8 laptop-m:w-8 laptop-s:h-6 laptop-s:w-6" />
+                    <MdOutlineEmail className="block h-[2.4rem] w-[2.4rem] laptop-l:h-[2.2rem] laptop-l:w-[2.2rem] laptop-m:h-8 laptop-m:w-8 laptop-s:h-6 laptop-s:w-6 mb-l:h-8 mb-l:w-8" />
                   </span>
                   <a href="mailto:sikkacleaners@gmail.com">
                     sikkacleaners@gmail.com
                   </a>
                 </div>
 
-                <div className="flex items-center gap-4 laptop-l:text-[1.6rem] laptop-m:text-[1.4rem] laptop-m:tracking-normal laptop-s:text-[1.25rem] mb-l:order-1">
+                <div className="flex items-center gap-4 laptop-l:text-[1.6rem] laptop-m:text-[1.4rem] laptop-m:tracking-normal laptop-s:text-[1.25rem] mb-l:order-1 mb-l:text-[1.3rem] mb-l:gap-3">
                   <span className="block">
-                    <FiClock className="block h-[2.4rem] w-[2.4rem] laptop-l:h-[2rem] laptop-l:w-[2rem] laptop-m:h-[1.8rem] laptop-m:w-[1.8rem] laptop-s:h-6 laptop-s:w-6" />
+                    <FiClock className="block h-[2.4rem] w-[2.4rem] laptop-l:h-[2rem] laptop-l:w-[2rem] laptop-m:h-[1.8rem] laptop-m:w-[1.8rem] laptop-s:h-6 laptop-s:w-6 mb-l:h-8 mb-l:w-8" />
                   </span>
                   <p>
                     Mon to Sat: 9.00am - 9.00pm,

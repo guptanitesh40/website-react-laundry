@@ -76,9 +76,10 @@ const Navbar = () => {
               </div>
             )}
           </Link>
-          <span
+          <button
             className="inline-block h-[4.6rem] w-[4.6rem] group relative cursor-pointer laptop-m:h-[4.2rem] laptop-m:w-[4.2rem] laptop:h-16 laptop:w-16 tab-l:h-[3.75rem] tab-l:w-[3.75rem] tab-m:h-14 tab-m:w-14 mb:h-12 mb:w-12"
             onClick={() => setIsOpen(!isOpen)}
+            onBlur={() => setIsOpen(!isOpen)}
           >
             <img
               src={profile_image}
@@ -110,7 +111,7 @@ const Navbar = () => {
                 </ul>
               </div>
             )}
-          </span>
+          </button>
         </div>
       </div>
     </>
