@@ -19,11 +19,15 @@ const PriceListView = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [activeBtn, setActiveBtn] = useState(1);
   const [sortDirection, setSortDirection] = useState("asc");
+  const [sortBy, setSortBy] = useState("");
   const [filteredPriceList, setFilteredPriceList] = useState([]);
   const [totalRows, setTotalRows] = useState(0);
   const [rpp, setRpp] = useState(10);
 
   const handleSort = (column_name) => {
+    setSortBy(column_name);
+    console.log(sortDirection);
+    console.log(column_name);
     const newSortDirection = sortDirection === "asc" ? "desc" : "asc";
     setSortDirection(newSortDirection);
 
@@ -140,8 +144,20 @@ const PriceListView = () => {
                 <div className="flex items-center justify-center gap-2 cursor-pointer tab-m:gap-1">
                   <span>category</span>
                   <span className="flex flex-col">
-                    <IoCaretUp className="updown-icon" />
-                    <IoCaretDown className="updown-icon" />
+                    <IoCaretUp
+                      className={`updown-icon ${
+                        sortDirection === "asc" && sortBy === "category_name"
+                          ? "!fill-[#676788]"
+                          : ""
+                      }`}
+                    />
+                    <IoCaretDown
+                      className={`updown-icon ${
+                        sortDirection === "desc" && sortBy === "category_name"
+                          ? "!fill-[#676788]"
+                          : ""
+                      }`}
+                    />
                   </span>
                 </div>
               </th>
@@ -152,8 +168,20 @@ const PriceListView = () => {
                 <div className="flex items-center justify-center gap-2 cursor-pointer tab-m:gap-1">
                   <span>product</span>
                   <span className="flex flex-col">
-                    <IoCaretUp className="updown-icon" />
-                    <IoCaretDown className="updown-icon" />
+                    <IoCaretUp
+                      className={`updown-icon ${
+                        sortDirection === "asc" && sortBy === "product_name"
+                          ? "!fill-[#676788]"
+                          : ""
+                      }`}
+                    />
+                    <IoCaretDown
+                      className={`updown-icon ${
+                        sortDirection === "desc" && sortBy === "product_name"
+                          ? "!fill-[#676788]"
+                          : ""
+                      }`}
+                    />
                   </span>
                 </div>
               </th>
@@ -164,8 +192,20 @@ const PriceListView = () => {
                 <div className="flex items-center justify-center gap-2 cursor-pointer tab-m:gap-1">
                   <span>service</span>
                   <span className="flex flex-col">
-                    <IoCaretUp className="updown-icon" />
-                    <IoCaretDown className="updown-icon" />
+                    <IoCaretUp
+                      className={`updown-icon ${
+                        sortDirection === "asc" && sortBy === "service_name"
+                          ? "!fill-[#676788]"
+                          : ""
+                      }`}
+                    />
+                    <IoCaretDown
+                      className={`updown-icon ${
+                        sortDirection === "desc" && sortBy === "service_name"
+                          ? "!fill-[#676788]"
+                          : ""
+                      }`}
+                    />
                   </span>
                 </div>
               </th>
@@ -176,8 +216,20 @@ const PriceListView = () => {
                 <div className="flex items-center justify-center gap-2 cursor-pointer tab-m:gap-1">
                   <span>price</span>
                   <span className="flex flex-col">
-                    <IoCaretUp className="updown-icon" />
-                    <IoCaretDown className="updown-icon" />
+                    <IoCaretUp
+                      className={`updown-icon ${
+                        sortDirection === "asc" && sortBy === "price_price"
+                          ? "!fill-[#676788]"
+                          : ""
+                      }`}
+                    />
+                    <IoCaretDown
+                      className={`updown-icon ${
+                        sortDirection === "desc" && sortBy === "price_price"
+                          ? "!fill-[#676788]"
+                          : ""
+                      }`}
+                    />
                   </span>
                 </div>
               </th>

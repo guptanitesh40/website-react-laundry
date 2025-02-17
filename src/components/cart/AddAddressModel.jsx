@@ -376,7 +376,7 @@ AddAddressModel.propTypes = {
     address_id: PropTypes.number,
     full_name: PropTypes.string,
     phone_number: PropTypes.string,
-    address_type: PropTypes.number,
+    address_type: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     building_number: PropTypes.string,
     area: PropTypes.string,
     landmark: PropTypes.string,

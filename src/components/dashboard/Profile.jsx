@@ -16,6 +16,7 @@ const Profile = () => {
   const [docPreview, setDocPreview] = useState(null);
   const [flag, setFlag] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [refetch, setRefetch] = useState(false);
 
   const [formData, setFormData] = useState({
     first_name: "",
@@ -31,8 +32,10 @@ const Profile = () => {
     e.preventDefault();
     if (flag) {
       const result = await updateUserDetail(formData);
+      console.log(result);
       if (result) {
         dispatch(addUser(result));
+        setRefetch((prev) => !prev);
       }
     }
   };
@@ -80,6 +83,7 @@ const Profile = () => {
   };
 
   useEffect(() => {
+    setLoading(true);
     const fetchUserData = async () => {
       const result = await getUserDetail();
       if (result) {
@@ -100,7 +104,7 @@ const Profile = () => {
       }
     };
     fetchUserData();
-  }, []);
+  }, [refetch]);
 
   if (loading) {
     return <Loading />;
@@ -212,7 +216,11 @@ const Profile = () => {
                   <div className="grow flex items-stretch justify-start gap-8 laptop-m:gap-6 mb:gap-4">
                     <label
                       htmlFor="male"
-                      className="flex items-center justify-center gap-2 border border-indigo-300 py-[1.25rem] rounded-lg px-4 tab-l:p-4 mb:p-3"
+                      className={`flex items-center justify-center gap-4 border  py-[1.25rem] rounded-lg px-4 tab-l:p-4 mb:p-3 ${
+                        formData.gender == 1
+                          ? "border-[var(--black)]"
+                          : " border-indigo-300"
+                      }`}
                     >
                       <input
                         id="male"
@@ -221,6 +229,7 @@ const Profile = () => {
                         value={1}
                         onChange={handleChange}
                         checked={formData.gender == 1}
+                        className="user-gender-radio"
                       />
                       <span className="text-[1.5rem] leading-[1.7rem] text-[var(--black)] laptop-m:text-[1.4rem] tab-l:text-xl mb:text-base">
                         Male
@@ -228,7 +237,11 @@ const Profile = () => {
                     </label>
                     <label
                       htmlFor="female"
-                      className="flex items-center justify-center gap-2 border border-indigo-300 py-[1.25rem] rounded-lg px-4 tab-l:p-4 mb:p-3"
+                      className={`flex items-center justify-center gap-4 border py-[1.25rem] rounded-lg px-4 tab-l:p-4 mb:p-3 ${
+                        formData.gender == 2
+                          ? "border-[var(--black)]"
+                          : " border-indigo-300"
+                      }`}
                     >
                       <input
                         id="female"
@@ -237,6 +250,7 @@ const Profile = () => {
                         value={2}
                         onChange={handleChange}
                         checked={formData.gender == 2}
+                        className="user-gender-radio"
                       />
                       <span className="text-[1.5rem] leading-[1.7rem] text-[var(--black)] laptop-m:text-[1.4rem] tab-l:text-xl mb:text-base">
                         Female

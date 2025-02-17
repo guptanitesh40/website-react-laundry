@@ -33,10 +33,11 @@ const useUpdateUserDetail = () => {
       const data = await response.json();
 
       if (response.ok) {
+        console.log("data", data);
         toast.success("Your profile details have been successfully updated!", {
           className: "toast-success",
         });
-        return data?.data?.user?.updatedData;
+        return data?.data?.user;
       } else {
         toast.error(
           "Unable to update your profile at the moment. Please try again later.",

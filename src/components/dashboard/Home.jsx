@@ -39,7 +39,8 @@ const Home = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalRows, setTotalRows] = useState(0);
   const [activeBtn, setActiveBtn] = useState(1);
-  const [sortOrder, setSortOrder] = useState("asc");
+  const [sortOrder, setSortOrder] = useState("");
+  const [sortColumn, setSortColumn] = useState("");
   const [invoice, setInvoice] = useState(0);
   const [modelProp, setModelProp] = useState("");
   const [currentFb, setCurrentFb] = useState({});
@@ -68,6 +69,19 @@ const Home = () => {
   };
 
   const handleUpDownClick = async (order_by) => {
+    setSortColumn(order_by);
+    console.log(order_by);
+    console.log(sortOrder);
+
+    if (!sortOrder) {
+      setSortOrder("desc");
+      const result = await getOrders02(currentPage, "asc", order_by);
+      if (result) {
+        setOrders(result.result);
+      }
+      return;
+    }
+    console.log("hi");
     if (sortOrder == "desc") {
       setSortOrder("asc");
       const result = await getOrders02(currentPage, sortOrder, order_by);
@@ -260,8 +274,20 @@ const Home = () => {
                     >
                       <span>order id</span>
                       <span className="flex flex-col">
-                        <IoCaretUp className="updown-icon" />
-                        <IoCaretDown className="updown-icon" />
+                        <IoCaretUp
+                          className={`updown-icon ${
+                            sortOrder === "desc" && sortColumn === "order_id"
+                              ? "!fill-[#676788]"
+                              : ""
+                          }`}
+                        />
+                        <IoCaretDown
+                          className={`updown-icon ${
+                            sortOrder === "asc" && sortColumn === "order_id"
+                              ? "!fill-[#676788]"
+                              : ""
+                          }`}
+                        />
                       </span>
                     </th>
                     <th
@@ -270,8 +296,20 @@ const Home = () => {
                     >
                       <span>booking date</span>
                       <span className="flex flex-col">
-                        <IoCaretUp className="updown-icon" />
-                        <IoCaretDown className="updown-icon" />
+                        <IoCaretUp
+                          className={`updown-icon ${
+                            sortOrder === "desc" && sortColumn === "created_at"
+                              ? "!fill-[#676788]"
+                              : ""
+                          }`}
+                        />
+                        <IoCaretDown
+                          className={`updown-icon ${
+                            sortOrder === "asc" && sortColumn === "created_at"
+                              ? "!fill-[#676788]"
+                              : ""
+                          }`}
+                        />
                       </span>
                     </th>
                     <th
@@ -282,8 +320,22 @@ const Home = () => {
                     >
                       <span>delivery date</span>
                       <span className="flex flex-col">
-                        <IoCaretUp className="updown-icon" />
-                        <IoCaretDown className="updown-icon" />
+                        <IoCaretUp
+                          className={`updown-icon ${
+                            sortOrder === "desc" &&
+                            sortColumn === "estimated_delivery_time"
+                              ? "!fill-[#676788]"
+                              : ""
+                          }`}
+                        />
+                        <IoCaretDown
+                          className={`updown-icon ${
+                            sortOrder === "asc" &&
+                            sortColumn === "estimated_delivery_time"
+                              ? "!fill-[#676788]"
+                              : ""
+                          }`}
+                        />
                       </span>
                     </th>
                     <th
@@ -292,8 +344,20 @@ const Home = () => {
                     >
                       <span>amount</span>
                       <span className="flex flex-col">
-                        <IoCaretUp className="updown-icon" />
-                        <IoCaretDown className="updown-icon" />
+                        <IoCaretUp
+                          className={`updown-icon ${
+                            sortOrder === "desc" && sortColumn === "total"
+                              ? "!fill-[#676788]"
+                              : ""
+                          }`}
+                        />
+                        <IoCaretDown
+                          className={`updown-icon ${
+                            sortOrder === "asc" && sortColumn === "total"
+                              ? "!fill-[#676788]"
+                              : ""
+                          }`}
+                        />
                       </span>
                     </th>
                     <th
@@ -302,18 +366,43 @@ const Home = () => {
                     >
                       <span>kasar</span>
                       <span className="flex flex-col">
-                        <IoCaretUp className="updown-icon" />
-                        <IoCaretDown className="updown-icon" />
+                        <IoCaretUp
+                          className={`updown-icon ${
+                            sortOrder === "desc" &&
+                            sortColumn === "kasar_amount"
+                              ? "!fill-[#676788]"
+                              : ""
+                          }`}
+                        />
+                        <IoCaretDown
+                          className={`updown-icon ${
+                            sortOrder === "asc" && sortColumn === "kasar_amount"
+                              ? "!fill-[#676788]"
+                              : ""
+                          }`}
+                        />
                       </span>
                     </th>
                     <th
                       className="flex items-center justify-center gap-2 cursor-pointer"
                       onClick={() => handleUpDownClick("paid_amount")}
                     >
-                      <span>paid amt</span>
+                      <span>paid</span>
                       <span className="flex flex-col">
-                        <IoCaretUp className="updown-icon" />
-                        <IoCaretDown className="updown-icon" />
+                        <IoCaretUp
+                          className={`updown-icon ${
+                            sortOrder === "desc" && sortColumn === "paid_amount"
+                              ? "!fill-[#676788]"
+                              : ""
+                          }`}
+                        />
+                        <IoCaretDown
+                          className={`updown-icon ${
+                            sortOrder === "asc" && sortColumn === "paid_amount"
+                              ? "!fill-[#676788]"
+                              : ""
+                          }`}
+                        />
                       </span>
                     </th>
                     <th
@@ -322,8 +411,21 @@ const Home = () => {
                     >
                       <span>status</span>
                       <span className="flex flex-col">
-                        <IoCaretUp className="updown-icon" />
-                        <IoCaretDown className="updown-icon" />
+                        <IoCaretUp
+                          className={`updown-icon ${
+                            sortOrder === "desc" &&
+                            sortColumn === "order_status"
+                              ? "!fill-[#676788]"
+                              : ""
+                          }`}
+                        />
+                        <IoCaretDown
+                          className={`updown-icon ${
+                            sortOrder === "asc" && sortColumn === "order_status"
+                              ? "!fill-[#676788]"
+                              : ""
+                          }`}
+                        />
                       </span>
                     </th>
                     <th className="col-span-4">actions</th>
