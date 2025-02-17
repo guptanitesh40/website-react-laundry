@@ -1,0 +1,44 @@
+.aam-label {
+  display: block;
+  font-size: 1.5rem;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+.aam-input {
+  display: block;
+  font-size: 1.4rem;
+  line-height: 1.5;
+  font-weight: 400;
+  border-radius: 0.5rem;
+  padding: 0.8rem 1rem;
+  color: var(--black);
+  width: 100%;
+  border: 1px solid #83848a;
+}
+
+.aam-input::placeholder {
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: #83848a;
+}
+
+.aam-input:focus {
+  border-color: #818cf8;
+  border-color: rgb(37 99 235);
+  outline: none;
+}
+
+.aam-error-label {
+  font-size: 1.25rem;
+  line-height: 1.5;
+  color: var(--secondary);
+  text-transform: capitalize;
+  margin-top: 2.5px;
+}
+
+@media only screen and (max-width: 100em) {
+  .aam-label {
+    font-size: 1.4rem;
+  }
+}
