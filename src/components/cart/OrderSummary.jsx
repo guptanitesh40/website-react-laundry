@@ -14,8 +14,13 @@ import useGetAllCoupon from "../../hooks/coupon/useGetAllCoupon";
 import { Backdrop, CircularProgress, IconButton } from "@mui/material";
 import useGetTransactionId from "../../hooks/payement/useGetTransactionId";
 import useVerifyPayement from "../../hooks/payement/useVerifyPayement";
+import Loading from "../loading/Loading";
 
 const OrderSummary = ({ instruction, paymentMethod, selectedAddId }) => {
+  const delivery_time = useSelector((state) => state.setting.settings);
+  const { estimate_delivery_normal_day, estimate_delivery_express_day } =
+    delivery_time;
+
   const dispatch = useDispatch();
   const {
     getAllCoupon,
@@ -228,6 +233,10 @@ const OrderSummary = ({ instruction, paymentMethod, selectedAddId }) => {
     loadingApplyCoupon,
   ]);
 
+  if (open) {
+    return <Loading />;
+  }
+
   return (
     <>
       {viewCoupon ? (
@@ -366,34 +375,55 @@ const OrderSummary = ({ instruction, paymentMethod, selectedAddId }) => {
               <p>Shipping Charge</p>
               <h5>₹{shippingCharge}</h5>
             </div>
-            <div className="place-center relative">
-              <div className="flex justify-center items-center gap-3">
-                <p>Express Delivery Charge</p>
-                {isExpDel && (
-                  <div className="relative group my-[-6px]">
-                    <IconButton onClick={() => setExpDel(false)}>
-                      <IoIosRemoveCircle className="h-9 w-9 fill-[var(--secondary)] laptop-md:h-7 laptop-md:w-7 laptop:h-6 laptop:w-6" />
-                    </IconButton>
 
-                    <div
-                      role="tooltip"
-                      className="absolute z-10 invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[var(--secondary)] text-white rounded-md shadow-sm px-3 py-2 text-lg text-nowrap -top-12 left-1/2 -translate-x-1/2 laptop-md:text-base laptop-md:-top-10 laptop-md:rounded-sm"
-                    >
-                      remove
-                      <div className="tooltip-arrow" data-popper-arrow></div>
+            <div>
+              <div className="place-center relative">
+                <div className="flex justify-center items-center gap-3">
+                  <p>Express Delivery Charge</p>
+                  {isExpDel && (
+                    <div className="relative group my-[-6px]">
+                      <IconButton onClick={() => setExpDel(false)}>
+                        <IoIosRemoveCircle className="h-9 w-9 fill-[var(--secondary)] laptop-md:h-7 laptop-md:w-7 laptop:h-6 laptop:w-6" />
+                      </IconButton>
+
+                      <div
+                        role="tooltip"
+                        className="absolute z-10 invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[var(--secondary)] text-white rounded-md shadow-sm px-3 py-2 text-lg text-nowrap -top-12 left-1/2 -translate-x-1/2 laptop-md:text-base laptop-md:-top-10 laptop-md:rounded-sm"
+                      >
+                        remove
+                        <div className="tooltip-arrow" data-popper-arrow></div>
+                      </div>
                     </div>
-                  </div>
+                  )}
+                </div>
+                {isExpDel ? (
+                  <h5>₹{express_charge || 0}</h5>
+                ) : (
+                  <button className="edc-btn" onClick={() => setExpDel(true)}>
+                    add
+                  </button>
                 )}
               </div>
-              {isExpDel ? (
-                <h5>₹{express_charge || 0}</h5>
-              ) : (
-                <button className="edc-btn" onClick={() => setExpDel(true)}>
-                  add
-                </button>
-              )}
+
+              <div className="mt-2 text-secondary laptop-l:text-[1.4rem] laptop-md:text-[1.3rem] tab-l:text-[1.2rem]">
+                <i>Get your Delivery within 1-2 Days</i>
+              </div>
             </div>
-            <span className="line"></span>
+
+            <div className="flex flex-col gap-5 laptop-l:gap-4 laptop:gap-3">
+              <span className="line"></span>
+              <div className="capitalize">
+                <span className="block text-[1.8rem] leading-[1] text-primary laptop-l:text-[1.5rem] laptop-md:text-[1.4rem] laptop:text-[1.3rem] tab-m:text-[1.4rem]">
+                  your product will be deilvered in{" "}
+                  {isExpDel
+                    ? estimate_delivery_express_day
+                    : estimate_delivery_normal_day}{" "}
+                  days
+                </span>
+              </div>
+              <span className="line"></span>
+            </div>
+
             <div className="place-center total-container">
               <p>Total</p>
               <h5>
@@ -414,12 +444,12 @@ const OrderSummary = ({ instruction, paymentMethod, selectedAddId }) => {
           </div>
         </div>
       )}
-      <Backdrop
+      {/* <Backdrop
         sx={(theme) => ({ color: "#fff", zIndex: theme.zIndex.drawer + 1 })}
         open={open}
       >
         <CircularProgress color="inherit" />
-      </Backdrop>
+      </Backdrop> */}
     </>
   );
 };

@@ -18,6 +18,7 @@ const AddAddress = ({ setSelectAddId }) => {
   const addresses = useSelector((state) => state.address.address);
 
   function handleAddAddressClick() {
+    setIsEditMode(false);
     setIsOpen(true);
     setEditAddress(null);
   }
@@ -111,7 +112,7 @@ const AddAddress = ({ setSelectAddId }) => {
                       <span></span>
                     </span>
                     <ul className="shortcut">
-                      <li onClick={() => onEditClick(address_id)}>Edit</li>
+                      <li onClick={() => onEditClick(address)}>Edit</li>
                       <li onClick={() => onDelClick(address_id)}>
                         {loadingDelAdd ? "Deleting.." : "Delete"}
                       </li>

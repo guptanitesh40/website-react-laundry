@@ -180,17 +180,17 @@
   }
 
   .footer-logo {
-    max-width: 13rem;
+    max-width: 17.5rem;
   }
 
   .social-link {
-    height: 2.8rem;
-    width: 2.8rem;
+    height: 3.25rem;
+    width: 3.25rem;
   }
 
   .social-icon {
-    height: 1.4rem;
-    height: 1.4rem;
+    height: 2rem;
+    height: 2rem;
   }
 
   .mobile-footer > * {
@@ -204,8 +204,13 @@
     align-items: center;
   }
 
+  .sitemap-list li {
+    font-size: 1.4rem;
+  }
+
   .sitemap-title {
     text-align: center;
+    font-size: 1.5rem;
   }
 }
 

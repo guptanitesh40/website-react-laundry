@@ -24,6 +24,7 @@ const SavedAddress = () => {
   };
 
   const handleAddClick = () => {
+    setIsEditMode(false);
     setIsModelOpen(true);
     setEditAddress(null);
   };

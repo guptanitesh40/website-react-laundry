@@ -88,7 +88,7 @@ const TableRow = ({ item }) => {
   }, [item?.description]);
 
   return (
-    <tr className="relative">
+    <tr>
       <td className="items-detail-cell space-y-1 tab-l:space-y-0">
         <h3>{product_name}</h3>
         <p>{service_name}</p>

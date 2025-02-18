@@ -1,5 +1,5 @@
+import "./addAddressModel.css";
 import PropTypes from "prop-types";
-import { CgCloseR } from "react-icons/cg";
 import { useEffect, useState } from "react";
 import useAddAddress from "../../hooks/address/useAddAddress";
 import useEditAddress from "../../hooks/address/useEditAddress";
@@ -7,6 +7,8 @@ import { useDispatch } from "react-redux";
 import { editAddress as editAddressAction } from "../../redux/slices/addressSlice";
 import { addAddress as addAddressAction } from "../../redux/slices/addressSlice";
 import * as Yup from "yup";
+import { IoClose } from "react-icons/io5";
+import { FaCaretDown } from "react-icons/fa";
 
 const addressShcema = Yup.object().shape({
   full_name: Yup.string()
@@ -123,230 +125,204 @@ const AddAddressModel = ({ setIsOpen, isOpen, address, isEditMode }) => {
 
   return (
     <section
-      className={`fixed inset-0 overflow-y-auto px-8 py-10 bg-black bg-opacity-75 flex justify-center items-center z-50 ${
+      className={`fixed inset-0 p-8 bg-black bg-opacity-75 grid place-items-center min-h-screen w-full overflow-auto z-50 mb-l:p-6 ${
         isOpen ? "block" : "hidden"
       }`}
     >
-      <div className="w-[60rem] bg-white shadow-2xl px-12 py-12 pb-16 rounded-xl">
-        <div className="mb-8 flex justify-between items-center">
-          <h2 className="text-[2.4rem] leading-[2.4rem]">
+      <div className="w-full max-w-[60rem] bg-white shadow-2xl p-12 pb-16 rounded-2xl tab-l:rounded-xl mb-l:rounded-lg mb-l:p-10 mb:p-8">
+        <div className="mb-10 flex justify-between items-center flex-wrap tab-l:mb-8">
+          <h2 className="text-[2.4rem] leading-[1] text-[var(--black)] tab-l:text-[2rem]">
             {isEditMode ? "Edit Address" : "Add New Address"}
           </h2>
-          <CgCloseR
-            className="inline-block h-8 w-8 text-black cursor-pointer"
+          <button
+            type="button"
+            title="close"
+            className="border border-gray-300 rounded-md inline-flex items-center justify-center text-gray-400 focus:outline-none focus:border-indigo-500 shadow-2xl h-10 w-10"
             onClick={onCloseBtnClick}
-          />
+          >
+            <IoClose className="h-8 w-8 tab-s:h-6 tab-s:w-6" />
+          </button>
         </div>
         <form
           onSubmit={handleSubmit}
-          className="grid grid-cols-[repeat(auto-fill,_minmax(20rem,_1fr))] w-full gap-x-10 gap-y-12"
+          className="grid grid-cols-[repeat(auto-fill,_minmax(25rem,_1fr))] w-full gap-x-10 gap-y-12 tab-s:gap-10 mb-l:grid-cols-1 mb:gap-8"
         >
-          <div className="flex flex-col gap-3">
-            <label
-              htmlFor="full_name"
-              className="self-start text-[1.2rem] text-[var(--black)]"
-            >
+          <div className="flex flex-col gap-2">
+            <label htmlFor="full_name" className="aam-label">
               Fullname
             </label>
-            <input
-              name="full_name"
-              id="full_name"
-              type="text"
-              onChange={handleChange}
-              value={formData.full_name}
-              className="inline-block w-full p-3 ring-1 text-[1.2rem] rounded-lg text-[var(--black)"
-            />
-            {errors.full_name && (
-              <p className="text-lg text-[var(--secondary)] leading-[1]">
-                {errors.full_name}
-              </p>
-            )}
+            <div>
+              <input
+                name="full_name"
+                id="full_name"
+                type="text"
+                onChange={handleChange}
+                value={formData.full_name}
+                className="aam-input"
+              />
+              {errors.full_name && (
+                <p className="aam-error-label">{errors.full_name}</p>
+              )}
+            </div>
           </div>
 
-          <div className="flex flex-col gap-3">
-            <label
-              htmlFor="phone_number"
-              className="self-start text-[1.2rem] text-[var(--black)]"
-            >
+          <div className="flex flex-col gap-2">
+            <label htmlFor="phone_number" className="aam-label">
               Phone number
             </label>
-            <input
-              name="phone_number"
-              id="phone_number"
-              type="text"
-              onChange={handleChange}
-              value={formData.phone_number}
-              className="inline-block w-full p-3 ring-1 text-[1.2rem] rounded-lg text-[var(--black)"
-            />
-            {errors.phone_number && (
-              <p className="text-lg text-[var(--secondary)] leading-[1]">
-                {errors.phone_number}
-              </p>
-            )}
+            <div>
+              <input
+                name="phone_number"
+                id="phone_number"
+                type="text"
+                onChange={handleChange}
+                value={formData.phone_number}
+                className="aam-input"
+              />
+              {errors.phone_number && (
+                <p className="aam-error-label">{errors.phone_number}</p>
+              )}
+            </div>
           </div>
 
-          <div className="flex flex-col gap-3">
-            <label
-              htmlFor="address_type"
-              className="self-start text-[1.2rem] text-[var(--black)]"
-            >
+          <div className="flex flex-col gap-2">
+            <label htmlFor="address_type" className="aam-label">
               Address type
             </label>
-            <select
-              name="address_type"
-              id="address_type"
-              className="inline-block w-full p-3 ring-1 text-[1.2rem] rounded-lg text-[var(--black)"
-              onChange={handleChange}
-              defaultValue={1}
-            >
-              <option value={1}>Home</option>
-              <option value={2}>Office</option>
-              <option value={3}>Other</option>
-            </select>
-            {errors.address_type && (
-              <p className="text-lg text-[var(--secondary)] leading-[1]">
-                {errors.address_type}
-              </p>
-            )}
+            <div className="relative">
+              <select
+                name="address_type"
+                id="address_type"
+                className="aam-input appearance-none"
+                onChange={handleChange}
+                defaultValue={1}
+              >
+                <option value={1}>Home</option>
+                <option value={2}>Office</option>
+                <option value={3}>Other</option>
+              </select>
+              <FaCaretDown className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-500 pointer-events-none" />
+              {errors.address_type && (
+                <p className="aam-error-label">{errors.address_type}</p>
+              )}
+            </div>
           </div>
 
-          <div className="flex flex-col gap-3">
-            <label
-              htmlFor="building_number"
-              className="self-start text-[1.2rem] text-[var(--black)]"
-            >
+          <div className="flex flex-col gap-2">
+            <label htmlFor="building_number" className="aam-label">
               Building number
             </label>
-            <input
-              name="building_number"
-              id="building_number"
-              type="text"
-              onChange={handleChange}
-              value={formData.building_number}
-              className="inline-block w-full p-3 ring-1 text-[1.2rem] rounded-lg text-[var(--black)"
-            />
-            {errors.building_number && (
-              <p className="text-lg text-[var(--secondary)] leading-[1]">
-                {errors.building_number}
-              </p>
-            )}
+            <div>
+              <input
+                name="building_number"
+                id="building_number"
+                type="text"
+                onChange={handleChange}
+                value={formData.building_number}
+                className="aam-input"
+              />
+              {errors.building_number && (
+                <p className="aam-error-label">{errors.building_number}</p>
+              )}
+            </div>
           </div>
 
-          <div className="flex flex-col gap-3">
-            <label
-              htmlFor="area"
-              className="self-start text-[1.2rem] text-[var(--black)]"
-            >
+          <div className="flex flex-col gap-2">
+            <label htmlFor="area" className="aam-label">
               area
             </label>
-            <input
-              name="area"
-              id="area"
-              type="text"
-              onChange={handleChange}
-              value={formData.area}
-              className="inline-block w-full p-3 ring-1 text-[1.2rem] rounded-lg"
-            />
-            {errors.area && (
-              <p className="text-lg text-[var(--secondary)] leading-[1]">
-                {errors.area}
-              </p>
-            )}
+            <div>
+              <input
+                name="area"
+                id="area"
+                type="text"
+                onChange={handleChange}
+                value={formData.area}
+                className="aam-input"
+              />
+              {errors.area && <p className="aam-error-label">{errors.area}</p>}
+            </div>
           </div>
 
-          <div className="flex flex-col gap-3">
-            <label
-              htmlFor="landmark"
-              className="self-start text-[1.2rem] text-[var(--black)]"
-            >
+          <div className="flex flex-col gap-2">
+            <label htmlFor="landmark" className="aam-label">
               landmark
             </label>
-            <input
-              name="landmark"
-              id="landmark"
-              type="text"
-              onChange={handleChange}
-              value={formData.landmark}
-              className="inline-block w-full p-3 ring-1 text-[1.2rem] rounded-lg"
-            />
-            {errors.landmark && (
-              <p className="text-lg text-[var(--secondary)] leading-[1]">
-                {errors.landmark}
-              </p>
-            )}
+            <div>
+              <input
+                name="landmark"
+                id="landmark"
+                type="text"
+                onChange={handleChange}
+                value={formData.landmark}
+                className="aam-input"
+              />
+              {errors.landmark && (
+                <p className="aam-error-label">{errors.landmark}</p>
+              )}
+            </div>
           </div>
 
-          <div className="flex flex-col gap-3">
-            <label
-              htmlFor="pincode"
-              className="self-start text-[1.2rem] text-[var(--black)]"
-            >
+          <div className="flex flex-col gap-2">
+            <label htmlFor="pincode" className="aam-label">
               pincode
             </label>
-            <input
-              name="pincode"
-              id="pincode"
-              type="text"
-              onChange={handleChange}
-              value={formData.pincode}
-              className="inline-block w-full p-3 ring-1 text-[1.2rem] rounded-lg"
-            />
-            {errors.pincode && (
-              <p className="text-lg text-[var(--secondary)] leading-[1]">
-                {errors.pincode}
-              </p>
-            )}
+            <div>
+              <input
+                name="pincode"
+                id="pincode"
+                type="text"
+                onChange={handleChange}
+                value={formData.pincode}
+                className="aam-input"
+              />
+              {errors.pincode && (
+                <p className="aam-error-label">{errors.pincode}</p>
+              )}
+            </div>
           </div>
 
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-2">
             <label
               htmlFor="city"
               className="self-start text-[1.2rem] text-[var(--black)]"
             >
               city
             </label>
-            <input
-              name="city"
-              id="city"
-              type="text"
-              onChange={handleChange}
-              value={formData.city}
-              className="inline-block w-full p-3 ring-1 text-[1.2rem] rounded-lg"
-            />
-            {errors.city && (
-              <p className="text-lg text-[var(--secondary)] leading-[1]">
-                {errors.city}
-              </p>
-            )}
+            <div>
+              <input
+                name="city"
+                id="city"
+                type="text"
+                onChange={handleChange}
+                value={formData.city}
+                className="aam-input"
+              />
+              {errors.city && <p className="aam-error-label">{errors.city}</p>}
+            </div>
           </div>
 
-          <div className="flex flex-col gap-3">
-            <label
-              htmlFor="state"
-              className="self-start text-[1.2rem] text-[var(--black)]"
-            >
+          <div className="flex flex-col gap-2">
+            <label htmlFor="state" className="aam-label">
               state
             </label>
-            <input
-              name="state"
-              id="state"
-              type="text"
-              onChange={handleChange}
-              value={formData.state}
-              className="inline-block w-full p-3 ring-1 text-[1.2rem] rounded-lg"
-            />
-            {errors.state && (
-              <p className="text-lg text-[var(--secondary)] leading-[1]">
-                {errors.state}
-              </p>
-            )}
+            <div>
+              <input
+                name="state"
+                id="state"
+                type="text"
+                onChange={handleChange}
+                value={formData.state}
+                className="aam-input"
+              />
+              {errors.state && (
+                <p className="aam-error-label">{errors.state}</p>
+              )}
+            </div>
           </div>
 
-          <div className="flex flex-col gap-3">
-            <label
-              htmlFor="country"
-              className="self-start text-[1.2rem] text-[var(--black)]"
-            >
+          <div className="flex flex-col gap-2">
+            <label htmlFor="country" className="aam-label">
               country
             </label>
             <input
@@ -355,19 +331,17 @@ const AddAddressModel = ({ setIsOpen, isOpen, address, isEditMode }) => {
               type="text"
               onChange={handleChange}
               value={formData.country}
-              className="inline-block w-full p-3 ring-1 text-[1.2rem] rounded-lg"
+              className="aam-input"
             />
             {errors.country && (
-              <p className="text-lg text-[var(--secondary)] leading-[1]">
-                {errors.country}
-              </p>
+              <p className="aam-error-label">{errors.country}</p>
             )}
           </div>
 
-          <div className="flex justify-start items-end row-start-6">
+          <div className="flex justify-start items-end">
             <button
               type="submit"
-              className="text-white bg-blue-700 text-[1.4rem] font-medium px-6 py-4 rounded-md flex gap-4 items-center"
+              className="text-white bg-primary text-[1.4rem] font-medium px-6 py-4 rounded-md flex gap-4 items-center"
               disabled={loadingAddAddress || loadingEditAddress}
             >
               {isEditMode ? (
@@ -402,7 +376,7 @@ AddAddressModel.propTypes = {
     address_id: PropTypes.number,
     full_name: PropTypes.string,
     phone_number: PropTypes.string,
-    address_type: PropTypes.number,
+    address_type: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     building_number: PropTypes.string,
     area: PropTypes.string,
     landmark: PropTypes.string,
