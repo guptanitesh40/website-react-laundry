@@ -1,0 +1,44 @@
+/* grid grid-cols-4 gap-24 laptop-l:gap-20 laptop-md:gap-16 tab-m:gap-12 */
+
+.prices-shimmer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2.5rem;
+}
+
+.prices-shimmer-container > * {
+  flex-basis: 36rem;
+}
+
+@media only screen and (max-width: 100em) {
+  .prices-shimmer-container > * {
+    flex-basis: 30rem;
+  }
+}
+
+@media only screen and (max-width: 90em) {
+  .prices-shimmer-container > * {
+    flex-basis: 27.5rem;
+  }
+}
+
+@media only screen and (max-width: 90em) {
+  .prices-shimmer-container > * {
+    flex-basis: 25rem;
+  }
+}
+
+@media only screen and (max-width: 60.875em) {
+  .prices-shimmer-container > * {
+    flex-basis: 22.5rem;
+  }
+}
+
+@media only screen and (max-width: 60.875em) {
+  .prices-shimmer-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+    gap: 2rem;
+  }
+}

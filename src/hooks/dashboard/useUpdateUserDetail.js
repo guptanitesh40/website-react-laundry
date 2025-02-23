@@ -33,7 +33,6 @@ const useUpdateUserDetail = () => {
       const data = await response.json();
 
       if (response.ok) {
-        console.log("data", data);
         toast.success("Your profile details have been successfully updated!", {
           className: "toast-success",
         });
