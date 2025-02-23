@@ -15,7 +15,7 @@ const PriceList = () => {
       <section className="section-space">
         <div className="container-b">
           <div className="price-list-container text-white px-28 py-32 laptop-l:px-24 laptop-l:py-28 laptop-md:px-20 laptop-md:py-24 laptop:px-[4.5rem] laptop:py-[5.5rem] laptop-s:px-14 laptop-s:py-16 tab-s:p-12 tab:p-10 mb-l:p-8">
-            <div className="flex justify-between items-center pb-28 laptop-l:pb-[5.5rem] laptop-md:pb-20 laptop:pb-16 laptop-s:pb-14 tab-s:pb-10 tab-s:flex-wrap tab-s:gap-8 tab:gap-6 mb-l:justify-center">
+            <div className="flex justify-between items-center flex-wrap gap-10 pb-28 laptop-l:pb-[5.5rem] laptop-md:pb-20 laptop:pb-16 laptop-s:pb-14 tab-s:pb-10 tab-s:flex-wrap tab-s:gap-8 tab:gap-6 mb-l:justify-center">
               <h2 className="tracking-[2px] text-inherit laptop-l:tracking-[1.5px] laptop-md:tracking-[1px] mb-l:text-center">
                 Best Quality at{" "}
                 <span className="text-[var(--secondary)]">

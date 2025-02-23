@@ -26,8 +26,6 @@ const PriceListView = () => {
 
   const handleSort = (column_name) => {
     setSortBy(column_name);
-    console.log(sortDirection);
-    console.log(column_name);
     const newSortDirection = sortDirection === "asc" ? "desc" : "asc";
     setSortDirection(newSortDirection);
 

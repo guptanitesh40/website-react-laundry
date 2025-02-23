@@ -27,6 +27,7 @@ import useClearDue from "../../hooks/cleardue/useClearDue";
 import { useSelector } from "react-redux";
 import CancelOrderModel from "./CancelOrderModel";
 import { MdCancel } from "react-icons/md";
+import PartialPayementModel from "./payemetModel/PartialPayementModel";
 
 const Home = () => {
   const { getOrders } = useGetOrders();
@@ -55,6 +56,7 @@ const Home = () => {
   const [modelIsOpen, setModelIsOpen] = useState(false);
   const [cancelModelIsOpen, setCancelModelIsOpen] = useState(false);
   const userData = useSelector((state) => state?.user?.user);
+  const [isPartialPay, setIsPartialPay] = useState(false);
 
   const [refetch, setRefetch] = useState(false);
 
@@ -70,9 +72,6 @@ const Home = () => {
 
   const handleUpDownClick = async (order_by) => {
     setSortColumn(order_by);
-    console.log(order_by);
-    console.log(sortOrder);
-
     if (!sortOrder) {
       setSortOrder("desc");
       const result = await getOrders02(currentPage, "asc", order_by);
@@ -81,7 +80,6 @@ const Home = () => {
       }
       return;
     }
-    console.log("hi");
     if (sortOrder == "desc") {
       setSortOrder("asc");
       const result = await getOrders02(currentPage, sortOrder, order_by);
@@ -195,6 +193,10 @@ const Home = () => {
     setCancelModelIsOpen(true);
   };
 
+  const handlePartialPay = () => {
+    setIsPartialPay(true);
+  };
+
   useEffect(() => {
     const fetchOrders = async () => {
       setLoading(true);
@@ -231,9 +233,17 @@ const Home = () => {
               <p className="card-label">Total Pending Due Amount</p>
               <p className="card-price">₹{totalDueAmt || "0"}</p>
               {totalDueAmt && totalDueAmt > 0 ? (
-                <button className="paynow-btn" onClick={handlePaynow}>
-                  Pay Now
-                </button>
+                <div className="flex flex-col justify-start items-center gap-4">
+                  <button className="paynow-btn" onClick={handlePaynow}>
+                    Pay Now
+                  </button>
+                  <button
+                    className="paynow-btn hidden"
+                    onClick={handlePartialPay}
+                  >
+                    Pay Partial
+                  </button>
+                </div>
               ) : (
                 ""
               )}
@@ -817,6 +827,10 @@ const Home = () => {
       >
         <CircularProgress color="inherit" />
       </Backdrop>
+
+      {isPartialPay && (
+        <PartialPayementModel setModleHandler={setIsPartialPay} />
+      )}
     </>
   );
 };

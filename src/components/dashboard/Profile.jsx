@@ -32,7 +32,6 @@ const Profile = () => {
     e.preventDefault();
     if (flag) {
       const result = await updateUserDetail(formData);
-      console.log(result);
       if (result) {
         dispatch(addUser(result));
         setRefetch((prev) => !prev);
