@@ -147,7 +147,15 @@ const Login = () => {
             onClick={(e) => handleSubmit(e)}
             disabled={loading}
           >
-            {loading ? "Logging in..." : "Login"}
+            {loading ? (
+              <div className="login-animation">
+                <span>&nbsp;</span>
+                <span>&nbsp;</span>
+                <span>&nbsp;</span>
+              </div>
+            ) : (
+              "Login"
+            )}
           </button>
         </div>
         <p className="text-center text-xl text-[#83848a]">

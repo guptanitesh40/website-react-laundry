@@ -1,3 +1,4 @@
+import "./scrollbar.css";
 import { useSelector, useDispatch } from "react-redux";
 import { setSelectedCategoryId } from "../../redux/slices/categorySlice";
 import useFetchServiceItems from "../../hooks/services/useFetchServiceItems";
@@ -43,7 +44,7 @@ const SelectClothes = () => {
           </p>
         )}
       </div>
-      <div className="flex flex-col gap-12 laptop-l:gap-10 laptop-md:gap-8">
+      <div className="flex flex-col gap-12 laptop-l:gap-10 laptop-md:gap-8 max-h-[64.5rem] overflow-y-auto -mr-8 pr-8 laptop-l:max-h-[55.25rem] laptop-md:-mr-6 laptop-md:pr-7 laptop-m:max-h-[45.75rem] laptop:max-h-[40.75rem] laptop-s:max-h-[43.25rem] tab-l:max-h-[48.35rem] mb-l:max-h-[45.35rem] mb:max-h-[54.25rem]">
         {loading ? (
           Array(5)
             .fill(0)

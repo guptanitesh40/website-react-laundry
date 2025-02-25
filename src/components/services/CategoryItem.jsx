@@ -91,7 +91,7 @@ const CategoryItem = ({ categoryItem, category_id }) => {
   }, [categoryItem]);
 
   return (
-    <div className="overflow-hidden">
+    <div>
       <div
         key={categoryItem.product_id}
         className="cat-item-container flex gap-8 laptop-l:gap-6 laptop-m:gap-4 mb:flex-col mb:items-center"

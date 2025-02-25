@@ -435,7 +435,7 @@ const Home = () => {
                         />
                       </span>
                     </th>
-                    <th className="col-span-4">actions</th>
+                    <th className="">actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -489,10 +489,8 @@ const Home = () => {
                               {order_status_name}
                             </span>
                           </td>
-                          <td
-                            style={{ padding: "5px" }}
-                            className="flex items-center justify-center"
-                          >
+
+                          <td className="flex justify-start items-center gap-5 !p-[0.5rem]">
                             <div className="relative group">
                               <button
                                 className="icon-button"
@@ -522,80 +520,66 @@ const Home = () => {
                                 ></div>
                               </div>
                             </div>
-                          </td>
-                          <td
-                            style={{ padding: "5px" }}
-                            className="flex items-center justify-center"
-                          >
-                            <div className="relative group">
-                              <button
-                                className="icon-button"
-                                disabled={loadingInvoice}
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  handleDownloadClick(order_id, order_status);
-                                }}
-                              >
-                                {loadingInvoice && invoice === order_id ? (
-                                  <IconButton>
-                                    <span className="inline-block h-8 w-8 rounded-full border-[3px] border-indigo-100 border-t-indigo-600 border-r-indigo-600 animate-spin"></span>
-                                  </IconButton>
-                                ) : (
-                                  <IoMdDownload
-                                    className={`inline-block h-8 w-8 tab-s:h-7 tab-s:w-7 ${
-                                      order_status === 11
-                                        ? "fill-[var(--primary)] cursor-pointer"
-                                        : "fill-gray-500 cursor-not-allowed"
-                                    }`}
-                                  />
-                                )}
-                              </button>
-                              {order_status === 11 && (
-                                <div
-                                  role="tooltip"
-                                  className="absolute z-10 invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[var(--primary)] text-white rounded-md shadow-sm px-3 py-2 text-sm text-nowrap tab:hidden"
-                                  style={{
-                                    top: "-25px",
-                                    left: "50%",
-                                    transform: "translateX(-50%)",
+
+                            {order_status === 11 && (
+                              <div className="relative group">
+                                <button
+                                  className="icon-button"
+                                  disabled={loadingInvoice}
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleDownloadClick(order_id, order_status);
                                   }}
                                 >
-                                  Download
+                                  {loadingInvoice && invoice === order_id ? (
+                                    <IconButton>
+                                      <span className="inline-block h-8 w-8 rounded-full border-[3px] border-white border-r-indigo-600 animate-spin"></span>
+                                    </IconButton>
+                                  ) : (
+                                    <IoMdDownload
+                                      className={`inline-block h-8 w-8 tab-s:h-7 tab-s:w-7 fill-[var(--primary)] cursor-pointer`}
+                                    />
+                                  )}
+                                </button>
+                                {order_status === 11 && (
                                   <div
-                                    className="tooltip-arrow"
-                                    data-popper-arrow
-                                  ></div>
-                                </div>
-                              )}
-                            </div>
-                          </td>
-                          <td
-                            style={{ padding: "5px" }}
-                            className="flex items-center justify-center tooltip-style"
-                          >
-                            <div className="relative group">
-                              <button
-                                className={`icon-button ${
-                                  order_status == 13 ? "cursor-not-allowed" : ""
-                                }`}
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  if (order_status !== 13) {
-                                    handleGiveFeedBack(order_id, feedback);
-                                  }
-                                }}
-                              >
-                                {feedback ? (
-                                  <FaStar
-                                    className={`inline-block h-8 w-8 cursor-pointer fill-[var(--primary)] tab-s:h-7 tab-s:w-7`}
-                                  />
-                                ) : (
-                                  <CiStar
-                                    className={`inline-block h-8 w-8 cursor-pointer fill-[var(--primary)] tab-s:h-7 tab-s:w-7`}
-                                  />
+                                    role="tooltip"
+                                    className="absolute z-10 invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[var(--primary)] text-white rounded-md shadow-sm px-3 py-2 text-sm text-nowrap tab:hidden"
+                                    style={{
+                                      top: "-25px",
+                                      left: "50%",
+                                      transform: "translateX(-50%)",
+                                    }}
+                                  >
+                                    Download
+                                    <div
+                                      className="tooltip-arrow"
+                                      data-popper-arrow
+                                    ></div>
+                                  </div>
                                 )}
-                              </button>
-                              {order_status !== 13 && (
+                              </div>
+                            )}
+
+                            {order_status === 11 && (
+                              <div className="relative group">
+                                <button
+                                  className={`icon-button`}
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleGiveFeedBack(order_id, feedback);
+                                  }}
+                                >
+                                  {feedback ? (
+                                    <FaStar
+                                      className={`inline-block h-8 w-8 cursor-pointer fill-[var(--primary)] tab-s:h-7 tab-s:w-7`}
+                                    />
+                                  ) : (
+                                    <CiStar
+                                      className={`inline-block h-8 w-8 cursor-pointer fill-[var(--primary)] tab-s:h-7 tab-s:w-7`}
+                                    />
+                                  )}
+                                </button>
                                 <div
                                   role="tooltip"
                                   className="absolute z-10 invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[var(--primary)] text-white rounded-md shadow-sm px-3 py-2 text-sm text-nowrap tab:hidden"
@@ -611,52 +595,42 @@ const Home = () => {
                                     data-popper-arrow
                                   ></div>
                                 </div>
-                              )}
-                            </div>
-                          </td>
-                          <td
-                            style={{ padding: "5px" }}
-                            className="flex items-center justify-center"
-                          >
-                            <div className="relative group">
-                              <button
-                                className="icon-button"
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  handleCancelOrder(order_id, order_status);
-                                }}
-                              >
-                                <MdCancel
-                                  className={`inline-block h-8 w-8 tab-s:h-6 tab-s:w-6 ${
-                                    order_status === 12 || order_status === 13
-                                      ? "fill-[var(--secondary)]"
-                                      : "fill-[var(--primary)]"
-                                  }`}
-                                />
-                              </button>
-
-                              <div
-                                role="tooltip"
-                                className={`absolute z-10 invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-white rounded-md shadow-sm px-3 py-2 text-sm text-nowrap tab:hidden ${
-                                  order_status === 12 || order_status === 13
-                                    ? "bg-[var(--secondary)]"
-                                    : "bg-[var(--primary)]"
-                                }`}
-                                style={{
-                                  top: "-25px",
-                                  left: "50%",
-                                  transform: "translateX(-50%)",
-                                }}
-                              >
-                                {order_status === 12 || order_status === 13
-                                  ? "Canceled order"
-                                  : "Cancel Order"}
-                                <div
-                                  className="tooltip-arrow"
-                                  data-popper-arrow
-                                ></div>
                               </div>
-                            </div>
+                            )}
+
+                            {order_status === 1 || order_status === 2 ? (
+                              <div className="relative group">
+                                <button
+                                  className="icon-button"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleCancelOrder(order_id, order_status);
+                                  }}
+                                >
+                                  <MdCancel
+                                    className={`inline-block h-8 w-8 tab-s:h-6 tab-s:w-6 fill-[var(--primary)]`}
+                                  />
+                                </button>
+
+                                <div
+                                  role="tooltip"
+                                  className={`absolute z-10 invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-white rounded-md shadow-sm px-3 py-2 text-sm text-nowrap tab:hidden bg-[var(--primary)]`}
+                                  style={{
+                                    top: "-25px",
+                                    left: "50%",
+                                    transform: "translateX(-50%)",
+                                  }}
+                                >
+                                  Cancel Order
+                                  <div
+                                    className="tooltip-arrow"
+                                    data-popper-arrow
+                                  ></div>
+                                </div>
+                              </div>
+                            ) : (
+                              ""
+                            )}
                           </td>
                         </tr>
                       );
@@ -680,7 +654,7 @@ const Home = () => {
                     to {currentPage === count ? totalRows : currentPage * 10}{" "}
                     entries
                   </p>
-                  <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-4 mb-l:flex-wrap mb-l:justify-center">
                     <button
                       className={`pagination-btn`}
                       onClick={() => {
@@ -756,7 +730,7 @@ const Home = () => {
                     )}
                     {count > 3 && (
                       <>
-                        <button className="pagination-btn border-transparent">
+                        <button className={`pagination-btn border-transparent`}>
                           <span className="page-num">...</span>
                         </button>
                         <button

@@ -48,7 +48,7 @@
   outline-color: var(--secondary);
 }
 
-.send-btn {
+.send-otp-btn {
   position: absolute;
   top: 0;
   right: 0;
@@ -112,7 +112,7 @@
     max-width: 47.5rem;
   }
 
-  .send-btn {
+  .send-otp-btn {
     padding: 0 2rem;
   }
 }
@@ -123,7 +123,7 @@
     gap: 2rem;
   }
 
-  .send-btn {
+  .send-otp-btn {
     padding: 0 1.5rem;
   }
 }
@@ -138,7 +138,7 @@
     padding: 1rem 1.25rem;
   }
 
-  .send-btn {
+  .send-otp-btn {
     padding: 0 1rem;
   }
 }
