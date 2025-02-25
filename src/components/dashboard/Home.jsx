@@ -233,14 +233,11 @@ const Home = () => {
               <p className="card-label">Total Pending Due Amount</p>
               <p className="card-price">₹{totalDueAmt || "0"}</p>
               {totalDueAmt && totalDueAmt > 0 ? (
-                <div className="flex flex-col justify-start items-center gap-4">
+                <div className="flex justify-start items-center flex-wrap gap-4">
                   <button className="paynow-btn" onClick={handlePaynow}>
-                    Pay Now
+                    Pay Full
                   </button>
-                  <button
-                    className="paynow-btn hidden"
-                    onClick={handlePartialPay}
-                  >
+                  <button className="paynow-btn" onClick={handlePartialPay}>
                     Pay Partial
                   </button>
                 </div>
@@ -578,10 +575,14 @@ const Home = () => {
                           >
                             <div className="relative group">
                               <button
-                                className="icon-button"
+                                className={`icon-button ${
+                                  order_status == 13 ? "cursor-not-allowed" : ""
+                                }`}
                                 onClick={(e) => {
                                   e.stopPropagation();
-                                  handleGiveFeedBack(order_id, feedback);
+                                  if (order_status !== 13) {
+                                    handleGiveFeedBack(order_id, feedback);
+                                  }
                                 }}
                               >
                                 {feedback ? (
@@ -594,22 +595,23 @@ const Home = () => {
                                   />
                                 )}
                               </button>
-
-                              <div
-                                role="tooltip"
-                                className="absolute z-10 invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[var(--primary)] text-white rounded-md shadow-sm px-3 py-2 text-sm text-nowrap tab:hidden"
-                                style={{
-                                  top: "-25px",
-                                  left: "50%",
-                                  transform: "translateX(-50%)",
-                                }}
-                              >
-                                {feedback ? "View Feedback" : "Give Feedback"}
+                              {order_status !== 13 && (
                                 <div
-                                  className="tooltip-arrow"
-                                  data-popper-arrow
-                                ></div>
-                              </div>
+                                  role="tooltip"
+                                  className="absolute z-10 invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[var(--primary)] text-white rounded-md shadow-sm px-3 py-2 text-sm text-nowrap tab:hidden"
+                                  style={{
+                                    top: "-25px",
+                                    left: "50%",
+                                    transform: "translateX(-50%)",
+                                  }}
+                                >
+                                  {feedback ? "View Feedback" : "Give Feedback"}
+                                  <div
+                                    className="tooltip-arrow"
+                                    data-popper-arrow
+                                  ></div>
+                                </div>
+                              )}
                             </div>
                           </td>
                           <td
@@ -829,7 +831,10 @@ const Home = () => {
       </Backdrop>
 
       {isPartialPay && (
-        <PartialPayementModel setModleHandler={setIsPartialPay} />
+        <PartialPayementModel
+          setModleHandler={setIsPartialPay}
+          setRefetch={setRefetch}
+        />
       )}
     </>
   );
