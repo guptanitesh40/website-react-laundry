@@ -44,7 +44,9 @@ const Filter = () => {
       item.product.name.toLowerCase().startsWith(searchQuery.toLowerCase())
     );
     setFilteredProducts(processedArray);
-  }, [products, searchQuery]);
+    handleClearAll();
+    setSelectedProduct("");
+  }, [products, searchQuery, products]);
 
   return (
     <div className="filter flex flex-col gap-12 laptop-l:gap-10 laptop-md:gap-8">

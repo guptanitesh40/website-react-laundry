@@ -184,7 +184,10 @@
 .orders-table thead tr,
 .orders-table tbody tr {
   display: grid;
-  grid-template-columns: 12rem 18rem 15rem 12rem 12rem 12rem 15rem 5.5rem 5.5rem 5.5rem 5.5rem;
+  grid-template-columns: 12rem 18rem 15rem 12rem 12rem 12rem 15rem minmax(
+      15rem,
+      25rem
+    );
 }
 
 .orders-table thead tr {
@@ -999,15 +1002,12 @@
     box-shadow: none;
   }
 
-  .orders-table tbody td {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
   .orders-table thead tr,
   .orders-table tbody tr {
-    grid-template-columns: 10rem 18rem 14rem 10rem 10rem 10rem 15rem 5.5rem 5.5rem 5.5rem 5.5rem;
+    grid-template-columns: 10rem 18rem 14rem 10rem 10rem 10rem 15rem minmax(
+        15rem,
+        25rem
+      );
   }
 
   .paynow-btn {
@@ -1274,4 +1274,10 @@
   .booking-title {
     font-size: 1.4rem;
   }
+}
+
+.disabled-fd-btn,
+.disabled-fd-btn > * {
+  cursor: not-allowed;
+  fill: #6b7280;
 }
