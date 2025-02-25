@@ -1,7 +1,6 @@
 import Filter from "./Filter";
 import SelectClothes from "./SelectClothes";
 import Cart from "./Cart";
-import Branches from "./Branches";
 
 const ServiceContainer = () => {
   return (
@@ -9,7 +8,6 @@ const ServiceContainer = () => {
       <div className="services-con-container">
         <div className="flex items-start justify-between gap-12 laptop-l:gap-14 laptop:gap-10 laptop-s:gap-8 tab-l:gap-16 tab-s:gap-10 tab-s:flex-wrap tab:flex-col tab:items-start mb-l:gap-8">
           <div className="basis-[27.78%] laptop-l:basis-1/4 flex flex-col gap-12 laptop-l:gap-10 laptop-md:gap-8 laptop:basis-[26%] tab-l:basis-[35%] tab-s:min-w-[25rem] tab-s:gap-10 tab:w-[37.5rem] mb-l:w-full mb-l:gap-8">
-            <Branches />
             <Filter />
             <div className="hidden tab-l:block tab:row-span-2 tab:items-center">
               <Cart />

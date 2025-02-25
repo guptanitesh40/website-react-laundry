@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
-const useFetchDueOrders = () => {
+const useFetchDueOrders = (currentPage) => {
   const [dueData, setDueData] = useState({});
   const [loading, setLoading] = useState(true);
   const baseURL = import.meta.env.VITE_BASE_URL;
@@ -16,13 +16,16 @@ const useFetchDueOrders = () => {
   useEffect(() => {
     const fetchDueOrders = async () => {
       try {
-        const response = await fetch(`${baseURL}/orders/invoice-list`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await fetch(
+          `${baseURL}/orders/invoice-list?per_page=10&page_number=${currentPage}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         const data = await response.json();
 
@@ -43,7 +46,7 @@ const useFetchDueOrders = () => {
     };
 
     fetchDueOrders();
-  }, [baseURL, token]);
+  }, [baseURL, token, currentPage]);
   return { dueData, loading };
 };
 

@@ -31,3 +31,45 @@
   padding: 0.5rem 1rem;
   border-radius: 5px;
 }
+
+.cpn-tag {
+  font-size: 1.4rem;
+  color: #676788;
+  padding: 1.25rem 0;
+}
+
+.pg-btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: 3rem;
+  width: 3rem;
+  border: 1px solid #b9bccf4d;
+  border-radius: 5px;
+}
+
+.pg-icon {
+  display: inline-block;
+  fill: #676788;
+  cursor: pointer;
+}
+
+.pg-icon-light {
+  display: inline-block;
+  fill: lightgray;
+}
+
+.pg-num {
+  font-size: 1.6rem;
+  line-height: 1.6rem;
+  color: #676788;
+  font-weight: 500;
+}
+
+.active-pg {
+  background-color: var(--primary);
+}
+
+.active-pg .pg-num {
+  color: white;
+}

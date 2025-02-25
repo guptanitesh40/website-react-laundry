@@ -48,10 +48,6 @@ const ForgetPassword = () => {
                 className="forget-input country-dd"
               >
                 <option value="india">India</option>
-                <option value="usa">USA</option>
-                <option value="canada">Canada</option>
-                <option value="uk">United Kingdom</option>
-                <option value="australia">Australia</option>
               </select>
               <FaCaretDown className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-500 pointer-events-none" />
             </div>

@@ -7,12 +7,14 @@ import PayementMethod from "./PayementMethod";
 import OrderSummary from "./OrderSummary";
 import { useSelector } from "react-redux";
 import EmptyCart from "./EmptyCart";
+import Branches from "./Branches";
 
 const Cart = () => {
   const cartItemCount = useSelector((state) => state.cart.cartItemCount);
   const [instruction, setInstruction] = useState("");
   const [paymentMethod, setPayementMethod] = useState(0);
   const [selectedAddId, setSelectAddId] = useState(0);
+  const [selectedBranchId, setSelectedBranchId] = useState(0);
 
   return (
     <section className="section-cart">
@@ -27,6 +29,7 @@ const Cart = () => {
                   instruction={instruction}
                   setInstruction={setInstruction}
                 />
+                <Branches setSelectedBranchId={setSelectedBranchId} />
                 <PayementMethod setPayementMethod={setPayementMethod} />
               </div>
             </div>
@@ -35,6 +38,7 @@ const Cart = () => {
                 instruction={instruction}
                 paymentMethod={paymentMethod}
                 selectedAddId={selectedAddId}
+                selectedBranchId={selectedBranchId}
               />
             </div>
           </div>

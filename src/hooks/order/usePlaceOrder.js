@@ -18,7 +18,8 @@ const usePlaceOrder = () => {
     address_id,
     express_delivery_charges,
     transaction_id = "",
-    paid_amount = 0
+    paid_amount = 0,
+    branch_id
   ) => {
     let payment_status = 1;
     if (payment_type === 2 && transaction_id) {
@@ -47,6 +48,7 @@ const usePlaceOrder = () => {
           express_delivery_charges,
           transaction_id,
           paid_amount,
+          branch_id,
         }),
       });
       const data = await response.json();
