@@ -14,7 +14,6 @@ import useGetAllCoupon from "../../hooks/coupon/useGetAllCoupon";
 import { Backdrop, CircularProgress, IconButton } from "@mui/material";
 import useGetTransactionId from "../../hooks/payement/useGetTransactionId";
 import useVerifyPayement from "../../hooks/payement/useVerifyPayement";
-import Loading from "../loading/Loading";
 
 const OrderSummary = ({
   instruction,
@@ -252,10 +251,6 @@ const OrderSummary = ({
     loadingApplyCoupon,
   ]);
 
-  if (open) {
-    return <Loading />;
-  }
-
   return (
     <>
       {viewCoupon ? (
@@ -463,12 +458,12 @@ const OrderSummary = ({
           </div>
         </div>
       )}
-      {/* <Backdrop
+      <Backdrop
         sx={(theme) => ({ color: "#fff", zIndex: theme.zIndex.drawer + 1 })}
         open={open}
       >
         <CircularProgress color="inherit" />
-      </Backdrop> */}
+      </Backdrop>
     </>
   );
 };

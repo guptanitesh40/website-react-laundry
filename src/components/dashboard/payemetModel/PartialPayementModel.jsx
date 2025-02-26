@@ -132,8 +132,8 @@ const PartialPayementModel = ({ setModleHandler, setRefetch }) => {
 
   return (
     <>
-      <div className="fixed inset-0 top-0 bg-black bg-opacity-75 grid place-items-center p-4 overflow-auto">
-        <div className="border border-[#b9bccf4d] rounded-xl px-14 py-16 w-full max-w-[1000px] relative laptop:px-12 laptop:py-14 tab-l:rounded-lg tab-l:px-10 tab-l:py-12  tab-s:gap-6  mb-l:gap-4 bg-white">
+      <div className="fixed inset-0 top-0 bg-black bg-opacity-75 grid place-items-center p-4 overflow-y-auto tab-s:flex tab-s:items-center tab-s:justify-center tab-s:min-h-screen">
+        <div className="border border-[#b9bccf4d] rounded-xl px-14 py-16 w-full max-w-[1000px] relative laptop:px-12 laptop:py-14 tab-l:rounded-lg tab-l:px-10 tab-l:py-12  tab-s:gap-6  mb-l:gap-4 bg-white tab-s:max-w-full tab-s:w-full tab:px-8 mb-l:px-6 tab:pb-8 mb-l:pb-6 tab-s:my-auto">
           {loading ? (
             <DueOrdersShimmer />
           ) : (
@@ -144,13 +144,13 @@ const PartialPayementModel = ({ setModleHandler, setRefetch }) => {
                 className="absolute top-4 right-4 border border-gray-300 rounded-md p-1 inline-flex items-center justify-center text-gray-400 focus:outline-none focus:border-indigo-500 shadow-2xl laptop:right-3 laptop:top-3 tab-s:right-2 tab-s:top-2"
                 onClick={() => setModleHandler(false)}
               >
-                <IoClose className="h-8 w-8 tab-s:h-6 tab-s:w-6" />
+                <IoClose className="h-8 w-8 laptop:h-7 laptop:w-7" />
               </button>
-              <div className="flex justify-between items-center mb-8 mt-2">
+              <div className="flex justify-between items-center mb-8 mt-2 laptop:mb-6 mb-l:my-4">
                 <h2 className="text-[2.25rem] leading-[1.75] capitalize text-[var(--black)] font-semibold laptop:text-[1.8rem] tab-s:text-[1.6rem]">
                   Orders
                 </h2>
-                <div className="flex justify-center items-center gap-8">
+                <div className="flex justify-center items-center gap-8 laptop:gap-6">
                   <span className="text-[1.4rem] font-medium text-[var(--secondary)]">
                     Amount: ₹{payAmount}
                   </span>
@@ -165,69 +165,77 @@ const PartialPayementModel = ({ setModleHandler, setRefetch }) => {
                   </button>
                 </div>
               </div>
-              <div className="border border-[#b9bccf4d] rounded-lg overflow-hidden">
-                <table className="pp-table">
-                  <thead className="border-b border-[#b9bccf4d]">
-                    <tr>
-                      <th className="w-40 min-w-40">check</th>
-                      <th className="min-w-48">order id</th>
-                      <th className="min-w-[18rem]">booking date</th>
-                      <th className="min-w-[15rem]">delivery date</th>
-                      <th className="min-w-40">Total</th>
-                      <th className="min-w-40">Remaining</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {result.length > 0 ? (
-                      result.map((record, index) => {
-                        const {
-                          order_id,
-                          created_at,
-                          estimated_delivery_time,
-                          total,
-                          remaining_amount,
-                        } = record;
-                        return (
-                          <tr key={index}>
-                            <td>
-                              <input
-                                type="checkbox"
-                                onChange={(e) =>
-                                  onCheckBoxCheckChange(e, record)
-                                }
-                                checked={
-                                  dueOrders[currentPage]?.includes(order_id) ||
-                                  false
-                                }
-                                className="w-8 h-8 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-0"
-                              />
-                            </td>
-                            <td>{order_id}</td>
-                            <td>
-                              {dayjs(created_at).format("DD/MM/YYYY, hh:mm A")}
-                            </td>
-                            <td>
-                              {dayjs(estimated_delivery_time).format(
-                                "DD/MM/YY, hh:mm A"
-                              )}
-                            </td>
-                            <td>₹{total}</td>
-                            <td>₹{remaining_amount}</td>
-                          </tr>
-                        );
-                      })
-                    ) : (
+              <div className="border border-[#b9bccf4d] rounded-lg">
+                <div
+                  className="
+                overflow-x-auto max-w-full"
+                >
+                  <table className="pp-table">
+                    <thead className="border-b border-[#b9bccf4d]">
                       <tr>
-                        <td colSpan={6} className="font-medium text-center">
-                          No Due Order Found!
-                        </td>
+                        <th className="w-40 min-w-40">check</th>
+                        <th className="min-w-48">order id</th>
+                        <th className="min-w-[18rem]">booking date</th>
+                        <th className="min-w-[15rem]">delivery date</th>
+                        <th className="min-w-40">Total</th>
+                        <th className="min-w-40">Remaining</th>
                       </tr>
-                    )}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody>
+                      {result.length > 0 ? (
+                        result.map((record, index) => {
+                          const {
+                            order_id,
+                            created_at,
+                            estimated_delivery_time,
+                            total,
+                            remaining_amount,
+                          } = record;
+                          return (
+                            <tr key={index}>
+                              <td>
+                                <input
+                                  type="checkbox"
+                                  onChange={(e) =>
+                                    onCheckBoxCheckChange(e, record)
+                                  }
+                                  checked={
+                                    dueOrders[currentPage]?.includes(
+                                      order_id
+                                    ) || false
+                                  }
+                                  className="w-8 h-8 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-0 laptop-s:h-7 laptop-s:w-7"
+                                />
+                              </td>
+                              <td>{order_id}</td>
+                              <td>
+                                {dayjs(created_at).format(
+                                  "DD/MM/YYYY, hh:mm A"
+                                )}
+                              </td>
+                              <td>
+                                {dayjs(estimated_delivery_time).format(
+                                  "DD/MM/YY, hh:mm A"
+                                )}
+                              </td>
+                              <td>₹{total}</td>
+                              <td>₹{remaining_amount}</td>
+                            </tr>
+                          );
+                        })
+                      ) : (
+                        <tr>
+                          <td colSpan={6} className="font-medium text-center">
+                            No Due Order Found!
+                          </td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </table>
+                </div>
 
                 {count > 10 && (
-                  <div className="bg-white flex items-center justify-between px-5 max-w-full laptop:px-6 tab:px-4 tab:flex-wrap mb-l:flex-col mb-l:gap-4 mb-l:py-4 border-t border-[#b9bccf4d]">
+                  <div className="bg-white flex items-center flex-wrap gap-4 justify-between px-5 max-w-full laptop:px-6  tab:px-4 tab:flex-wrap mb-l:flex-col mb-l:gap-4 border-t border-[#b9bccf4d] tab:py-3 data-[wrapped=true]:justify-center mb-l:p-3">
                     <p className="cpn-tag">
                       Showing{" "}
                       {(currentPage === 1 && "1") || (currentPage - 1) * 10 + 1}{" "}
@@ -235,7 +243,7 @@ const PartialPayementModel = ({ setModleHandler, setRefetch }) => {
                       entries
                     </p>
 
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center justify-center gap-4 mb-l:flex-wrap">
                       <button
                         className={`pg-btn`}
                         onClick={() => {
