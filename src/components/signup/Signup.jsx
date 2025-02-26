@@ -157,7 +157,7 @@ const Signup = () => {
                   onChange={handleChange}
                   className="signup-input"
                 ></input>
-                <button type="button" className="send-btn" onClick={sendOtp}>
+                <button type="button" className="send-otp-btn" onClick={sendOtp}>
                   send
                 </button>
               </div>

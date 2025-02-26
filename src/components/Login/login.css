@@ -95,3 +95,43 @@
     color: var(--black);
   }
 }
+
+.login-animation {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  height: 21px;
+}
+
+.login-animation > * {
+  display: inline-block;
+  height: 10px;
+  width: 10px;
+  background-color: #fff;
+  border-radius: 50%;
+}
+
+.login-animation > *:first-child {
+  animation: scale-point 1s infinite;
+}
+
+.login-animation > *:nth-child(2) {
+  animation: scale-point 1s infinite;
+  animation-delay: 0.2s;
+}
+
+.login-animation > *:last-child {
+  animation: scale-point 1s infinite;
+  animation-delay: 0.4s;
+}
+
+@keyframes scale-point {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(2);
+  }
+}

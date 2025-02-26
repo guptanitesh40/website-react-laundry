@@ -73,6 +73,7 @@ const SavedAddress = () => {
                 phone_number,
               } = address;
               const isDeleting = loadingStates[address_id] || false;
+              const address_str = `${building_number}, ${area}, ${landmark}, ${city}, ${pincode}`;
               return (
                 <div
                   key={address_id}
@@ -90,7 +91,11 @@ const SavedAddress = () => {
                         {phone_number}
                       </h4>
                     </div>
-                    <p className="text-[1.5rem] leading-10 w-[80%] laptop:text-[1.4rem] laptop:w-[90%] laptop:leading-[1.75] laptop-s:text-[1.2rem] tab-m:w-full">{`${building_number}, ${area}, ${landmark}, ${city}, ${pincode} `}</p>
+                    <p className="text-[1.5rem] leading-10 laptop:text-[1.4rem] laptop:leading-[1.75] laptop-s:text-[1.2rem] tab-m:w-full">
+                      {address_str.length > 50
+                        ? address_str.slice(0, 50) + " ..."
+                        : address_str}
+                    </p>
                   </div>
                   <div className="flex items-stretch justify-center">
                     <div className="basis-1/2 border-r border-[#b9bccf4d]">

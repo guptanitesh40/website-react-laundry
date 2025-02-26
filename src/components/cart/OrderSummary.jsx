@@ -14,9 +14,13 @@ import useGetAllCoupon from "../../hooks/coupon/useGetAllCoupon";
 import { Backdrop, CircularProgress, IconButton } from "@mui/material";
 import useGetTransactionId from "../../hooks/payement/useGetTransactionId";
 import useVerifyPayement from "../../hooks/payement/useVerifyPayement";
-import Loading from "../loading/Loading";
 
-const OrderSummary = ({ instruction, paymentMethod, selectedAddId }) => {
+const OrderSummary = ({
+  instruction,
+  paymentMethod,
+  selectedAddId,
+  selectedBranchId,
+}) => {
   const delivery_time = useSelector((state) => state.setting.settings);
   const { estimate_delivery_normal_day, estimate_delivery_express_day } =
     delivery_time;
@@ -74,8 +78,25 @@ const OrderSummary = ({ instruction, paymentMethod, selectedAddId }) => {
   };
 
   const handleCheckout = async () => {
-    if (!paymentMethod && !selectedAddId) {
-      toast.error("Please select Payment Method and Shipping Address", {
+    if (!paymentMethod && !selectedAddId && !selectedBranchId) {
+      toast.error(
+        "Please select Shipping Address, Branch and Payment Method ",
+        {
+          className: "toast-error",
+        }
+      );
+      return;
+    }
+
+    if (!selectedAddId) {
+      toast.error("Please select Shipping Address", {
+        className: "toast-error",
+      });
+      return;
+    }
+
+    if (!selectedBranchId) {
+      toast.error("Please select branch name", {
         className: "toast-error",
       });
       return;
@@ -83,13 +104,6 @@ const OrderSummary = ({ instruction, paymentMethod, selectedAddId }) => {
 
     if (!paymentMethod) {
       toast.error("Please select Payment Method", {
-        className: "toast-error",
-      });
-      return;
-    }
-
-    if (!selectedAddId) {
-      toast.error("Please select Shipping Address", {
         className: "toast-error",
       });
       return;
@@ -106,7 +120,10 @@ const OrderSummary = ({ instruction, paymentMethod, selectedAddId }) => {
         shippingCharge,
         paymentMethod,
         selectedAddId,
-        expresssCharge
+        expresssCharge,
+        "",
+        0,
+        selectedBranchId
       );
       if (result) {
         dispatch(clearCart());
@@ -153,7 +170,8 @@ const OrderSummary = ({ instruction, paymentMethod, selectedAddId }) => {
                 selectedAddId,
                 expresssCharge,
                 razorpay_order_id,
-                finalTotal
+                finalTotal,
+                selectedBranchId
               );
               if (result) {
                 dispatch(clearCart());
@@ -232,10 +250,6 @@ const OrderSummary = ({ instruction, paymentMethod, selectedAddId }) => {
     placingOrder,
     loadingApplyCoupon,
   ]);
-
-  if (open) {
-    return <Loading />;
-  }
 
   return (
     <>
@@ -444,12 +458,12 @@ const OrderSummary = ({ instruction, paymentMethod, selectedAddId }) => {
           </div>
         </div>
       )}
-      {/* <Backdrop
+      <Backdrop
         sx={(theme) => ({ color: "#fff", zIndex: theme.zIndex.drawer + 1 })}
         open={open}
       >
         <CircularProgress color="inherit" />
-      </Backdrop> */}
+      </Backdrop>
     </>
   );
 };
@@ -458,6 +472,7 @@ OrderSummary.propTypes = {
   instruction: PropTypes.string.isRequired,
   paymentMethod: PropTypes.number.isRequired,
   selectedAddId: PropTypes.number.isRequired,
+  selectedBranchId: PropTypes.number.isRequired,
 };
 
 export default OrderSummary;

@@ -10,7 +10,7 @@ const Banner = () => {
     if (banners.length > 0) {
       const intervalId = setInterval(() => {
         setActiveIndex((prevIndex) => (prevIndex + 1) % banners.length);
-      }, 10000);
+      }, 3000);
 
       return () => clearInterval(intervalId);
     }

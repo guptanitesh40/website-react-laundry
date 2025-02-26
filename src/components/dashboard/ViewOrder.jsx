@@ -22,6 +22,7 @@ const ViewOrder = () => {
       const fetchOrderDetail = async () => {
         const result = await getOrderDetail(location.state.order_id);
         if (result) {
+          console.log(result);
           setOrder(result);
           setLoadingComponent(false);
         }
@@ -56,7 +57,7 @@ const ViewOrder = () => {
     coupon_discount = 0,
     total = 0,
     order_status,
-    user = {},
+    branch = {},
     address_details,
     payment_type,
     payment_status,
@@ -65,7 +66,7 @@ const ViewOrder = () => {
     estimated_delivery_time,
   } = order;
 
-  const { first_name, last_name, email, mobile_number } = user;
+  const { branch_name, branch_phone_number } = branch;
 
   if (loadingComponent) {
     return <Loading />;
@@ -87,6 +88,12 @@ const ViewOrder = () => {
             )}
           </span>
         )}
+        {order_status === 12 ||
+          (order_status === 13 && (
+            <span className="self-center border border-secondary text-[1.4rem] leading-[1.25] font-normal rounded-lg text-secondary p-3">
+              This order is cancelled
+            </span>
+          ))}
       </div>
 
       <div className="grid grid-cols-2 laptop:grid-cols-1 gap-8 tab-s:gap-6">
@@ -186,16 +193,33 @@ const ViewOrder = () => {
         <div className="space-y-8 tab-s:space-y-6">
           <div className="common-container shadow-sm">
             <div className="text-[1.6rem] text-[var(--black)] font-medium py-6 px-12 border-b border-[#b9bccf4d] tab-l:text-[1.5rem] tab-s:px-10 tab-s:text-[1.4rem] tab:px-8 mb-l:py-4 mb-l:px-6">
-              Customer information
+              Branch information
             </div>
             <div className="text-[1.4rem] text-[var(--black)] font-medium py-8 px-12 tab-s:px-10 tab:px-8 tab:py-6 mb-l:py-4 mb-l:px-6">
               <div className="grid grid-cols-[20rem_1fr] gap-8 font-normal tab-s:grid-cols-[15rem_1fr] tab:grid-cols-[12.5rem_1fr] tab:gap-6 mb-l:gap-4 mb-l:grid-cols-[repeat(auto-fill,_minmax(13.5rem,_1fr))]">
-                <span className="info-label">Name</span>
-                <span className="info-ans">{first_name + " " + last_name}</span>
-                <span className="info-label">Email</span>
-                <span className="info-ans">{email}</span>
-                <span className="info-label">Mobile Number</span>
-                <span className="info-ans">{mobile_number}</span>
+                {!branch && (
+                  <>
+                    <span className="info-label">No branch assigned</span>
+                  </>
+                )}
+                {branch_name && (
+                  <>
+                    <span className="info-label">Name</span>
+                    <span className="info-ans">{branch_name}</span>
+                  </>
+                )}
+                {branch_name && (
+                  <>
+                    <span className="info-label">Email</span>
+                    <span className="info-ans">{"Branchname@gmail.com"}</span>
+                  </>
+                )}
+                {branch_phone_number && (
+                  <>
+                    <span className="info-label">Mobile Number</span>
+                    <span className="info-ans">{branch_phone_number}</span>
+                  </>
+                )}
               </div>
             </div>
           </div>
@@ -229,10 +253,15 @@ const ViewOrder = () => {
             </div>
             <div className="py-8 px-12 tab-s:px-10 tab:px-8 tab:py-6 mb-l:py-4 mb-l:px-6">
               <div className="grid grid-cols-[20rem_1fr] gap-8 font-normal tab-s:grid-cols-[17.5rem_1fr] tab:grid-cols-[16rem_1fr] tab:gap-6 mb-l:gap-4 mb-l:grid-cols-[repeat(auto-fill,_minmax(15rem,_1fr))]">
-                <span className="info-label">Estimated Pickup Time:</span>
-                <span className="info-ans">
-                  {dayjs(estimated_pickup_time).format("DD/MM/YYYY")}
-                </span>
+                {order_status !== 11 && (
+                  <>
+                    <span className="info-label">Estimated Pickup Time:</span>
+                    <span className="info-ans">
+                      {dayjs(estimated_pickup_time).format("DD/MM/YYYY")}
+                    </span>
+                  </>
+                )}
+
                 <span className="info-label">Estimated Delivery Time:</span>
                 <span className="info-ans">
                   {dayjs(estimated_delivery_time).format("DD/MM/YYYY")}
