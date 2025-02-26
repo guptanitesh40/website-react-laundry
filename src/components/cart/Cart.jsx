@@ -33,7 +33,7 @@ const Cart = () => {
                 <PayementMethod setPayementMethod={setPayementMethod} />
               </div>
             </div>
-            <div className="basis-[31%] border border-[#b9bccf4d] rounded-xl sticky-summary relative laptop-l:basis-[28%] laptop-l:rounded-lg laptop-s:basis-[30%] tab-l:basis-[31%] tab-l:rounded-md  tab-m:w-[35rem] mb-l:w-full">
+            <div className="basis-[31%] border border-[#b9bccf4d] rounded-xl sticky-summary relative laptop-l:basis-[28%] laptop-l:rounded-lg laptop-s:basis-[30%] tab-l:basis-[31%] tab-m:w-[35rem] mb-l:w-full">
               <OrderSummary
                 instruction={instruction}
                 paymentMethod={paymentMethod}

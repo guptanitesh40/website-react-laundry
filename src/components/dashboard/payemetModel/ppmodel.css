@@ -73,3 +73,39 @@
 .active-pg .pg-num {
   color: white;
 }
+
+@media only screen and (max-width: 71.25em) {
+  .pp-table thead tr th {
+    font-size: 1.3rem;
+    padding: 1rem;
+  }
+
+  .pp-table tbody tr td {
+    font-size: 1.2rem;
+    line-height: 1.75;
+    padding: 1rem;
+  }
+
+  .cpn-tag {
+    font-size: 1.3rem;
+    padding: 1rem 0;
+  }
+
+  .pg-btn {
+    height: 2.75rem;
+    width: 2.75rem;
+    border-radius: 3.75px;
+  }
+
+  .pg-num {
+    font-size: 1.5rem;
+    line-height: 1;
+  }
+}
+
+@media only screen and (max-width: 38.4375em) {
+  .cpn-tag {
+    font-size: 1.3rem;
+    padding: 0;
+  }
+}

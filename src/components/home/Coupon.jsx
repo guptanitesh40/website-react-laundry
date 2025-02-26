@@ -1,7 +1,10 @@
 import { useSelector } from "react-redux";
 import dayjs from "dayjs";
+import toast from "react-hot-toast";
+import { useState } from "react";
 
 const Coupon = () => {
+  const [isCopyDisabled, setIsCopyDisabled] = useState(false);
   let { home_promotion_banner_website, home_banner_image } = useSelector(
     (state) => state.setting.settings
   );
@@ -10,9 +13,26 @@ const Coupon = () => {
     return null;
   }
 
-  const { offer_validity, price, title } = JSON.parse(
+  const { offer_validity, price, title, promotion_code } = JSON.parse(
     home_promotion_banner_website
   );
+
+  const onCopyCodeClick = async () => {
+    if (isCopyDisabled) return;
+
+    try {
+      await navigator.clipboard.writeText(promotion_code);
+      toast.success(`Coupon code copied successfully`, {
+        className: "toast-success",
+      });
+      setIsCopyDisabled(true);
+      setTimeout(() => setIsCopyDisabled(false), 5000);
+    } catch {
+      toast.error("Failed to copy code. Please try again.", {
+        className: "toast-error",
+      });
+    }
+  };
 
   return (
     <section className="space-xl">
@@ -34,25 +54,32 @@ const Coupon = () => {
               <p className="text-[3.4rem] laptop-l:text-[2.8rem] font-bold laptop-m:text-[2.4rem] laptop-s:text-[2rem] tab-s:text-[1.8rem] tab:text-[1.6rem] tab:leading-[1] mb-l:text-[1.4rem]">
                 @ RS. {price}/- ONLY
               </p>
-              <div className="inline-block border overflow-hidden border-white rounded-md font-semibold text-[2rem] laptop-l:text-[1.8rem] laptop-m:text-[1.6rem] laptop-s:text-[1.4rem] tab-s:text-[1.2rem] tab:text-[1rem] tab:border-[0.5px] tab:rounded mb-l:text-[0.8rem]">
-                <button
-                  className="p-8 laptop-l:p-6 laptop-m:p-5 laptop-s:p-4 inline-block uppercase tab-s:px-3 tab:px-2 tab:py-3"
-                  title="steal deal"
-                  aria-label="Click to avail the steal deal"
-                >
-                  STEAL DEAL
-                </button>
-                <button
-                  className="bg-white p-8 laptop-l:p-6 laptop-m:p-5 laptop-s:p-4 inline-block text-[#0092C8] uppercase tab-s:px-3 tab:px-2 tab:py-3 "
-                  title="copy code"
-                  aria-label="copy the code"
-                >
-                  COPY CODE
-                </button>
-              </div>
-              <span className="laptop-m:text-[1.4rem] laptop-s:text-[1.2rem] tab-s:text-[1rem] tab:text-[0.8rem] mb-l:text-[0.6rem]">
-                Valid till: {dayjs(offer_validity).format("DD MMM YYYY")}
-              </span>
+              {promotion_code && (
+                <>
+                  <div className="inline-block border overflow-hidden border-white rounded-md font-semibold text-[2rem] laptop-l:text-[1.8rem] laptop-m:text-[1.6rem] laptop-s:text-[1.4rem] tab-s:text-[1.2rem] tab:text-[1rem] tab:border-[0.5px] tab:rounded mb-l:text-[0.8rem]">
+                    <button
+                      className="cursor-default p-8 laptop-l:p-6 laptop-m:p-5 laptop-s:p-4 inline-block uppercase tab-s:px-3 tab:px-2 tab:py-3"
+                      title={promotion_code}
+                      aria-label="Click to avail the steal deal"
+                    >
+                      {promotion_code}
+                    </button>
+                    <button
+                      className={`bg-white p-8 laptop-l:p-6 laptop-m:p-5 laptop-s:p-4 inline-block text-[#0092C8] uppercase tab-s:px-3 tab:px-2 tab:py-3 ${
+                        isCopyDisabled ? "cursor-default" : "cursor-pointer"
+                      }`}
+                      title="copy code"
+                      aria-label="copy the code"
+                      onClick={onCopyCodeClick}
+                    >
+                      COPY CODE
+                    </button>
+                  </div>
+                  <span className="laptop-m:text-[1.4rem] laptop-s:text-[1.2rem] tab-s:text-[1rem] tab:text-[0.8rem] mb-l:text-[0.6rem]">
+                    Valid till: {dayjs(offer_validity).format("DD MMM YYYY")}
+                  </span>
+                </>
+              )}
             </div>
           </article>
         </div>

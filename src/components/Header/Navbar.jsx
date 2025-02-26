@@ -185,7 +185,7 @@ const Navbar = () => {
                 </Link>
               )}
 
-              {isLoggedIn ? 
+              {isLoggedIn ? (
                 <span className="inline-block cursor-pointer h-[4.6rem] w-[4.6rem] relative group laptop-l:h-[4.2rem] laptop-l:w-[4.2rem] laptop:h-[4rem] laptop:w-[4rem] tab-l:h-[3.8rem] tab-l:w-[3.8rem] tab-m:hidden">
                   <img
                     src={profile_image}
@@ -199,24 +199,26 @@ const Navbar = () => {
                   />
                   <div className="hidden group-hover:inline-block z-10">
                     <div className="logout-container flex flex-col items-start gap-4">
-                      <span
-                        className="flex items-center justify-center gap-4 cursor-pointer"
+                      <button
+                        className="inline-flex items-center justify-center gap-4 cursor-pointer"
+                        style={{ cursor: "pointer" }}
+                        role="button"
                         onClick={onProfileClick}
                       >
                         <CgProfile className="h-[2rem] w-[2rem] text-[#676788]" />
                         <span className="logout">Profile</span>
-                      </span>
-                      <span
+                      </button>
+                      <button
                         className="flex items-center justify-center gap-4 cursor-pointer"
                         onClick={onLogoutClick}
                       >
                         <FiLogOut className="h-[2rem] w-[2rem] stroke-[#676788]" />
                         <span className="logout">logout</span>
-                      </span>
+                      </button>
                     </div>
                   </div>
                 </span>
-               : 
+              ) : (
                 <Link
                   to="/login"
                   className="login"
@@ -226,7 +228,7 @@ const Navbar = () => {
                 >
                   Login
                 </Link>
-              }
+              )}
 
               <div className="h-[3.8rem] w-[3.8rem] justify-center items-center hidden tab-m:flex tab:h-[3.2rem] tab:w-[3.2rem]">
                 <div
