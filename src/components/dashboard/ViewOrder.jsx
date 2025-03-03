@@ -22,7 +22,6 @@ const ViewOrder = () => {
       const fetchOrderDetail = async () => {
         const result = await getOrderDetail(location.state.order_id);
         if (result) {
-          console.log(result);
           setOrder(result);
           setLoadingComponent(false);
         }
@@ -51,7 +50,7 @@ const ViewOrder = () => {
     express_delivery_charges,
     items = [],
     sub_total = 0,
-    shipping_charges,
+    normal_delivery_charges,
     kasar_amount,
     coupon_code,
     coupon_discount = 0,
@@ -152,8 +151,13 @@ const ViewOrder = () => {
               <div className="grid grid-cols-[20rem_1fr] gap-8 font-normal tab-s:grid-cols-[17.5rem_1fr] tab:gap-6 mb-l:gap-4 mb-l:grid-cols-[repeat(auto-fill,_minmax(12.5rem,_1fr))]">
                 <span className="info-label">Sub Total</span>
                 <span className="info-ans">₹{sub_total || "0"}</span>
-                <span className="info-label">Shipping charges</span>
-                <span className="info-ans">₹{shipping_charges}</span>
+                {normal_delivery_charges > 0 && (
+                  <>
+                    <span className="info-label">Shipping charges</span>
+                    <span className="info-ans">₹{normal_delivery_charges}</span>
+                  </>
+                )}
+
                 {express_delivery_charges > 0 && (
                   <>
                     <span className="info-label">Express Delivery Charges</span>

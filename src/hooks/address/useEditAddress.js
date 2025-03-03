@@ -16,6 +16,8 @@ const useEditAddress = () => {
       ...formData,
       address_type: Number(formData.address_type),
       pincode: String(formData.pincode),
+      lat: Number(formData.lat),
+      long: Number(formData.long),
     };
 
     try {

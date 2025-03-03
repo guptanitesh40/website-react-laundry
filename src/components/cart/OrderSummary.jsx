@@ -35,7 +35,7 @@ const OrderSummary = ({
   const subTotal = useSelector((state) => state.cart.subTotal);
   const items = useSelector((state) => state.cart.cartItems);
   const shippingCharge = parseInt(
-    useSelector((state) => state?.setting?.settings?.shipping_charge)
+    useSelector((state) => state?.setting?.settings?.normal_delivery_charges)
   );
   const express_charge = parseInt(
     useSelector((state) => state.setting.settings.express_delivery_charge)
@@ -46,7 +46,7 @@ const OrderSummary = ({
   const [discountValue, setDiscountValue] = useState(0);
   const [isCouponApplied, setIsCouponApplied] = useState({
     code: "",
-    status: "",
+    status: false,
   });
   const [isExpDel, setExpDel] = useState(false);
   const { applyCoupon, loading: loadingApplyCoupon } = useApplyCoupon();
@@ -112,12 +112,13 @@ const OrderSummary = ({
     if (paymentMethod === 1) {
       let newSubTotal = subTotal - discountValue;
       let expresssCharge = isExpDel ? express_charge : 0;
+      let normal_delivery_charges = isExpDel ? 0 : shippingCharge;
       const result = await placeOrder(
         items,
         newSubTotal,
         instruction,
         isCouponApplied.code,
-        shippingCharge,
+        normal_delivery_charges,
         paymentMethod,
         selectedAddId,
         expresssCharge,
@@ -132,11 +133,7 @@ const OrderSummary = ({
     }
 
     if (paymentMethod === 2) {
-      let finalTotal =
-        Number(subTotal) -
-        Number(discountValue) +
-        Number(shippingCharge) +
-        (isExpDel && express_charge);
+      let finalTotal = calculateTotal();
 
       const razorpay_order_id = await getTransactionId(finalTotal);
 
@@ -160,12 +157,13 @@ const OrderSummary = ({
 
               let newSubTotal = subTotal - discountValue;
               let expresssCharge = isExpDel ? express_charge : 0;
+              let normal_delivery_charges = isExpDel ? 0 : shippingCharge;
               const result = await placeOrder(
                 items,
                 newSubTotal,
                 instruction,
                 isCouponApplied.code,
-                shippingCharge,
+                normal_delivery_charges,
                 paymentMethod,
                 selectedAddId,
                 expresssCharge,
@@ -250,6 +248,14 @@ const OrderSummary = ({
     placingOrder,
     loadingApplyCoupon,
   ]);
+
+  const calculateTotal = () => {
+    const baseTotal = Number(subTotal) - Number(discountValue);
+    const deliveryCharge = isExpDel
+      ? Number(express_charge || 0)
+      : Number(shippingCharge);
+    return baseTotal + deliveryCharge;
+  };
 
   return (
     <>
@@ -387,7 +393,7 @@ const OrderSummary = ({
 
             <div className="place-center">
               <p>Shipping Charge</p>
-              <h5>₹{shippingCharge}</h5>
+              <h5>₹{isExpDel ? "0" : shippingCharge}</h5>
             </div>
 
             <div>
@@ -440,13 +446,7 @@ const OrderSummary = ({
 
             <div className="place-center total-container">
               <p>Total</p>
-              <h5>
-                ₹
-                {Number(subTotal) -
-                  Number(discountValue) +
-                  Number(shippingCharge) +
-                  (isExpDel && Number(express_charge || 0))}
-              </h5>
+              <h5>₹ {calculateTotal()}</h5>
             </div>
             <button
               className="checkout-btn"

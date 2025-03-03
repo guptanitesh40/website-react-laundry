@@ -1,7 +1,11 @@
-import data from "../../utils/home/testimonials.json";
+import useFetchReviews from "../../hooks/testimonials/useFetchReviews";
 
 const Testimonials = () => {
-  const testimonials = data?.testimonials;
+  const { reviews } = useFetchReviews();
+
+  if (!reviews && reviews.length > 0) {
+    return null;
+  }
 
   return (
     <section className="space-xl">
@@ -18,11 +22,13 @@ const Testimonials = () => {
         </div>
 
         <div className="testimonials-scroll flex items-stretch gap-28 overflow-x-scroll snap-x scroll-smooth laptop-l:gap-20 laptop-m:gap-16 laptop-s:gap-12 mb-l:gap-8 mb:gap-6">
-          {testimonials.map((testimonial, index) => {
+          {reviews.slice(0, 15).map((review) => {
+            const { feedback_id, comment, order } = review;
+            const { first_name } = order.user;
             return (
-              <div key={index} className="review-container snap-start">
-                <h4>{testimonial.name}</h4>
-                <p>{testimonial.message}</p>
+              <div key={feedback_id} className="review-container snap-start">
+                <h4>{first_name}</h4>
+                <p>{comment}</p>
               </div>
             );
           })}
