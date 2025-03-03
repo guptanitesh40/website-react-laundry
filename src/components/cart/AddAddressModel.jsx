@@ -10,6 +10,12 @@ import * as Yup from "yup";
 import { IoClose } from "react-icons/io5";
 import { FaCaretDown } from "react-icons/fa";
 
+import PlacesAutocomplete, {
+  geocodeByAddress,
+  getLatLng,
+} from "react-places-autocomplete";
+import toast from "react-hot-toast";
+
 const addressShcema = Yup.object().shape({
   full_name: Yup.string()
     .trim()
@@ -36,18 +42,53 @@ const AddAddressModel = ({ setIsOpen, isOpen, address, isEditMode }) => {
   const { addAddress, loading: loadingAddAddress } = useAddAddress();
   const { editAddress, loading: loadingEditAddress } = useEditAddress();
   const [errors, setErrors] = useState({});
+  const [isLatLng, setIsLatLng] = useState({
+    visible: false,
+    status: false,
+  });
+
   const [formData, setFormData] = useState({
     full_name: "",
     phone_number: "",
     address_type: "1",
     building_number: "",
     area: "",
+    lat: "",
+    long: "",
     landmark: "",
     pincode: "",
     city: "",
     state: "",
     country: "",
   });
+
+  const [suggesionIsOpen, setSuggesionIsOpen] = useState(false);
+
+  const handleAddressChange = (newAddress) => {
+    setFormData({ ...formData, area: newAddress });
+    setSuggesionIsOpen(true);
+  };
+
+  const handleAddressSelect = async (selectedAddress) => {
+    setIsLatLng({ ...isLatLng, status: true });
+    setFormData({ ...formData, area: selectedAddress });
+    try {
+      const result = await geocodeByAddress(selectedAddress);
+      const latLng = await getLatLng(result[0]);
+
+      if (latLng) {
+        setFormData((prev) => ({
+          ...prev,
+          lat: latLng?.lat,
+          long: latLng?.lng,
+        }));
+      }
+    } catch {
+      toast.error("Failed to fetch address detail", {
+        className: "toast-error",
+      });
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -59,6 +100,9 @@ const AddAddressModel = ({ setIsOpen, isOpen, address, isEditMode }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!isLatLng.status) {
+      setIsLatLng({ ...isLatLng, visible: true });
+    }
 
     try {
       await addressShcema.validate(formData, { abortEarly: false });
@@ -81,6 +125,7 @@ const AddAddressModel = ({ setIsOpen, isOpen, address, isEditMode }) => {
         setIsOpen(false);
         return;
       }
+      return;
     }
 
     const result = await addAddress(formData);
@@ -109,19 +154,22 @@ const AddAddressModel = ({ setIsOpen, isOpen, address, isEditMode }) => {
   useEffect(() => {
     if (address) {
       setFormData({
-        full_name: address.full_name,
-        phone_number: address.phone_number,
-        address_type: address.address_type,
-        building_number: address.building_number,
-        area: address.area,
-        landmark: address.landmark,
-        pincode: address.pincode,
-        city: address.city,
-        state: address.state,
-        country: address.country,
+        full_name: address?.full_name,
+        phone_number: address?.phone_number,
+        address_type: address?.address_type,
+        building_number: address?.building_number,
+        area: address?.area,
+        lat: address?.lat,
+        long: address?.long,
+        landmark: address?.landmark,
+        pincode: address?.pincode,
+        city: address?.city,
+        state: address?.state,
+        country: address?.country,
       });
     }
-  }, [address]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <section
@@ -195,9 +243,9 @@ const AddAddressModel = ({ setIsOpen, isOpen, address, isEditMode }) => {
                 id="address_type"
                 className="aam-input appearance-none"
                 onChange={handleChange}
-                defaultValue={1}
+                value={Number(formData.address_type)}
               >
-                <option value={1}>Home</option>
+                <option value={1}>home</option>
                 <option value={2}>Office</option>
                 <option value={3}>Other</option>
               </select>
@@ -231,16 +279,65 @@ const AddAddressModel = ({ setIsOpen, isOpen, address, isEditMode }) => {
             <label htmlFor="area" className="aam-label">
               area
             </label>
-            <div>
-              <input
-                name="area"
-                id="area"
-                type="text"
-                onChange={handleChange}
+
+            <div className="relative">
+              <PlacesAutocomplete
                 value={formData.area}
-                className="aam-input"
-              />
-              {errors.area && <p className="aam-error-label">{errors.area}</p>}
+                onChange={handleAddressChange}
+                onSelect={handleAddressSelect}
+              >
+                {({
+                  getInputProps,
+                  suggestions,
+                  getSuggestionItemProps,
+                  loading,
+                }) => (
+                  <>
+                    <input
+                      {...getInputProps({
+                        className: "aam-input",
+                        id: "area",
+                        type: "text",
+                        onFocus: () => setSuggesionIsOpen(true),
+                        onBlur: () => setSuggesionIsOpen(false),
+                      })}
+                    />
+                    {suggesionIsOpen && suggestions.length > 0 && (
+                      <div className="absolute z-10 bg-white rounded-lg shadow-lg w-full mt-1 border border-gray-200 laptop-l:mt-1 max-h-[150px] overflow-y-auto">
+                        <ul className="text-[1.4rem] font-normal text-[var(--black)]">
+                          {loading && (
+                            <li className="block px-4 py-[0.8rem] hover:bg-gray-100">
+                              Loading...
+                            </li>
+                          )}
+                          {!loading &&
+                            suggestions.map((suggestion, index) => {
+                              const { ...props } =
+                                getSuggestionItemProps(suggestion);
+                              return (
+                                <li
+                                  key={index}
+                                  {...props}
+                                  className="block px-4 py-[0.8rem] hover:bg-gray-100"
+                                >
+                                  {suggestion?.description}
+                                </li>
+                              );
+                            })}
+                        </ul>
+                      </div>
+                    )}
+                  </>
+                )}
+              </PlacesAutocomplete>
+              {(errors.area && (
+                <p className="aam-error-label">{errors.area}</p>
+              )) ||
+                (isLatLng.visible && (
+                  <p className="aam-error-label">
+                    please select valid area from dropdown
+                  </p>
+                ))}
             </div>
           </div>
 
@@ -379,8 +476,10 @@ AddAddressModel.propTypes = {
     address_type: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     building_number: PropTypes.string,
     area: PropTypes.string,
+    lat: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    long: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     landmark: PropTypes.string,
-    pincode: PropTypes.number,
+    pincode: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     city: PropTypes.string,
     state: PropTypes.string,
     country: PropTypes.string,
