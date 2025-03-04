@@ -15,6 +15,8 @@ import PlacesAutocomplete, {
   getLatLng,
 } from "react-places-autocomplete";
 import toast from "react-hot-toast";
+import { MdLocationPin } from "react-icons/md";
+import GoogleMap from "./GoogleMap";
 
 const addressShcema = Yup.object().shape({
   full_name: Yup.string()
@@ -42,10 +44,7 @@ const AddAddressModel = ({ setIsOpen, isOpen, address, isEditMode }) => {
   const { addAddress, loading: loadingAddAddress } = useAddAddress();
   const { editAddress, loading: loadingEditAddress } = useEditAddress();
   const [errors, setErrors] = useState({});
-  const [isLatLng, setIsLatLng] = useState({
-    visible: false,
-    status: false,
-  });
+  const [isLatLng, setIsLatLng] = useState(false);
 
   const [formData, setFormData] = useState({
     full_name: "",
@@ -64,13 +63,14 @@ const AddAddressModel = ({ setIsOpen, isOpen, address, isEditMode }) => {
 
   const [suggesionIsOpen, setSuggesionIsOpen] = useState(false);
 
+  const [isMapOpen, setIsMapOpen] = useState(false);
+
   const handleAddressChange = (newAddress) => {
     setFormData({ ...formData, area: newAddress });
     setSuggesionIsOpen(true);
   };
 
   const handleAddressSelect = async (selectedAddress) => {
-    setIsLatLng({ ...isLatLng, status: true });
     setFormData({ ...formData, area: selectedAddress });
     try {
       const result = await geocodeByAddress(selectedAddress);
@@ -100,8 +100,11 @@ const AddAddressModel = ({ setIsOpen, isOpen, address, isEditMode }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!isLatLng.status) {
-      setIsLatLng({ ...isLatLng, visible: true });
+
+    if (!formData.lat || !formData.long) {
+      setIsLatLng(true);
+    } else {
+      setIsLatLng(false);
     }
 
     try {
@@ -116,6 +119,7 @@ const AddAddressModel = ({ setIsOpen, isOpen, address, isEditMode }) => {
       }
       return;
     }
+    setErrors({});
 
     if (isEditMode) {
       const { address_id } = address;
@@ -151,6 +155,11 @@ const AddAddressModel = ({ setIsOpen, isOpen, address, isEditMode }) => {
     });
   };
 
+  const handleGooglePinClick = (e) => {
+    e.preventDefault();
+    setIsMapOpen(true);
+  };
+
   useEffect(() => {
     if (address) {
       setFormData({
@@ -177,7 +186,7 @@ const AddAddressModel = ({ setIsOpen, isOpen, address, isEditMode }) => {
         isOpen ? "block" : "hidden"
       }`}
     >
-      <div className="w-full max-w-[60rem] bg-white shadow-2xl p-12 pb-16 rounded-2xl tab-l:rounded-xl mb-l:rounded-lg mb-l:p-10 mb:p-8">
+      <div className="w-full max-w-[60rem] bg-white shadow-2xl p-12 pb-16 rounded-[0.75rem] tab-l:rounded-xl mb-l:rounded-lg mb-l:p-10 mb:p-8">
         <div className="mb-10 flex justify-between items-center flex-wrap tab-l:mb-8">
           <h2 className="text-[2.4rem] leading-[1] text-[var(--black)] tab-l:text-[2rem]">
             {isEditMode ? "Edit Address" : "Add New Address"}
@@ -281,59 +290,67 @@ const AddAddressModel = ({ setIsOpen, isOpen, address, isEditMode }) => {
             </label>
 
             <div className="relative">
-              <PlacesAutocomplete
-                value={formData.area}
-                onChange={handleAddressChange}
-                onSelect={handleAddressSelect}
-              >
-                {({
-                  getInputProps,
-                  suggestions,
-                  getSuggestionItemProps,
-                  loading,
-                }) => (
-                  <>
-                    <input
-                      {...getInputProps({
-                        className: "aam-input",
-                        id: "area",
-                        type: "text",
-                        onFocus: () => setSuggesionIsOpen(true),
-                        onBlur: () => setSuggesionIsOpen(false),
-                      })}
-                    />
-                    {suggesionIsOpen && suggestions.length > 0 && (
-                      <div className="absolute z-10 bg-white rounded-lg shadow-lg w-full mt-1 border border-gray-200 laptop-l:mt-1 max-h-[150px] overflow-y-auto">
-                        <ul className="text-[1.4rem] font-normal text-[var(--black)]">
-                          {loading && (
-                            <li className="block px-4 py-[0.8rem] hover:bg-gray-100">
-                              Loading...
-                            </li>
-                          )}
-                          {!loading &&
-                            suggestions.map((suggestion, index) => {
-                              const { ...props } =
-                                getSuggestionItemProps(suggestion);
-                              return (
-                                <li
-                                  key={index}
-                                  {...props}
-                                  className="block px-4 py-[0.8rem] hover:bg-gray-100"
-                                >
-                                  {suggestion?.description}
-                                </li>
-                              );
-                            })}
-                        </ul>
-                      </div>
-                    )}
-                  </>
-                )}
-              </PlacesAutocomplete>
+              <div className="relative">
+                <PlacesAutocomplete
+                  value={formData.area}
+                  onChange={handleAddressChange}
+                  onSelect={handleAddressSelect}
+                >
+                  {({
+                    getInputProps,
+                    suggestions,
+                    getSuggestionItemProps,
+                    loading,
+                  }) => (
+                    <>
+                      <input
+                        {...getInputProps({
+                          className: "aam-input",
+                          id: "area",
+                          type: "text",
+                          onFocus: () => setSuggesionIsOpen(true),
+                          onBlur: () => setSuggesionIsOpen(false),
+                        })}
+                      />
+                      {suggesionIsOpen && suggestions.length > 0 && (
+                        <div className="absolute z-10 bg-white rounded-lg shadow-lg w-full mt-1 border border-gray-200 laptop-l:mt-1 max-h-[150px] overflow-y-auto">
+                          <ul className="text-[1.4rem] font-normal text-[var(--black)]">
+                            {loading && (
+                              <li className="block px-4 py-[0.8rem] hover:bg-gray-100">
+                                Loading...
+                              </li>
+                            )}
+                            {!loading &&
+                              suggestions.map((suggestion, index) => {
+                                const { ...props } =
+                                  getSuggestionItemProps(suggestion);
+                                return (
+                                  <li
+                                    key={index}
+                                    {...props}
+                                    className="block px-4 py-[0.8rem] hover:bg-gray-100"
+                                  >
+                                    {suggestion?.description}
+                                  </li>
+                                );
+                              })}
+                          </ul>
+                        </div>
+                      )}
+                    </>
+                  )}
+                </PlacesAutocomplete>
+                <button
+                  className="h-full bg-primary text-white px-4 py-1 rounded-br-lg rounded-tr-lg  absolute top-1/2 right-0 -translate-y-1/2"
+                  onClick={handleGooglePinClick}
+                >
+                  <MdLocationPin className="h-8 w-8" />
+                </button>
+              </div>
               {(errors.area && (
                 <p className="aam-error-label">{errors.area}</p>
               )) ||
-                (isLatLng.visible && (
+                (isLatLng && (
                   <p className="aam-error-label">
                     please select valid area from dropdown
                   </p>
@@ -462,6 +479,16 @@ const AddAddressModel = ({ setIsOpen, isOpen, address, isEditMode }) => {
           </div>
         </form>
       </div>
+      {isMapOpen && (
+        <GoogleMap
+          setIsMapOpen={setIsMapOpen}
+          setFormData={setFormData}
+          initialCenter={{
+            lat: formData?.lat || 23.03153299642489,
+            lng: formData?.long || 72.57217419501315,
+          }}
+        />
+      )}
     </section>
   );
 };
