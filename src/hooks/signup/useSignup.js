@@ -9,6 +9,7 @@ const useSignup = () => {
     let newFormData = {
       ...formData,
       gender: Number(formData.gender),
+      role_id: Number(formData.role_id),
     };
     try {
       setLoading(true);

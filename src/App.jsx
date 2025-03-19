@@ -9,11 +9,11 @@ import { Toaster } from "react-hot-toast";
 import Header from "./components/Header/Header";
 import Home from "./components/home/Home";
 import Footer from "./components/footer/Footer";
-const Signup = lazy(() => import("./components/signup/Signup"));
-const Login = lazy(() => import("./components/Login/Login"));
-const EnterOtp = lazy(() => import("./components/forget/EnterOtp"));
-const ForgetPassword = lazy(() => import("./components/forget/ForgetPassword"));
-const ResetPassword = lazy(() => import("./components/forget/ResetPassword"));
+import Signup from "./components/signup/Signup";
+import Login from "./components/Login/Login";
+import EnterOtp from "./components/forget/EnterOtp";
+import ForgetPassword from "./components/forget/ForgetPassword";
+import ResetPassword from "./components/forget/ResetPassword";
 const Services = lazy(() => import("./components/services/Services"));
 const CorporateServices = lazy(() =>
   import("./components/corporate_services/CorporateServices")
@@ -45,7 +45,6 @@ import PublicRoute from "./components/protected/PublicRoute";
 import NotFound from "./components/NotFound";
 import Loading from "./components/loading/Loading";
 import useValidateToken from "./hooks/token/useValidateToken";
-import Admin from "./components/admin/Admin";
 import ScrollToTop from "./components/scroll/ScrollToTop";
 import useFetchSettings from "./hooks/settings/useFetchSettings";
 import useFetchCart from "./hooks/newCart/useFetchCart";
@@ -104,9 +103,7 @@ const MainComponent = () => {
             path="/forget-password"
             element={
               <PublicRoute>
-                <Suspense fallback={<Loading />}>
-                  <ForgetPassword />
-                </Suspense>
+                <ForgetPassword />
               </PublicRoute>
             }
           />
@@ -114,9 +111,7 @@ const MainComponent = () => {
             path="/enter-otp"
             element={
               <PublicRoute>
-                <Suspense fallback={<Loading />}>
-                  <EnterOtp />
-                </Suspense>
+                <EnterOtp />
               </PublicRoute>
             }
           />
@@ -124,9 +119,7 @@ const MainComponent = () => {
             path="/reset-password"
             element={
               <PublicRoute>
-                <Suspense fallback={<Loading />}>
-                  <ResetPassword />
-                </Suspense>
+                <ResetPassword />
               </PublicRoute>
             }
           />
@@ -134,9 +127,7 @@ const MainComponent = () => {
             path="/signup"
             element={
               <PublicRoute>
-                <Suspense fallback={<Loading />}>
-                  <Signup />
-                </Suspense>
+                <Signup />
               </PublicRoute>
             }
           />
@@ -144,14 +135,10 @@ const MainComponent = () => {
             path="/login"
             element={
               <PublicRoute>
-                <Suspense fallback={<Loading />}>
-                  <Login />
-                </Suspense>
+                <Login />
               </PublicRoute>
             }
           />
-
-          <Route path="/admin" element={<Admin />} />
 
           <Route
             path="/terms-condition"

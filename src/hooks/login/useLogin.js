@@ -22,15 +22,15 @@ const useLogin = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          username: username,
-          password: password,
-          role_id: role_id,
+          username,
+          password,
+          role_id,
         }),
       });
 
       const data = await response.json();
 
-      if (response.ok) {
+      if (data?.statusCode !== 403) {
         toast.success(data.message || "Login successfull", {
           className: "toast-success",
         });

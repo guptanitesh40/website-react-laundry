@@ -12,7 +12,6 @@ const containerStyle = {
 const libraries = ["places"];
 
 const MapComponent = ({ setIsMapOpen, setFormData, initialCenter }) => {
-  console.log(initialCenter);
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: import.meta.env.VITE_GMAP_API_KEY,
     libraries,
