@@ -58,7 +58,7 @@ const Login = () => {
   };
 
   return (
-    <section className="flex justify-center items-center p-6 h-[100vh] w-[100vw] overflow-y-auto mb-l:p-4">
+    <section className="grid place-items-center p-6 min-h-screen w-fill overflow-auto  mb-l:p-4">
       <form className="login-form-container">
         <div className="flex flex-col justify-center items-center gap-8 laptop-l:gap-6 mb:gap-4">
           <img

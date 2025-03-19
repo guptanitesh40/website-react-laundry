@@ -18,6 +18,9 @@ const Signup = () => {
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
 
+  const [isDisabled, setIsDisabled] = useState(false);
+  const [timer, setTimer] = useState(60);
+
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",
@@ -75,7 +78,10 @@ const Signup = () => {
     }
   };
 
-  const sendOtp = () => {
+  const sendOtp = async () => {
+    if (isDisabled) {
+      return;
+    }
     const mobile = formData.mobile_number;
     const isValid = /^[0-9]{10}$/.test(mobile);
     if (!mobile) {
@@ -84,7 +90,22 @@ const Signup = () => {
       setMvalidation("Mobile number must be 10 digits");
     } else {
       setMvalidation("");
-      generateOtp(mobile);
+      const result = await generateOtp(mobile);
+      if (result.status) {
+        setIsDisabled(true);
+        setTimer(60);
+
+        const countDown = setInterval(() => {
+          setTimer((prev) => {
+            if (prev <= 0) {
+              clearInterval(countDown);
+              setIsDisabled(false);
+              return 0;
+            }
+            return prev - 1;
+          });
+        }, 1000);
+      }
     }
   };
 
@@ -157,8 +178,14 @@ const Signup = () => {
                   onChange={handleChange}
                   className="signup-input"
                 ></input>
-                <button type="button" className="send-otp-btn" onClick={sendOtp}>
-                  send
+                <button
+                  type="button"
+                  className={`send-otp-btn min-w-[5.5rem] ${
+                    isDisabled ? "!cursor-not-allowed" : "cursor-pointer"
+                  }`}
+                  onClick={sendOtp}
+                >
+                  {isDisabled ? timer : "send"}
                 </button>
               </div>
               {(mvalidation && (
