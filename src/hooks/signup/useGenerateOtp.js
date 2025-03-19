@@ -24,6 +24,7 @@ const useGenerateOtp = () => {
         toast.success(data.message || "OTP sent successfully!", {
           className: "toast-success",
         });
+        return { status: true };
       } else {
         toast.error(
           data?.message || "Unable to send OTP. Please try again later.",
@@ -31,11 +32,13 @@ const useGenerateOtp = () => {
             className: "toast-error",
           }
         );
+        return { status: false };
       }
     } catch {
       toast.error("Failed to send OTP. Please try again later.", {
         className: "toast-error",
       });
+      return { status: false };
     } finally {
       setLoading(false);
     }
