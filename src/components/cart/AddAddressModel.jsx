@@ -180,6 +180,11 @@ const AddAddressModel = ({ setIsOpen, isOpen, address, isEditMode }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => (document.body.style.overflow = "auto");
+  }, []);
+
   return (
     <section
       className={`fixed inset-0 p-8 bg-black bg-opacity-75 grid place-items-center min-h-screen w-full overflow-auto z-50 mb-l:p-6 ${

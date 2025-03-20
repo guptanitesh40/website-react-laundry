@@ -1,5 +1,3 @@
-import { FaApple, FaGooglePlay } from "react-icons/fa";
-
 const Download = () => {
   return (
     <section className="space-xl">
@@ -18,38 +16,29 @@ const Download = () => {
                 consequat sollicitudin adipiscing facilisi sit et hendrerit
                 diam.
               </p>
-              <div className="text-white flex items-center tab-s:gap-4 tab-s:flex-wrap gap-12 laptop-md:gap-10 tab:justify-center tab-l:gap-8">
+              <div className="flex items-center flex-wrap gap-12 laptop-md:gap-10 laptop:gap-8 tab-l:gap-6 tab-s:flex-wrap tab:justify-center">
                 <a
-                  href="https://play.google.com/store/apps/details?id=OUR_APP_PACKAGE_NAME"
-                  target="_blank"
+                  href="https://play.google.com/store/apps/details?id=com.dts.freefiremax"
+                  target="__blank"
                   rel="noopener noreferrer"
-                  className="bg-black px-4 py-3 flex items-center justify-center gap-4 rounded-xl laptop-s:px-3 laptop-s:py-2 laptop-s:rounded-lg tab-m:gap-3 tab-s:gap-2"
                 >
-                  <FaGooglePlay className="h-16 w-16 laptop-l:h-14 laptop-l:w-14 laptop-md:h-12 laptop-md:w-12 laptop-s:h-10 laptop-s:w-10 tab-m:h-8 tab-m:w-8 tab-s:h-6 tab-s:w-6" />
-                  <div className="flex flex-col items-start laptop-m:gap-1">
-                    <span className="text-[1.8rem] font-medium laptop-l:text-[1.6rem] laptop-md:text-[1.5rem] laptop-s:text-[1.4rem] tab-m:text-[1.2rem] tab-s:text-[1rem]">
-                      GET IT ON
-                    </span>
-                    <span className="text-[2.8rem] font-medium leading-none laptop-l:text-[2.4rem] laptop-md:text-[2.2rem] laptop-s:text-[2rem] tab-m:text-[1.8rem] tab-s:text-[1.4rem]">
-                      Google Play
-                    </span>
-                  </div>
+                  <img
+                    src="/branding-logos/GooglePlay.svg"
+                    alt="Get it on Google Play"
+                    className="h-28 w-auto object-contain laptop-l:h-24 laptop-md:h-20 laptop:h-[4.5rem] laptop-s:h-16"
+                  />
                 </a>
+
                 <a
-                  href="https://apps.apple.com/app/idAPP_ID"
-                  target="_blank"
+                  href="https://apps.apple.com/us/app/whatsapp-messenger/id310633997"
+                  target="__blank"
                   rel="noopener noreferrer"
-                  className="bg-black px-4 py-3 flex items-center justify-center gap-4 rounded-xl laptop-s:px-3 laptop-s:py-2 laptop-s:rounded-lg tab-m:gap-3 tab-s:gap-2"
                 >
-                  <FaApple className="h-20 w-20 laptop-l:h-16 laptop-l:w-16 laptop-md:h-14 laptop-md:14 laptop-s:h-12 laptop-s:w-12 tab-m:h-10 tab-m:w-10 tab-s:h-8 tab-s:w-8" />
-                  <div className="flex flex-col items-start laptop-m:gap-1">
-                    <span className="text-[1.8rem] font-medium laptop-l:text-[1.6rem] laptop-md:text-[1.5rem] laptop-s:text-[1.4rem] tab-m:text-[1.2rem] tab-s:text-[1rem]">
-                      Download on the
-                    </span>
-                    <span className="text-[2.8rem] font-medium leading-none laptop-l:text-[2.4rem] laptop-md:text-[2.2rem] laptop-s:text-[2rem] tab-m:text-[1.8rem] tab-s:text-[1.4rem]">
-                      App Store
-                    </span>
-                  </div>
+                  <img
+                    src="/branding-logos/AppStore.svg"
+                    alt="Download on the App Store"
+                    className="h-28 w-auto object-contain laptop-l:h-24 laptop-md:h-20 laptop:h-[4.5rem] laptop-s:h-16"
+                  />
                 </a>
               </div>
             </div>

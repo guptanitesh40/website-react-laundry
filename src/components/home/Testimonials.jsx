@@ -3,7 +3,7 @@ import useFetchReviews from "../../hooks/testimonials/useFetchReviews";
 const Testimonials = () => {
   const { reviews } = useFetchReviews();
 
-  if (!reviews && reviews.length > 0) {
+  if (!reviews || reviews.length === 0) {
     return null;
   }
 
@@ -24,10 +24,12 @@ const Testimonials = () => {
         <div className="testimonials-scroll flex items-stretch gap-28 overflow-x-scroll snap-x scroll-smooth laptop-l:gap-20 laptop-m:gap-16 laptop-s:gap-12 mb-l:gap-8 mb:gap-6">
           {reviews.slice(0, 15).map((review) => {
             const { feedback_id, comment, order } = review;
-            const { first_name } = order.user;
+            const { first_name, gender } = order.user;
             return (
               <div key={feedback_id} className="review-container snap-start">
-                <h4>{first_name}</h4>
+                <h4 className="capitalize">
+                  {`${gender === 1 ? "mr." : "mrs."} ${first_name}`}
+                </h4>
                 <p>{comment}</p>
               </div>
             );
