@@ -20,13 +20,14 @@ const Coupon = () => {
   const onCopyCodeClick = async () => {
     if (isCopyDisabled) return;
 
+    setIsCopyDisabled(true);
+    setTimeout(() => setIsCopyDisabled(false), 5000);
+
     try {
       await navigator.clipboard.writeText(promotion_code);
       toast.success(`Coupon code copied successfully`, {
         className: "toast-success",
       });
-      setIsCopyDisabled(true);
-      setTimeout(() => setIsCopyDisabled(false), 5000);
     } catch {
       toast.error("Failed to copy code. Please try again.", {
         className: "toast-error",

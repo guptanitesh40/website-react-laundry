@@ -23,13 +23,15 @@ const AddAddress = ({ setSelectAddId }) => {
     setEditAddress(null);
   }
 
-  function onEditClick(address) {
+  function onEditClick(e, address) {
+    e.preventDefault();
     setEditAddress(address);
     setIsEditMode(true);
     setIsOpen(true);
   }
 
-  async function onDelClick(address_id) {
+  async function onDelClick(e, address_id) {
+    e.preventDefault();
     const result = await deleteAddress(address_id);
     if (result) {
       dispatch(deleteAddressAction(address_id));
@@ -112,8 +114,8 @@ const AddAddress = ({ setSelectAddId }) => {
                       <span></span>
                     </span>
                     <ul className="shortcut">
-                      <li onClick={() => onEditClick(address)}>Edit</li>
-                      <li onClick={() => onDelClick(address_id)}>
+                      <li onClick={(e) => onEditClick(e, address)}>Edit</li>
+                      <li onClick={(e) => onDelClick(e, address_id)}>
                         {loadingDelAdd ? "Deleting.." : "Delete"}
                       </li>
                     </ul>
