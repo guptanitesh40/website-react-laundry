@@ -2,6 +2,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 
 const useResetPassword = () => {
+  const role_id = 5;
   const [loading, setLoading] = useState(false);
   const baseURL = import.meta.env.VITE_BASE_URL;
   const resetPassword = async (mobile_number, otp, password) => {
@@ -16,6 +17,7 @@ const useResetPassword = () => {
           mobile_number: Number(mobile_number),
           otp: Number(otp),
           new_password: password,
+          role_id,
         }),
       });
       const data = await response.json();
