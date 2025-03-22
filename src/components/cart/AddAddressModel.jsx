@@ -21,7 +21,6 @@ import GoogleMap from "./GoogleMap";
 const addressShcema = Yup.object().shape({
   full_name: Yup.string()
     .trim()
-    .min(6, "Full name must be at least 2 characters")
     .max(50, "Full name cannot exceed 50 characters")
     .required("Full name is required"),
   phone_number: Yup.string()
@@ -183,7 +182,7 @@ const AddAddressModel = ({ setIsOpen, isOpen, address, isEditMode }) => {
   useEffect(() => {
     document.body.style.overflow = "hidden";
     return () => (document.body.style.overflow = "auto");
-  }, []);
+  }, [formData]);
 
   return (
     <section
@@ -489,9 +488,10 @@ const AddAddressModel = ({ setIsOpen, isOpen, address, isEditMode }) => {
           setIsMapOpen={setIsMapOpen}
           setFormData={setFormData}
           initialCenter={{
-            lat: formData?.lat || 23.03153299642489,
-            lng: formData?.long || 72.57217419501315,
+            lat: Number(formData?.lat) || 23.03153299642489,
+            lng: Number(formData?.long) || 72.57217419501315,
           }}
+          vir={formData}
         />
       )}
     </section>

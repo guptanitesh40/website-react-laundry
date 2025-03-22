@@ -41,13 +41,13 @@ const Login = () => {
     e.preventDefault();
     try {
       await formValidation.validate(formdata, { abortEarly: false });
+      setErrors("");
       const result = await login(formdata.username, formdata.password);
       if (result) {
         dispatch(addUser(result.user));
         dispatch(setAuthStatus(!!result.token));
         navigate("/");
       }
-      setErrors("");
     } catch (error) {
       const validationErrors = {};
       error.inner.forEach((error) => {
