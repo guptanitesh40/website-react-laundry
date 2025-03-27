@@ -271,7 +271,7 @@ const AddAddressModel = ({ setIsOpen, isOpen, address, isEditMode }) => {
 
           <div className="flex flex-col gap-2">
             <label htmlFor="building_number" className="aam-label">
-              Building number
+              House No
             </label>
             <div>
               <input

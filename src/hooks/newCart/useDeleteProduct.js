@@ -4,9 +4,10 @@ import { useState } from "react";
 const useDeleteProduct = () => {
   const [loading, setLoading] = useState(false);
   const baseURL = import.meta.env.VITE_BASE_URL;
-  const token = localStorage.getItem("token");
 
   const deleteProduct = async (cartId) => {
+    const token = localStorage.getItem("token");
+
     if (!cartId) {
       toast.error("Cart ID is required to delete an item!");
       return null;

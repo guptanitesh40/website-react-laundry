@@ -21,6 +21,10 @@ const points = [
     lat: 23.054375676135088,
     lng: 72.54428865138641,
   },
+  {
+    lat: 23.0918625,
+    lng: 72.4943784,
+  }
 ];
 
 const Map = () => {
@@ -63,7 +67,7 @@ const Map = () => {
           </div>
 
           <div className="basis-[31%] laptop-l:basis-[37.5%] laptop:basis-[40%] laptop-s:basis-[32.5%] tab-l:basis-[30%] tab-s:basis-[54rem]">
-            <div className="flex flex-col gap-36 laptop-l:gap-20 laptop-s:gap-16 tab-s:gap-14 tab:gap-12 mb-l:gap-8 mb:gap-6">
+            <div className="flex flex-col gap-12 laptop-l:gap-20 laptop-s:gap-16 tab-s:gap-14 tab:gap-12 mb-l:gap-8 mb:gap-6">
               <div className="flex flex-col gap-12 laptop-l:gap-8 laptop-m:gap-6 laptop-s:gap-4 mb:gap-3">
                 <div className="flex items-center justify-start gap-8 laptop-l:gap-6 laptop-m:gap-4 laptop-s:gap-3">
                   <SlLocationPin className="h-12 w-12 fill-[var(--secondary)] laptop-l:h-10 laptop-l:w-10 laptop-m:h-8 laptop-m:w-8 laptop-s:h-[1.75rem] laptop-s:w-[1.75rem]" />
@@ -135,6 +139,37 @@ const Map = () => {
 
               <div className="flex flex-col gap-12 laptop-l:gap-8 laptop-m:gap-6 laptop-s:gap-4 mb:gap-3">
                 <div className="flex items-center gap-8 laptop-l:gap-6 laptop-m:gap-4 laptop-s:gap-3">
+                  <SlLocationPin className="h-12 w-12 fill-[var(--secondary)] laptop-l:h-10 laptop-l:w-10 laptop-m:h-8 laptop-m:w-8 laptop-s:h-[1.75rem] laptop-s:w-[1.75rem]" />
+                  <h4
+                    className="text-[2.6rem] leading-[1] font-bold cursor-pointer laptop-l:text-4xl laptop-m:text-3xl laptop-s:text-2xl"
+                    role="button"
+                    onClick={() => {
+                      handleBranchClick(3);
+                      setZoom(18);
+                    }}
+                  >
+                    Science City Branch
+                  </h4>
+                </div>
+                <p className="text-[1.8rem] leading-[1.68] font-medium laptop-l:text-[1.6rem] laptop-m:text-[1.4rem] laptop-s:text-[1.2rem]">
+                Shop no. 4, Tatvam pride Besides, Adani Gas CNG Station, 
+                circle, Sardar Patel Ring Rd, opposite Club Babylon, 
+                in front of Ganesh Elegance, Ahmedabad - 380060, Gujarat, India.
+                </p>
+                <div className="flex items-center gap-4 text-[1.8rem] font-medium laptop-l:text-[1.6rem] laptop-m:text-[1.4rem] laptop-m:gap-3 laptop-s:text-[1.2rem]">
+                  <FiPhoneCall className="h-[2.4rem] w-[2.4rem] stroke-[var(--black)] laptop-l:h-[2.2rem] laptop-l:w-[2.2rem] laptop-m:h-[1.75rem] laptop-m:w-[1.75rem] laptop-s:h-6 laptop-s:w-6" />
+                  <a
+                    href="tel:9409420403"
+                    aria-label="Call 9409420403"
+                    className="underline"
+                  >
+                    +91-9512600839
+                  </a>
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-12 laptop-l:gap-8 laptop-m:gap-6 laptop-s:gap-4 mb:gap-3">
+                <div className="flex items-center gap-8 laptop-l:gap-6 laptop-m:gap-4 laptop-s:gap-3">
                   <SlLocationPin className="h-12 w-12 fill-[var(--secondary)] laptop-l:h-10 laptop-l:w-10 laptop-m:h-8 laptop-m:w-8 laptop-s:h-[1.75rem] laptop-s:w-[1.75rem] " />
                   <h4
                     className="text-[2.6rem] leading-[1] font-bold cursor-pointer laptop-l:text-4xl laptop-m:text-3xl laptop-s:text-2xl"
@@ -150,7 +185,7 @@ const Map = () => {
                 <p className="text-[1.8rem] leading-[1.68] font-medium laptop-l:text-[1.6rem] laptop-m:text-[1.4rem] laptop-s:text-[1.2rem]">
                   Shop No: 5B, ajanta sheds, in shrijee estate, B/H,
                   bharataluminum, near. IRIS Automation, nr, santej - vadsar
-                  road canal, santej, ghandhinagar, Gujarat.
+                  road canal, santej, Ghandhinagar - 382721, Gujarat, India
                 </p>
               </div>
             </div>
