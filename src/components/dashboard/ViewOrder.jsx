@@ -123,10 +123,13 @@ const ViewOrder = () => {
                         />
                         <div className="flex flex-col justify-evenly mb-l:gap-2 mb-l:items-center">
                           <h3 className="text-[1.2rem] font-medium leading-[1.5]">
-                            {product.name} ({`${quantity}x`})
+                            {product.name}
                           </h3>
                           <h4 className="text-[1.2rem] text-[#78829d] font-normal leading-[1.5]">
                             Category: {category.name}
+                          </h4>
+                          <h4 className="text-[1.2rem] text-[#78829d] font-normal leading-[1.5]">
+                            Qty: {quantity}
                           </h4>
                         </div>
                       </div>

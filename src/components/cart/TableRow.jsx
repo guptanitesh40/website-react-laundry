@@ -54,9 +54,11 @@ const TableRow = ({ item }) => {
         dispatch(updateQty({ cart_id, quantity: newQuantity }));
       }
     } else {
-      const result = await deleteProduct(cart_id);
-      if (result) {
-        dispatch(deleteItem(cart_id));
+      if (cart_id) {
+        const result = await deleteProduct(cart_id);
+        if (result) {
+          dispatch(deleteItem(cart_id));
+        }
       }
     }
     setLoadingQuantityUpdate(false);
@@ -86,6 +88,28 @@ const TableRow = ({ item }) => {
       setIsDescAdded(true);
     }
   }, [item?.description]);
+
+  const updateQuantity = async (value) => {
+    setLoadingQuantityUpdate(true);
+
+    let newQuantity = Number(value);
+    if (newQuantity === 0) {
+      const result = await deleteProduct(cart_id);
+      if (result) {
+        dispatch(deleteItem(cart_id));
+      }
+    } else {
+      setQuantity(newQuantity);
+
+      const result = await updateCart(cart_id, {
+        quantity: newQuantity,
+      });
+      if (result) {
+        dispatch(updateQty({ cart_id, quantity: newQuantity }));
+      }
+    }
+    setLoadingQuantityUpdate(false);
+  };
 
   return (
     <tr>
@@ -125,7 +149,17 @@ const TableRow = ({ item }) => {
                 >
                   <HiOutlineMinus className="indec-icon" />
                 </span>
-                {quantity}
+                <input
+                  type="text"
+                  value={quantity}
+                  min="1"
+                  onChange={(e) => setQuantity(Number(e.target.value))}
+                  onBlur={(e) => updateQuantity(e.target.value)}
+                  onKeyDown={(e) =>
+                    e.key === "Enter" && updateQuantity(e.target.value)
+                  }
+                  className="w-12 text-center bg-transparent outline-none"
+                />
                 <span
                   className="py-[1.1rem] pr-[1.2rem] cursor-pointer laptop-l:py-[1rem] laptop-l:pr-[1.2rem] laptop-md:py-[0.85rem] laptop-md:pr-4 laptop:py-3 laptop:pr-3"
                   onClick={() => handleUpClick(cart_id)}
