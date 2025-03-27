@@ -34,6 +34,7 @@ const CategoryItem = ({ categoryItem, category_id }) => {
   };
 
   const onDecClick = async () => {
+
     if (itemCount > 0 && itemCount - 1 != 0) {
       const quantity = itemCount - 1;
       const result = await updateCart(cartId, { quantity });
@@ -43,10 +44,12 @@ const CategoryItem = ({ categoryItem, category_id }) => {
         dispatch(updateQty({ cart_id: cartId, quantity }));
       }
     } else {
-      const result = await deleteProduct(cartId);
-      if (result) {
-        setNumberBtn(false);
-        dispatch(deleteItem(cartId));
+      if (cartId) {
+        const result = await deleteProduct(cartId);
+        if (result) {
+          setNumberBtn(false);
+          dispatch(deleteItem(cartId));
+        }
       }
     }
   };
@@ -55,18 +58,28 @@ const CategoryItem = ({ categoryItem, category_id }) => {
     if (!isAuthenticated) {
       setModelIsOpen(true);
     } else {
-      const result = await addToCart({
-        category_id,
-        product_id,
-        service_id,
-        itemCount,
-      });
-      if (result) {
-        setCartId(result?.cart_id);
-        setNumberBtn(true);
-        dispatch(addItem(result));
+      if (itemCount === 0) {
+        const quantity = itemCount + 1;
+        const result = await updateCart(cartId, { quantity });
+
+        if (result) {
+          setItemCount(quantity);
+          dispatch(updateQty({ cart_id: cartId, quantity }));
+        }
       } else {
-        toast.error("Failed to add item into cart!");
+        const result = await addToCart({
+          category_id,
+          product_id,
+          service_id,
+          itemCount,
+        });
+        if (result) {
+          setCartId(result?.cart_id);
+          setNumberBtn(true);
+          dispatch(addItem(result));
+        } else {
+          toast.error("Failed to add item into cart!");
+        }
       }
     }
   };
@@ -89,6 +102,27 @@ const CategoryItem = ({ categoryItem, category_id }) => {
       setItemCount(1);
     }
   }, [categoryItem]);
+
+  const updateQuantity = async (value) => {
+    if (Number(value) === 0) {
+      const result = await deleteProduct(cartId);
+
+      if (result) {
+        setNumberBtn(false);
+        dispatch(deleteItem(cartId));
+      }
+      return;
+    } else {
+      const quantity = Number(value);
+
+      const result = await updateCart(cartId, { quantity });
+
+      if (result) {
+        setItemCount(quantity);
+        dispatch(updateQty({ cart_id: cartId, quantity }));
+      }
+    }
+  };
 
   return (
     <div>
@@ -121,7 +155,17 @@ const CategoryItem = ({ categoryItem, category_id }) => {
                   >
                     <HiOutlineMinus className="indec-icon" />
                   </span>
-                  {itemCount}
+                  <input
+                    type="text"
+                    value={itemCount}
+                    min="1"
+                    onChange={(e) => setItemCount(Number(e.target.value))}
+                    onBlur={(e) => updateQuantity(e.target.value)}
+                    onKeyDown={(e) =>
+                      e.key === "Enter" && updateQuantity(e.target.value)
+                    }
+                    className="w-12 text-center bg-transparent outline-none"
+                  />
                   <span
                     className="py-[1.1rem] pr-[1.2rem] laptop-l:pr-3 laptop-l:py-[0.8rem] cursor-pointer "
                     onClick={onIncClick}
