@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import AddAddressModel from "./AddAddressModel";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,6 +16,16 @@ const AddAddress = ({ setSelectAddId }) => {
   const { loading: loadingFetchAddress } = useFetchAddress();
   const { deleteAddress, loading: loadingDelAdd } = useDeleteAddress();
   const addresses = useSelector((state) => state.address.address);
+
+  const [selectedAddress, setSelectedAddress] = useState();
+
+  useEffect(() => {
+    if (addresses.length > 0) {
+      const defaultAddr = addresses?.find((add) => add.is_default === true);
+      setSelectedAddress(defaultAddr?.address_id);
+      setSelectAddId(defaultAddr?.address_id);
+    }
+  }, [addresses]);
 
   function handleAddAddressClick() {
     setIsEditMode(false);
@@ -88,7 +98,9 @@ const AddAddress = ({ setSelectAddId }) => {
                     type="radio"
                     name="address"
                     className="styled-radio"
+                    checked={address_id === selectedAddress}
                     onChange={() => {
+                      setSelectedAddress(address_id);
                       setSelectAddId(address_id);
                     }}
                   />

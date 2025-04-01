@@ -17,6 +17,7 @@ const usePlaceOrder = () => {
     payment_type,
     address_id,
     express_delivery_charges,
+    express_delivery_hour,
     transaction_id = "",
     paid_amount = 0,
     branch_id
@@ -46,6 +47,7 @@ const usePlaceOrder = () => {
           address_id,
           user_id,
           express_delivery_charges,
+          express_delivery_hour,
           transaction_id,
           paid_amount,
           branch_id,
