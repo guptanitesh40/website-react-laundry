@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteAddress as deleteAddressAction } from "../../redux/slices/addressSlice";
@@ -6,6 +6,7 @@ import useFetchAddress from "../../hooks/address/useFetchAddress";
 import useDeleteAddress from "../../hooks/address/useDeleteAddress";
 import AddAddressModel from "../cart/AddAddressModel";
 import Loading from "./Loading";
+import useSetDefaultAddress from "../../hooks/address/useSetDefaultAddress";
 
 const SavedAddress = () => {
   const dispatch = useDispatch();
@@ -14,8 +15,23 @@ const SavedAddress = () => {
   const [editAddress, setEditAddress] = useState(null);
   const [loadingStates, setLoadingStates] = useState({});
   const addresses = useSelector((state) => state.address.address);
-  const { loading: loadingFetchAddress } = useFetchAddress();
+  const { loading: loadingFetchAddress, fetchAddress } = useFetchAddress();
   const { loading: loadingDelAdd, deleteAddress } = useDeleteAddress();
+  const { setDefaultAddress } = useSetDefaultAddress();
+
+  const [defaultAddr, setDefaultAddr] = useState();
+
+  useEffect(() => {
+    if (!defaultAddr) return;
+
+    const setAddress = async () => {
+      const success = await setDefaultAddress(defaultAddr);
+      if (success) {
+        await fetchAddress();
+      }
+    };
+    setAddress();
+  }, [defaultAddr]);
 
   const addressMapping = {
     1: "Home",
@@ -74,12 +90,30 @@ const SavedAddress = () => {
               } = address;
               const isDeleting = loadingStates[address_id] || false;
               const address_str = `${building_number}, ${area}, ${landmark}, ${city}, ${pincode}`;
+
               return (
                 <div
                   key={address_id}
-                  className="border border-[#b9bccf4d] rounded-2xl laptop:rounded-xl laptop-s:rounded-lg"
+                  className="border border-[#b9bccf4d] rounded-2xl laptop:rounded-xl laptop-s:rounded-lg relative overflow-hidden"
                 >
-                  <div className="flex flex-col items-start gap-4 px-6 py-8 border-b border-[#b9bccf4d] laptop:p-6 laptop:gap-3 laptop-s:p-5 mb-l:p-4">
+                  {address.is_default && (
+                    <>
+                      <span className="absolute top-0 right-0 bg-[#008080BF] text-[#FAF3E0] px-4 py-1.5 font-medium rounded-bl-xl border border-[#0080804d] text-[1.2rem] mb-l:text-[0.9rem] mb:text-[0.7rem]">
+                        Default
+                      </span>
+                    </>
+                  )}
+                  <div className="absolute top-2 left-2">
+                    <input
+                      type="radio"
+                      name="defaultAddress"
+                      className="w-7 h-7 accent-[#008080] cursor-pointer custom-radio"
+                      checked={address.is_default}
+                      onChange={() => setDefaultAddr(address_id)}
+                    />
+                  </div>
+
+                  <div className="flex mt-8 flex-col items-start gap-4 px-6 py-8 border-b border-[#b9bccf4d] laptop:p-6 laptop:gap-3 laptop-s:p-5 mb-l:p-4">
                     <span className="bg-[#f0f0f0] p-3 rounded-lg uppercase text-xl text-[#878787] font-semibold laptop:p-2 laptop:text-lg laptop:rounded-md laptop-s:text-base">
                       {addressMapping[address_type]}
                     </span>

@@ -36,9 +36,9 @@ const ViewOrder = () => {
   };
 
   const psMap = {
-    1: "Pending payement",
-    2: "Full payement received",
-    3: "Partial payement received",
+    1: "Pending payment",
+    2: "Full payment received",
+    3: "Partial payment received",
   };
 
   const hanldeInvoiceDownload = async () => {
@@ -63,6 +63,7 @@ const ViewOrder = () => {
     transaction_id,
     estimated_pickup_time,
     estimated_delivery_time,
+    order_status_name,
   } = order;
 
   const { branch_name, branch_phone_number } = branch;
@@ -75,24 +76,34 @@ const ViewOrder = () => {
     <div className="flex flex-col gap-8 tab-s:gap-6">
       <div className="text-[1.8rem] leading-[4rem] text-[var(--black)] font-semibold py-4 px-6 rounded-xl bg-white border border-[#b9bccf4d] flex items-center justify-between shadow-sm laptop-s:text-[1.6rem] laptop-s:leading-[3rem] laptop-s:rounded-lg tab-s:p-4 tab-s:text-[1.5rem]">
         <span>Order Details : #{order_id}</span>
-        {order_status === 11 && (
-          <span
-            className="flex justify-center items-center h-14 w-14 p-3 bg-gray-100 rounded-full border border-[#b9bccf4d] cursor-pointer laptop-s:h-12 laptop-s:w-12 laptop-s:p-2"
-            onClick={hanldeInvoiceDownload}
-          >
-            {loading ? (
-              <span className="inline-block h-7 w-7 rounded-full border-2 border-indigo-100 border-t-indigo-600 border-r-indigo-600 animate-spin"></span>
-            ) : (
-              <IoMdDownload className="h-full w-full fill-[var(--primary)]" />
-            )}
-          </span>
-        )}
         {order_status === 12 ||
           (order_status === 13 && (
             <span className="self-center border border-secondary text-[1.4rem] leading-[1.25] font-normal rounded-lg text-secondary p-3">
               This order is cancelled
             </span>
           ))}
+
+        <div className="flex items-center gap-5">
+          {order_status === 11 && (
+            <span
+              className="flex justify-center items-center h-14 w-14 p-3 bg-gray-100 rounded-full border border-[#b9bccf4d] cursor-pointer laptop-s:h-12 laptop-s:w-12 laptop-s:p-2"
+              onClick={hanldeInvoiceDownload}
+            >
+              {loading ? (
+                <span className="inline-block h-7 w-7 rounded-full border-2 border-indigo-100 border-t-indigo-600 border-r-indigo-600 animate-spin"></span>
+              ) : (
+                <IoMdDownload className="h-full w-full fill-[var(--primary)]" />
+              )}
+            </span>
+          )}
+          <span
+            className={`px-4 py-1 rounded-lg font-medium text-[1rem] leading-[2.4rem] order-status-label-${
+              order_status >= 4 && order_status < 9 ? 0 : order_status
+            }`}
+          >
+            {order_status_name}
+          </span>
+        </div>
       </div>
 
       <div className="grid grid-cols-2 laptop:grid-cols-1 gap-8 tab-s:gap-6">
@@ -244,9 +255,9 @@ const ViewOrder = () => {
             </div>
             <div className="py-8 px-12 tab-s:px-10 tab:px-8 tab:py-6 mb-l:py-4 mb-l:px-6">
               <div className="grid grid-cols-[20rem_1fr] gap-8 font-normal tab-s:grid-cols-[15rem_1fr] tab:grid-cols-[12.5rem_1fr] tab:gap-6 mb-l:gap-4 mb-l:grid-cols-[repeat(auto-fill,_minmax(12.5rem,_1fr))]">
-                <span className="info-label">payement type</span>
+                <span className="info-label">payment type</span>
                 <span className="info-ans">{ptMap[payment_type]}</span>
-                <span className="info-label">payement status</span>
+                <span className="info-label">payment status</span>
                 <span className="info-ans">{psMap[payment_status]}</span>
                 <span className="info-label">Transaction ID</span>
                 <span className="info-ans">{transaction_id || "N/A"}</span>

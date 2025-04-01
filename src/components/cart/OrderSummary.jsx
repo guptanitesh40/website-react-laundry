@@ -37,9 +37,22 @@ const OrderSummary = ({
   const shippingCharge = parseInt(
     useSelector((state) => state?.setting?.settings?.normal_delivery_charges)
   );
-  const express_charge = parseInt(
-    useSelector((state) => state.setting.settings.express_delivery_charge)
+
+  const express_delivery_24hrs = parseInt(
+    useSelector((state) => state.setting.settings.express_delivery_24hrs)
   );
+  const express_delivery_48hrs = parseInt(
+    useSelector((state) => state.setting.settings.express_delivery_48hrs)
+  );
+  const express_delivery_72hrs = parseInt(
+    useSelector((state) => state.setting.settings.express_delivery_72hrs)
+  );
+
+  const expressCharges = {
+    24: express_delivery_24hrs,
+    48: express_delivery_48hrs,
+    72: express_delivery_72hrs,
+  };
 
   const navigate = useNavigate();
   const [couponCode, setCouponCode] = useState("");
@@ -56,6 +69,21 @@ const OrderSummary = ({
   const { verifyPayement, loading: verifyingPayement } = useVerifyPayement();
   const user = useSelector((state) => state?.user?.user);
   const [open, setOpen] = useState(false);
+
+  const [expHour, setExpHour] = useState(24);
+  const [expressCharge, setExpressCharge] = useState(null);
+
+  const calculateExpressCharge = () => {
+    const calculatedSubTotal = discountValue
+      ? subTotal - discountValue
+      : subTotal;
+    const expHourPercentage = expressCharges[expHour];
+    return Math.round((calculatedSubTotal * expHourPercentage) / 100);
+  };
+
+  useEffect(() => {
+    setExpressCharge(calculateExpressCharge);
+  }, [expHour, subTotal, discountValue]);
 
   const handleApplyClick = async (e) => {
     e.preventDefault();
@@ -109,10 +137,12 @@ const OrderSummary = ({
       return;
     }
 
+    let newSubTotal = subTotal - discountValue;
+    let expresssCharge = isExpDel ? expressCharge : 0;
+    let normal_delivery_charges = isExpDel ? 0 : shippingCharge;
+    let express_delivery_hour = isExpDel ? expHour : undefined;
+
     if (paymentMethod === 1) {
-      let newSubTotal = subTotal - discountValue;
-      let expresssCharge = isExpDel ? express_charge : 0;
-      let normal_delivery_charges = isExpDel ? 0 : shippingCharge;
       const result = await placeOrder(
         items,
         newSubTotal,
@@ -122,6 +152,7 @@ const OrderSummary = ({
         paymentMethod,
         selectedAddId,
         expresssCharge,
+        express_delivery_hour,
         "",
         0,
         selectedBranchId
@@ -155,9 +186,6 @@ const OrderSummary = ({
                 return;
               }
 
-              let newSubTotal = subTotal - discountValue;
-              let expresssCharge = isExpDel ? express_charge : 0;
-              let normal_delivery_charges = isExpDel ? 0 : shippingCharge;
               const result = await placeOrder(
                 items,
                 newSubTotal,
@@ -167,6 +195,7 @@ const OrderSummary = ({
                 paymentMethod,
                 selectedAddId,
                 expresssCharge,
+                express_delivery_hour,
                 razorpay_order_id,
                 finalTotal,
                 selectedBranchId
@@ -252,7 +281,7 @@ const OrderSummary = ({
   const calculateTotal = () => {
     const baseTotal = Number(subTotal) - Number(discountValue);
     const deliveryCharge = isExpDel
-      ? Number(express_charge || 0)
+      ? Number(expressCharge || 0)
       : Number(shippingCharge);
     return baseTotal + deliveryCharge;
   };
@@ -417,7 +446,7 @@ const OrderSummary = ({
                   )}
                 </div>
                 {isExpDel ? (
-                  <h5>₹{express_charge || 0}</h5>
+                  <h5>₹{calculateExpressCharge() || 0}</h5>
                 ) : (
                   <button className="edc-btn" onClick={() => setExpDel(true)}>
                     add
@@ -425,20 +454,54 @@ const OrderSummary = ({
                 )}
               </div>
 
-              <div className="mt-2 text-secondary laptop-l:text-[1.4rem] laptop-md:text-[1.3rem] tab-l:text-[1.2rem]">
-                <i>Get your Delivery within 1-2 Days</i>
-              </div>
+              {isExpDel && (
+                <div className="mt-4 laptop-l:text-[1.4rem] laptop-md:text-[1.3rem] tab-l:text-[1.2rem]">
+                  <div className="flex gap-x-8 items-center">
+                    <input
+                      type="radio"
+                      name="exp_hour"
+                      className="radio"
+                      value={24}
+                      checked={expHour === 24}
+                      onChange={() => setExpHour(24)}
+                    />{" "}
+                    <p>24 hour</p>
+                    <input
+                      type="radio"
+                      name="exp_hour"
+                      className="radio"
+                      value={48}
+                      checked={expHour === 48}
+                      onChange={() => setExpHour(48)}
+                    />
+                    <p>48 hour</p>
+                    <input
+                      type="radio"
+                      name="exp_hour"
+                      className="radio"
+                      value={72}
+                      checked={expHour === 72}
+                      onChange={() => setExpHour(72)}
+                    />
+                    <p>72 hour</p>
+                  </div>
+                </div>
+              )}
+
+              {!isExpDel && (
+                <div className="mt-2 text-secondary laptop-l:text-[1.4rem] laptop-md:text-[1.3rem] tab-l:text-[1.2rem]">
+                  <i>Get your Delivery within 1-3 Days</i>
+                </div>
+              )}
             </div>
 
             <div className="flex flex-col gap-5 laptop-l:gap-4 laptop:gap-3">
               <span className="line"></span>
               <div className="capitalize">
                 <span className="block text-[1.8rem] leading-[1] text-primary laptop-l:text-[1.5rem] laptop-md:text-[1.4rem] laptop:text-[1.3rem] tab-m:text-[1.4rem]">
-                  your product will be deilvered in{" "}
                   {isExpDel
-                    ? estimate_delivery_express_day
-                    : estimate_delivery_normal_day}{" "}
-                  days
+                    ? `your product will be deilvered in ${expHour / 24} day`
+                    : `your product will be deilvered in ${estimate_delivery_normal_day} days`}
                 </span>
               </div>
               <span className="line"></span>
