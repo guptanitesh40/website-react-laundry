@@ -10,37 +10,37 @@ const useFetchAddress = () => {
   const baseURL = import.meta.env.VITE_BASE_URL;
   const token = localStorage.getItem("token");
 
-  useEffect(() => {
+  const fetchAddress = async () => {
     if (!authStatus || !token) {
       setLoading(false);
       return;
     }
-
-    const fetchAddress = async () => {
-      try {
-        const response = await fetch(`${baseURL}/address`, {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        const data = await response.json();
-        if (response.ok) {
-          dispatch(setAddress(data?.data?.result));
-        } else {
-          toast.error("Failed to fetch address data!");
-        }
-      } catch {
+    
+    try {
+      const response = await fetch(`${baseURL}/address`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const data = await response.json();
+      if (response.ok) {
+        dispatch(setAddress(data?.data?.result));
+      } else {
         toast.error("Failed to fetch address data!");
-      } finally {
-        setLoading(false);
       }
-    };
+    } catch {
+      toast.error("Failed to fetch address data!");
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchAddress();
   }, [authStatus, baseURL, dispatch, token]);
 
-  return { loading };
+  return { loading, fetchAddress };
 };
 
 export default useFetchAddress;
