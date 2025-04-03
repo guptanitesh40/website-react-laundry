@@ -15,6 +15,7 @@ const Cart = () => {
   const [paymentMethod, setPayementMethod] = useState(0);
   const [selectedAddId, setSelectAddId] = useState(0);
   const [selectedBranchId, setSelectedBranchId] = useState(0);
+  const [noSelection, setNoSelection] = useState(false);
 
   return (
     <section className="section-cart">
@@ -29,7 +30,7 @@ const Cart = () => {
                   instruction={instruction}
                   setInstruction={setInstruction}
                 />
-                <Branches setSelectedBranchId={setSelectedBranchId} />
+                <Branches setSelectedBranchId={setSelectedBranchId} noSelection={noSelection} setNoSelection={setNoSelection}/>
                 <PayementMethod setPayementMethod={setPayementMethod} />
               </div>
             </div>
@@ -39,6 +40,7 @@ const Cart = () => {
                 paymentMethod={paymentMethod}
                 selectedAddId={selectedAddId}
                 selectedBranchId={selectedBranchId}
+                setNoSelection={setNoSelection}
               />
             </div>
           </div>

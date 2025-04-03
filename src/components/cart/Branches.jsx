@@ -4,7 +4,7 @@ import { FaLocationDot } from "react-icons/fa6";
 import { IoIosArrowDown } from "react-icons/io";
 import useFetchBranches from "../../hooks/branch/useFetchBranches";
 
-const Branches = ({ setSelectedBranchId }) => {
+const Branches = ({ setSelectedBranchId, noSelection, setNoSelection }) => {
   const { branches } = useFetchBranches();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedBranch, setSelectedBranch] = useState("Select Branch");
@@ -18,6 +18,7 @@ const Branches = ({ setSelectedBranchId }) => {
     setSelectedBranch(branch_name);
     setSelectedBranchId(branch_id);
     toggleDropdown();
+    setNoSelection(false);
   };
 
   useEffect(() => {
@@ -38,7 +39,7 @@ const Branches = ({ setSelectedBranchId }) => {
     <div className="flex flex-col gap-8 laptop-md:gap-7 tab-s:gap-6">
       <label className="cart-sub-title">Select Branch</label>
       <div
-        className="self-start border border-gray-400 rounded-lg w-[45rem] laptop-md:w-[38rem] laptop:w-[32.5rem] tab-m:w-[35rem] tab-m:rounded-md mb-l:w-full mb-l:max-w-full"
+        className={`self-start border ${noSelection ? "border-red-400" : "border-gray-400"} rounded-lg w-[45rem] laptop-md:w-[38rem] laptop:w-[32.5rem] tab-m:w-[35rem] tab-m:rounded-md mb-l:w-full mb-l:max-w-full`}
         ref={dropdownRef}
       >
         <div className="relative">
