@@ -20,6 +20,7 @@ const OrderSummary = ({
   paymentMethod,
   selectedAddId,
   selectedBranchId,
+  setNoSelection,
 }) => {
   const delivery_time = useSelector((state) => state.setting.settings);
   const { estimate_delivery_normal_day, estimate_delivery_express_day } =
@@ -106,6 +107,8 @@ const OrderSummary = ({
   };
 
   const handleCheckout = async () => {
+    if(!selectedBranchId) setNoSelection(true);
+
     if (!paymentMethod && !selectedAddId && !selectedBranchId) {
       toast.error(
         "Please select Shipping Address, Branch and Payment Method ",
