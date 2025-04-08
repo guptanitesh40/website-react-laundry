@@ -22,6 +22,7 @@ const Prices = lazy(() => import("./components/prices/Prices"));
 const About = lazy(() => import("./components/about/About"));
 const Contact = lazy(() => import("./components/contact/Contact"));
 const Cart = lazy(() => import("./components/cart/Cart"));
+const QuickOrderCart = lazy(() => import("./components/cart/QuickOrderCart"));
 const Order = lazy(() => import("./components/order/Order"));
 const DashBoard = lazy(() => import("./components/dashboard/DashBoard"));
 const DashBoardHome = lazy(() => import("./components/dashboard/Home"));
@@ -194,6 +195,18 @@ const MainComponent = () => {
               </Suspense>
             }
           />
+
+          <Route
+            path="/pickup-clothes"
+            element={
+              <ProtectedRoute>
+                <Suspense fallback={<Loading />}>
+                  <QuickOrderCart />
+                </Suspense>
+              </ProtectedRoute>
+            }
+          />
+
           <Route
             path="/prices"
             element={

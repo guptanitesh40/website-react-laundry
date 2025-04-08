@@ -145,6 +145,7 @@ const OrderSummary = ({
     let normal_delivery_charges = isExpDel ? 0 : shippingCharge;
     let express_delivery_hour = isExpDel ? expHour : undefined;
 
+    
     if (paymentMethod === 1) {
       const result = await placeOrder(
         items,

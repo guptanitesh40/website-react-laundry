@@ -155,6 +155,19 @@ const Navbar = () => {
             </div>
 
             <div className="flex justify-center items-center gap-8 laptop-l:gap-6 tab:gap-4">
+              {cartItem > 0 && (
+                <div>
+                  <Link
+                    to="/pickup-clothes"
+                    title="Pickup Clothes"
+                    aria-label="Pickup Clothes"
+                    className="btn btn-pickup"
+                  >
+                    Pick Up My Clothes
+                  </Link>
+                </div>
+              )}
+
               {isLoggedIn && (
                 <Link
                   to="/cart"

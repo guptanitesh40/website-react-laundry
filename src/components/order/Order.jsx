@@ -19,8 +19,8 @@ const Order = () => {
     if (!location.state) {
       navigate("/cart");
     } else {
-      setOrderData(location?.state?.result?.orderDetail);
-      const date = new Date(location?.state?.result?.orderDetail?.created_at);
+      setOrderData(location?.state?.result);
+      const date = new Date(location?.state?.result?.created_at);
       const day = date.getDate();
       const month = date.toLocaleString("en-US", { month: "short" });
       const year = date.getFullYear();
@@ -63,7 +63,7 @@ const Order = () => {
           </h2>
           <p className="text-[1.5rem] leading-[1.75] font-normal text-[var(--black)] tab-s:text-[1.4rem] mb-l:text-[1.25rem]">
             Your order{" "}
-            <span className="font-bold text-[var(--primary)]">{`#${orderData.order_id}`}</span>{" "}
+            <span className="font-bold text-[var(--primary)]">{`#${orderData?.order_id}`}</span>{" "}
             will be processed within 24 hours during working days. We will
             notify you by email once your order has been shipped.
           </p>
@@ -83,7 +83,7 @@ const Order = () => {
             <dl className="flex items-start justify-between gap-8 tab:text-right mb-l:flex-col mb-l:gap-1 mb-l:items-start mb-l:text-left">
               <dt className="font-medium text-gray-500">Address</dt>
               <dd className="font-medium text-[var(--black)] sm:text-end mb-l:grow">
-                {orderData.address_details}
+                {orderData?.address_details}
               </dd>
             </dl>
             <dl className="flex items-center justify-between gap-8  mb-l:flex-col mb-l:gap-1 mb-l:items-start">
@@ -100,14 +100,14 @@ const Order = () => {
             <dl className="flex items-center justify-between gap-8 mb-l:flex-col mb-l:gap-1 mb-l:items-start">
               <dt className="font-medium text-gray-500">Total Amount</dt>
               <dd className="font-medium text-[var(--black)] sm:text-end">
-                ₹ {orderData.total}
+                ₹ {orderData?.total || 0}
               </dd>
             </dl>
-            {orderData.transaction_id && (
+            {orderData?.transaction_id && (
               <dl className="flex items-center justify-between gap-8 mb-l:flex-col mb-l:gap-1 mb-l:items-start">
                 <dt className="font-medium text-gray-500">Transaction Id</dt>
                 <dd className="font-medium text-[var(--black)] sm:text-end">
-                  {orderData.transaction_id}
+                  {orderData?.transaction_id}
                 </dd>
               </dl>
             )}
