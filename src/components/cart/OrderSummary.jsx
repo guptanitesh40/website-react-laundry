@@ -23,7 +23,7 @@ const OrderSummary = ({
   setNoSelection,
 }) => {
   const delivery_time = useSelector((state) => state.setting.settings);
-  const { estimate_delivery_normal_day, estimate_delivery_express_day } =
+  const { estimate_delivery_normal_day } =
     delivery_time;
 
   const dispatch = useDispatch();
@@ -107,7 +107,7 @@ const OrderSummary = ({
   };
 
   const handleCheckout = async () => {
-    if(!selectedBranchId) setNoSelection(true);
+    if (!selectedBranchId) setNoSelection(true);
 
     if (!paymentMethod && !selectedAddId && !selectedBranchId) {
       toast.error(
@@ -143,24 +143,24 @@ const OrderSummary = ({
     let newSubTotal = subTotal - discountValue;
     let expresssCharge = isExpDel ? expressCharge : 0;
     let normal_delivery_charges = isExpDel ? 0 : shippingCharge;
-    let express_delivery_hour = isExpDel ? expHour : undefined;
+    let express_delivery_hour = isExpDel ? expHour : undefined;   
 
-    
     if (paymentMethod === 1) {
-      const result = await placeOrder(
-        items,
-        newSubTotal,
-        instruction,
-        isCouponApplied.code,
+      const orderData = {
+        items: items,
+        sub_total: newSubTotal,
+        description: instruction,
         normal_delivery_charges,
-        paymentMethod,
-        selectedAddId,
-        expresssCharge,
-        express_delivery_hour,
-        "",
-        0,
-        selectedBranchId
-      );
+        payment_type: paymentMethod,
+        address_id: selectedAddId,
+        express_delivery_charges: expresssCharge,
+        express_delivery_hour: express_delivery_hour,
+        transaction_id: "",
+        paid_amount: 0,
+        branch_id: selectedBranchId,
+        coupon_code: isCouponApplied.code,
+      };
+      const result = await placeOrder(orderData);
       if (result) {
         dispatch(clearCart());
         navigate("/order", { state: { result, paymentMethod } });
@@ -178,7 +178,7 @@ const OrderSummary = ({
         const { first_name, last_name, mobile_number } = user;
         try {
           const options = {
-            key: import.meta.env.RAZORPAY_KEY,
+            key: import.meta.env.VITE_RAZORPAY_KEY,
             amount: finalTotal * 100,
             currency: "INR",
             name: "sikka cleaners",
@@ -190,20 +190,22 @@ const OrderSummary = ({
                 return;
               }
 
-              const result = await placeOrder(
-                items,
-                newSubTotal,
-                instruction,
-                isCouponApplied.code,
+              const orderData = {
+                items: items,
+                sub_total: newSubTotal,
+                description: instruction,
                 normal_delivery_charges,
-                paymentMethod,
-                selectedAddId,
-                expresssCharge,
-                express_delivery_hour,
-                razorpay_order_id,
-                finalTotal,
-                selectedBranchId
-              );
+                payment_type: paymentMethod,
+                address_id: selectedAddId,
+                express_delivery_charges: expresssCharge,
+                express_delivery_hour: express_delivery_hour,
+                transaction_id: razorpay_order_id,
+                paid_amount: finalTotal,
+                branch_id: selectedBranchId,
+                coupon_code: isCouponApplied.code,
+              };
+
+              const result = await placeOrder(orderData);
               if (result) {
                 dispatch(clearCart());
                 navigate("/order", { state: { result, paymentMethod } });

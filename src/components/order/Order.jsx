@@ -19,8 +19,8 @@ const Order = () => {
     if (!location.state) {
       navigate("/cart");
     } else {
-      setOrderData(location?.state?.result);
-      const date = new Date(location?.state?.result?.created_at);
+      setOrderData(location?.state?.result?.orderDetail);
+      const date = new Date(location?.state?.result?.orderDetail?.created_at);
       const day = date.getDate();
       const month = date.toLocaleString("en-US", { month: "short" });
       const year = date.getFullYear();

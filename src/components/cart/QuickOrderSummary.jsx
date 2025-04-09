@@ -4,8 +4,6 @@ import usePlaceOrder from "../../hooks/order/usePlaceOrder";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
-import { clearCart } from "../../redux/slices/cartSlice";
-import { useDispatch } from "react-redux";
 import { IoIosRemoveCircle } from "react-icons/io";
 import { Backdrop, CircularProgress, IconButton } from "@mui/material";
 
@@ -17,25 +15,15 @@ const QuickOrderSummary = ({
   setNoSelection,
 }) => {
   const delivery_time = useSelector((state) => state.setting.settings);
-  const { estimate_delivery_normal_day, estimate_delivery_express_day } =
-    delivery_time;
-
-  const dispatch = useDispatch();
-
-  const items = useSelector((state) => state.cart.cartItems);
-  const shippingCharge = parseInt(
-    useSelector((state) => state?.setting?.settings?.normal_delivery_charges)
-  );
-
+  const { estimate_delivery_normal_day } = delivery_time;
+  
   const navigate = useNavigate();
 
   const [isExpDel, setExpDel] = useState(false);
   const { placeOrder, loading: placingOrder } = usePlaceOrder();
-  const user = useSelector((state) => state?.user?.user);
   const [open, setOpen] = useState(false);
-
   const [expHour, setExpHour] = useState(24);
-
+  
   const handleCheckout = async () => {
     if (!selectedBranchId) setNoSelection(true);
 
@@ -74,8 +62,9 @@ const QuickOrderSummary = ({
     let expresssCharge = 0;
     let normal_delivery_charges = 0;
     let express_delivery_hour = isExpDel ? expHour : undefined;
-    
+
     const orderData = {
+      items: [],
       sub_total: newSubTotal,
       description: instruction,
       normal_delivery_charges,
@@ -91,7 +80,6 @@ const QuickOrderSummary = ({
 
     const result = await placeOrder(orderData);
     if (result) {
-      dispatch(clearCart());
       navigate("/order", { state: { result, paymentMethod } });
     }
   };
