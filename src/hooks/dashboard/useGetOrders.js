@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 const useGetOrders = () => {
   const baseURL = import.meta.env.VITE_BASE_URL;
-  const token = localStorage.getItem("token");
   const [loading, setLoading] = useState(false);
 
   const getOrders = async () => {
+    const token = localStorage.getItem("token");
+
     setLoading(true);
     try {
       const response = await fetch(`${baseURL}/orders`, {
