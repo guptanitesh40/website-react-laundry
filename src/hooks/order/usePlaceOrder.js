@@ -8,10 +8,10 @@ const usePlaceOrder = () => {
   const token = localStorage.getItem("token");
   const user_id = useSelector((state) => state.user.user.user_id);
 
-  const placeOrder = async (
+  const placeOrder = async ({
     items,
     sub_total,
-    description,
+    description = "",
     coupon_code,
     normal_delivery_charges,
     payment_type,
@@ -20,39 +20,52 @@ const usePlaceOrder = () => {
     express_delivery_hour,
     transaction_id = "",
     paid_amount = 0,
-    branch_id
-  ) => {
+    branch_id,
+    is_quick_order = false,
+  }) => {
+    const queryParams = new URLSearchParams();
+    if (is_quick_order) {
+      queryParams.append("is_quick_order", "true");
+    }
+
     let payment_status = 1;
     if (payment_type === 2 && transaction_id) {
       payment_status = 2;
     }
 
+
+    const payload = {
+      items: Array.isArray(items) ? items : [],
+      sub_total: Number(sub_total ?? 0),
+      description : description ?? "",
+      coupon_code: coupon_code ?? "",
+      normal_delivery_charges: Number(normal_delivery_charges ?? 0),
+      payment_type: payment_type ?? 1,
+      address_id: address_id,
+      express_delivery_charges: Number(express_delivery_charges ?? 0),
+      express_delivery_hour: express_delivery_hour,
+      transaction_id: transaction_id ?? "",
+      paid_amount: Number(paid_amount ?? 0),
+      branch_id: branch_id,
+      payment_status,
+      user_id,
+      order_status: 1,
+    };
+
     try {
       setLoading(true);
-      const response = await fetch(`${baseURL}/orders`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          items,
-          description,
-          coupon_code,
-          sub_total,
-          normal_delivery_charges,
-          payment_type,
-          order_status: 1,
-          payment_status,
-          address_id,
-          user_id,
-          express_delivery_charges,
-          express_delivery_hour,
-          transaction_id,
-          paid_amount,
-          branch_id,
-        }),
-      });
+      const response = await fetch(
+        `${baseURL}/orders?${queryParams.toString()}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(payload),
+        }
+      );
+
       const data = await response.json();
       if (response.ok) {
         toast.success("Order placed successfully!", {
@@ -63,7 +76,7 @@ const usePlaceOrder = () => {
         toast.error(data.message);
         return false;
       }
-    } catch {
+    } catch (err) {
       toast.error("Failed to place an order!", {
         className: "toast-error",
       });

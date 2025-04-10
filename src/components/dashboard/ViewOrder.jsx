@@ -48,6 +48,7 @@ const ViewOrder = () => {
   const {
     order_id,
     express_delivery_charges,
+    express_delivery_hour,
     items = [],
     sub_total = 0,
     normal_delivery_charges,
@@ -171,6 +172,15 @@ const ViewOrder = () => {
                     <span className="info-ans">₹{normal_delivery_charges}</span>
                   </>
                 )}
+                
+                {express_delivery_charges > 0 && (
+                  <>
+                    <span className="info-label">Express Delivery </span>
+                    <span className="info-ans">
+                      {express_delivery_hour} Hour
+                    </span>
+                  </>
+                )}
 
                 {express_delivery_charges > 0 && (
                   <>
@@ -180,6 +190,7 @@ const ViewOrder = () => {
                     </span>
                   </>
                 )}
+
                 {kasar_amount > 0 && (
                   <>
                     <span className="info-label">Kasar amount</span>
