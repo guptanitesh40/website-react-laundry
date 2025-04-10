@@ -154,7 +154,20 @@ const Navbar = () => {
               </ul>
             </div>
 
-            <div className="flex justify-center items-center gap-8 laptop-l:gap-6 tab:gap-4">
+            <div className="flex justify-center items-center gap-8 laptop-l:gap-6 tab:gap-4 mb:ml-2 mb-m:2">
+              {pathname !== "/pickup-clothes" && (
+                <div>
+                  <Link
+                    to="/pickup-clothes"
+                    title="Pickup Clothes"
+                    aria-label="Pickup Clothes"
+                    className="btn btn-pickup"
+                  >
+                    Pick Up My Clothes
+                  </Link>
+                </div>
+            )}
+            
               {isLoggedIn && (
                 <Link
                   to="/cart"

@@ -361,7 +361,13 @@
 
 @media only screen and (max-width: 27.5em) {
   .container-b {
-    padding: 0 2rem;
+    padding: 0 .3rem;
+  }
+}
+
+@media only screen and (max-width: 20em) {
+  .container-b {
+    padding: 0 .1rem;
   }
 }
 
@@ -383,3 +389,31 @@
     height: 3px;
   }
 }
+
+.btn {
+  color: #ffffff; 
+  background-color: #462b5f !important; 
+  font-size: 1rem;
+  padding: 0.75rem 1.5rem !important; 
+  border-radius: 10px !important; 
+  border: none;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 25em) {
+  .btn,
+  .btn::after {
+    padding: 0.8rem .7rem !important; 
+    border-radius: 6px !important; 
+  }
+}
+
+@media only screen and (max-width: 20em) {
+  .btn,
+  .btn::after {
+    padding: 0.2rem .7rem !important; 
+    border-radius: 6px !important; 
+  }
+}
+
