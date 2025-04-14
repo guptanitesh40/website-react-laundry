@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import Loading from "../loading/Loading";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelectedServiceId } from "../../redux/slices/serviceSlice";
@@ -16,6 +16,9 @@ const ChooseService = () => {
   const selectedServiceId = useSelector(
     (state) => state.service.selectedServiceId
   );
+
+  const stickyRef = useRef(null);
+  const [isStickyAtTop, setIsStickyAtTop] = useState(false);
 
   const handleServiceClick = async (id) => {
     dispatch(setSelectedServiceId(id));
@@ -47,19 +50,50 @@ const ChooseService = () => {
     }
   }, [dispatch, fetchCategories, selectedServiceId]);
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsStickyAtTop(!entry.isIntersecting);
+      },
+      {
+        root: null,
+        threshold: 0,
+        rootMargin: "-1px 0px 0px 0px",
+      }
+    );
+
+    if (stickyRef.current) {
+      observer.observe(stickyRef.current);
+    }
+
+    return () => {
+      if (stickyRef.current) {
+        observer.unobserve(stickyRef.current);
+      }
+    };
+  }, []);
+
   if (loading) {
     return <Loading />;
   }
 
   return (
-    <section className="section-services">
-      <div className="services-con-container">
-        <h1>Choose your Service</h1>
+    <>
+      <section className="section-services">
+        <div className="services-con-container">
+          <h1>Choose your Service</h1>
 
-        {/* <div className="flex justify-center items-center"> */}
-        <div className="sticky top-0 flex justify-center items-center z-50">
+          {/* <div className="flex justify-center items-center"> */}
+        </div>
+      </section>
+      <div ref={stickyRef} className="h-1" />
 
-          <div className="box-border max-w-[135rem] overflow-x-auto bg-white rounded-[8px] shadow-lg flex justify-start gap-16 py-12 px-12 scrollbar-thin laptop-l:gap-12 laptop-l:p-10 laptop-md:py-8 laptop-md:px-8 laptop-md:gap-10 laptop-md:rounded-[6px] laptop-s:px-7 laptop-s:py-7 laptop-s:rounded-lg laptop-s:gap-8 tab-m:px-6 tab-m:py-6 tab-s:gap-6 laptop-l:max-w-[110rem] laptop-md:max-w-[90rem] laptop-s:max-w-[85rem] tab-l:max-w-[75rem] tab-s:max-w-[65rem]">
+        <div
+          className={`sticky top-0 z-50 flex justify-center -mt-8 mb-8 transition-colors duration-300 ${
+            isStickyAtTop ? "bg-white" : "bg-transparent"
+          }`}
+        >
+          <div className="box-border -mt-1 max-w-[135rem] overflow-x-auto bg-white rounded-[8px] shadow-lg flex justify-start gap-16 py-12 px-12 scrollbar-thin laptop-l:gap-12 laptop-l:p-10 laptop-md:py-8 laptop-md:px-8 laptop-md:gap-10 laptop-md:rounded-[6px] laptop-s:px-7 laptop-s:py-7 laptop-s:rounded-lg laptop-s:gap-8 tab-m:px-6 tab-m:py-6 tab-s:gap-6 laptop-l:max-w-[110rem] laptop-md:max-w-[90rem] laptop-s:max-w-[85rem] tab-l:max-w-[75rem] tab-s:max-w-[65rem]">
             {services.map((service) => {
               const { name, image, service_id } = service;
               return (
@@ -83,8 +117,7 @@ const ChooseService = () => {
             })}
           </div>
         </div>
-      </div>
-    </section>
+    </>
   );
 };
 
