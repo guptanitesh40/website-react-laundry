@@ -67,7 +67,7 @@ const ViewOrder = () => {
     order_status_name,
   } = order;
 
-  const { branch_name, branch_phone_number } = branch;
+  const { branch_name, branch_phone_number, branch_email } = branch;
 
   if (loadingComponent) {
     return <Loading />;
@@ -240,7 +240,7 @@ const ViewOrder = () => {
                 {branch_name && (
                   <>
                     <span className="info-label">Email</span>
-                    <span className="info-ans">{"Branchname@gmail.com"}</span>
+                    <span className="info-ans">{branch_email}</span>
                   </>
                 )}
                 {branch_phone_number && (
