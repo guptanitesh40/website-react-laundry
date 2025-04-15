@@ -130,7 +130,7 @@ const Home = () => {
         const { first_name, last_name, mobile_number } = userData;
 
         const options = {
-          key: import.meta.env.RAZORPAY_KEY,
+          key: import.meta.env.VITE_RAZORPAY_KEY,
           aount: totalDueAmt * 100,
           currency: "INR",
           description: "Due Payement",

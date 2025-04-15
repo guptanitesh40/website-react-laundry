@@ -49,7 +49,7 @@ const PartialPayementModel = ({ setModleHandler, setRefetch }) => {
         const allOrderIds = Object.values(dueOrders).flat();
 
         const options = {
-          key: import.meta.env.RAZORPAY_KEY,
+          key: import.meta.env.VITE_RAZORPAY_KEY,
           aount: payAmount * 100,
           currency: "INR",
           description: "Due Payement",
