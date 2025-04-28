@@ -14,6 +14,23 @@ import useGetAllCoupon from "../../hooks/coupon/useGetAllCoupon";
 import { Backdrop, CircularProgress, IconButton } from "@mui/material";
 import useGetTransactionId from "../../hooks/payement/useGetTransactionId";
 import useVerifyPayement from "../../hooks/payement/useVerifyPayement";
+import * as Yup from "yup";
+
+const validationSchema = Yup.object().shape({
+  gstNumber: Yup.string()
+    .nullable()
+    .notRequired()
+    .test("is-valid-gst", "GST Number must be 15 characters", function (value) {
+      if (!value) return true;
+      return value.length === 15;
+    })
+    .test("valid-gst-format", "Invalid GST Number format", function (value) {
+      if (!value) return true;
+      return /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/.test(
+        value
+      );
+    }),
+});
 
 const OrderSummary = ({
   instruction,
@@ -23,8 +40,7 @@ const OrderSummary = ({
   setNoSelection,
 }) => {
   const delivery_time = useSelector((state) => state.setting.settings);
-  const { estimate_delivery_normal_day } =
-    delivery_time;
+  const { estimate_delivery_normal_day } = delivery_time;
 
   const dispatch = useDispatch();
   const {
@@ -73,6 +89,12 @@ const OrderSummary = ({
 
   const [expHour, setExpHour] = useState(24);
   const [expressCharge, setExpressCharge] = useState(null);
+
+  const [companyName, setCompanyName] = useState("");
+  const [gstNumber, setGstNumber] = useState("");
+  const [error, setError] = useState("");
+
+  const [isGstIn, setIsGstIn] = useState(false);
 
   const calculateExpressCharge = () => {
     const calculatedSubTotal = discountValue
@@ -140,10 +162,20 @@ const OrderSummary = ({
       return;
     }
 
+    try {
+      await validationSchema.validate({ gstNumber });
+      setError("");
+    } catch (err) {
+      setError(err.message);
+      return;
+    }
+
     let newSubTotal = subTotal - discountValue;
     let expresssCharge = isExpDel ? expressCharge : 0;
     let normal_delivery_charges = isExpDel ? 0 : shippingCharge;
-    let express_delivery_hour = isExpDel ? expHour : undefined;   
+    let express_delivery_hour = isExpDel ? expHour : undefined;
+    let company_name = companyName ? companyName : "";
+    let gstin = gstNumber ? gstNumber : "";
 
     if (paymentMethod === 1) {
       const orderData = {
@@ -159,6 +191,8 @@ const OrderSummary = ({
         paid_amount: 0,
         branch_id: selectedBranchId,
         coupon_code: isCouponApplied.code,
+        company_name,
+        gstin,
       };
       const result = await placeOrder(orderData);
       if (result) {
@@ -203,6 +237,8 @@ const OrderSummary = ({
                 paid_amount: finalTotal,
                 branch_id: selectedBranchId,
                 coupon_code: isCouponApplied.code,
+                company_name,
+                gstin,
               };
 
               const result = await placeOrder(orderData);
@@ -500,6 +536,52 @@ const OrderSummary = ({
                 </div>
               )}
             </div>
+
+            <div className="custom-checkbox">
+              <input
+                id="gstin"
+                type="checkbox"
+                value={isGstIn}
+                onChange={() => setIsGstIn(!isGstIn)}
+                checked={isGstIn}
+                className="mr-5 w-8 h-8 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-0 laptop-s:h-7 laptop-s:w-7"
+              />
+              <label htmlFor="gstin">Have a GSTIN ?</label>
+            </div>
+
+            {isGstIn && (
+              <div className="px-0 pb-0 flex flex-col gap-8">
+                <div className="grid grid-cols-2 gap-6 laptop-l:gap-5 laptop-md:gap-4 laptop:grid-cols-2 tab-m:grid-cols-1">
+                  <div>
+                    <p>Company Name</p>
+                    <input
+                      type="text"
+                      value={companyName}
+                      onChange={(e) => setCompanyName(e.target.value)}
+                      placeholder="Enter company name"
+                      className="w-full border border-[#EFF3FF] rounded-xl text-[1.6rem] py-4 px-4 focus:border-indigo-500 focus:outline-none placeholder:text-[1.5rem] laptop-md:text-[1.4rem] laptop-md:p-3 laptop:text-[1.3rem] laptop:rounded-md"
+                    />
+                  </div>
+                  <div>
+                    <p>GSTIN</p>
+                    <input
+                      type="text"
+                      value={gstNumber}
+                      onChange={(e) =>
+                        setGstNumber(e.target.value.toUpperCase())
+                      }
+                      placeholder="Enter GSTIN"
+                      className="w-full border border-[#EFF3FF] rounded-xl text-[1.6rem] py-4 px-4 focus:border-indigo-500 focus:outline-none placeholder:text-[1.5rem] laptop-md:text-[1.4rem] laptop-md:p-3 laptop:text-[1.3rem] laptop:rounded-md"
+                    />
+                    {error && (
+                      <p className="aam-error-label text-red-500 text-sm mt-1">
+                        {error}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
 
             <div className="flex flex-col gap-5 laptop-l:gap-4 laptop:gap-3">
               <span className="line"></span>
