@@ -6,7 +6,7 @@ import { FaCcAmazonPay } from "react-icons/fa";
 const PayementMethod = ({ setPayementMethod, isPickupClothes }) => {
 
   useEffect(() => {
-    if (!isPickupClothes) setPayementMethod(1);
+    if (isPickupClothes) setPayementMethod(1);
   }, [isPickupClothes]);
 
   return (

@@ -22,6 +22,8 @@ const usePlaceOrder = () => {
     paid_amount = 0,
     branch_id,
     is_quick_order = false,
+    company_name, 
+    gstin,
   }) => {
     const queryParams = new URLSearchParams();
     if (is_quick_order) {
@@ -50,6 +52,8 @@ const usePlaceOrder = () => {
       payment_status,
       user_id,
       order_status: 1,
+      company_name: company_name ?? "",
+      gstin: gstin ?? "",
     };
 
     try {
