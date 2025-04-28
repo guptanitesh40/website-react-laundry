@@ -56,7 +56,7 @@ const AddAddressModel = ({ setIsOpen, isOpen, address, isEditMode }) => {
     landmark: "",
     pincode: "",
     city: "",
-    state: "",
+    state: "Gujarat",
     country: "",
   });
 

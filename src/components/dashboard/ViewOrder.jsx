@@ -48,7 +48,6 @@ const ViewOrder = () => {
   const {
     order_id,
     express_delivery_charges,
-    express_delivery_hour,
     items = [],
     sub_total = 0,
     normal_delivery_charges,
@@ -65,6 +64,8 @@ const ViewOrder = () => {
     estimated_pickup_time,
     estimated_delivery_time,
     order_status_name,
+    company_name,
+    gstin,
   } = order;
 
   const { branch_name, branch_phone_number, branch_email } = branch;
@@ -172,15 +173,6 @@ const ViewOrder = () => {
                     <span className="info-ans">₹{normal_delivery_charges}</span>
                   </>
                 )}
-                
-                {express_delivery_charges > 0 && (
-                  <>
-                    <span className="info-label">Express Delivery </span>
-                    <span className="info-ans">
-                      {express_delivery_hour} Hour
-                    </span>
-                  </>
-                )}
 
                 {express_delivery_charges > 0 && (
                   <>
@@ -272,6 +264,20 @@ const ViewOrder = () => {
                 <span className="info-ans">{psMap[payment_status]}</span>
                 <span className="info-label">Transaction ID</span>
                 <span className="info-ans">{transaction_id || "N/A"}</span>
+
+                {company_name && (
+                  <>
+                    <span className="info-label">Company Name</span>
+                    <span className="info-ans">{company_name}</span>
+                  </>
+                )}
+
+                {gstin && (
+                  <>
+                    <span className="info-label">GSTIN</span>
+                    <span className="info-ans">{gstin}</span>
+                  </>
+                )}
               </div>
             </div>
           </div>

@@ -1013,3 +1013,8 @@ h3 {
   font-size: 0.8125rem;
   line-height: 1.125rem;
 }
+
+.custom-checkbox {
+  display: flex;
+  align-items: center;
+}
