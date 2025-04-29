@@ -22,7 +22,7 @@ const usePlaceOrder = () => {
     paid_amount = 0,
     branch_id,
     is_quick_order = false,
-    company_name, 
+    gst_company_name, 
     gstin,
   }) => {
     const queryParams = new URLSearchParams();
@@ -52,7 +52,7 @@ const usePlaceOrder = () => {
       payment_status,
       user_id,
       order_status: 1,
-      company_name: company_name ?? "",
+      gst_company_name: gst_company_name ?? "",
       gstin: gstin ?? "",
     };
 

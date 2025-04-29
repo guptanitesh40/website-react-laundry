@@ -174,7 +174,7 @@ const OrderSummary = ({
     let expresssCharge = isExpDel ? expressCharge : 0;
     let normal_delivery_charges = isExpDel ? 0 : shippingCharge;
     let express_delivery_hour = isExpDel ? expHour : undefined;
-    let company_name = companyName ? companyName : "";
+    let gst_company_name = companyName ? companyName : "";
     let gstin = gstNumber ? gstNumber : "";
 
     if (paymentMethod === 1) {
@@ -191,7 +191,7 @@ const OrderSummary = ({
         paid_amount: 0,
         branch_id: selectedBranchId,
         coupon_code: isCouponApplied.code,
-        company_name,
+        gst_company_name,
         gstin,
       };
       const result = await placeOrder(orderData);
@@ -237,7 +237,7 @@ const OrderSummary = ({
                 paid_amount: finalTotal,
                 branch_id: selectedBranchId,
                 coupon_code: isCouponApplied.code,
-                company_name,
+                gst_company_name,
                 gstin,
               };
 
@@ -539,22 +539,27 @@ const OrderSummary = ({
 
             <div className="custom-checkbox">
               <input
-                id="gstin"
+                id="gstin_checkbox"
                 type="checkbox"
                 value={isGstIn}
                 onChange={() => setIsGstIn(!isGstIn)}
                 checked={isGstIn}
                 className="mr-5 w-8 h-8 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-0 laptop-s:h-7 laptop-s:w-7"
               />
-              <label htmlFor="gstin">Have a GSTIN ?</label>
+              <p>
+                <label htmlFor="gstin_checkbox">Have a GSTIN ?</label>
+              </p>
             </div>
 
             {isGstIn && (
               <div className="px-0 pb-0 flex flex-col gap-8">
                 <div className="grid grid-cols-2 gap-6 laptop-l:gap-5 laptop-md:gap-4 laptop:grid-cols-2 tab-m:grid-cols-1">
                   <div>
-                    <p>Company Name</p>
+                    <p>
+                      <label htmlFor="gst_company_name">Company Name</label>
+                    </p>
                     <input
+                      id="gst_company_name"
                       type="text"
                       value={companyName}
                       onChange={(e) => setCompanyName(e.target.value)}
@@ -563,8 +568,11 @@ const OrderSummary = ({
                     />
                   </div>
                   <div>
-                    <p>GSTIN</p>
+                    <p>
+                      <label htmlFor="gstin">GSTIN</label>
+                    </p>
                     <input
+                      id="gstin"
                       type="text"
                       value={gstNumber}
                       onChange={(e) =>
