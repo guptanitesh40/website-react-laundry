@@ -546,14 +546,18 @@ const OrderSummary = ({
                 checked={isGstIn}
                 className="mr-5 w-8 h-8 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-0 laptop-s:h-7 laptop-s:w-7"
               />
-              <label htmlFor="gstin_checkbox">Have a GSTIN ?</label>
+              <p>
+                <label htmlFor="gstin_checkbox">Have a GSTIN ?</label>
+              </p>
             </div>
 
             {isGstIn && (
               <div className="px-0 pb-0 flex flex-col gap-8">
                 <div className="grid grid-cols-2 gap-6 laptop-l:gap-5 laptop-md:gap-4 laptop:grid-cols-2 tab-m:grid-cols-1">
                   <div>
-                    <label htmlFor="gst_company_name">Company Name</label>
+                    <p>
+                      <label htmlFor="gst_company_name">Company Name</label>
+                    </p>
                     <input
                       id="gst_company_name"
                       type="text"
@@ -564,7 +568,9 @@ const OrderSummary = ({
                     />
                   </div>
                   <div>
-                    <label htmlFor="gstin">GSTIN</label>
+                    <p>
+                      <label htmlFor="gstin">GSTIN</label>
+                    </p>
                     <input
                       id="gstin"
                       type="text"
