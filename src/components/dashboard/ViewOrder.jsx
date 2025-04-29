@@ -64,7 +64,7 @@ const ViewOrder = () => {
     estimated_pickup_time,
     estimated_delivery_time,
     order_status_name,
-    company_name,
+    gst_company_name,
     gstin,
   } = order;
 
@@ -265,10 +265,10 @@ const ViewOrder = () => {
                 <span className="info-label">Transaction ID</span>
                 <span className="info-ans">{transaction_id || "N/A"}</span>
 
-                {company_name && (
+                {gst_company_name && (
                   <>
                     <span className="info-label">Company Name</span>
-                    <span className="info-ans">{company_name}</span>
+                    <span className="info-ans">{gst_company_name}</span>
                   </>
                 )}
 

@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { useState, useCallback } from "react";
 import toast from "react-hot-toast";
 import { IoClose } from "react-icons/io5";
+import { MdLocationPin } from "react-icons/md";
 
 const containerStyle = {
   width: "100%",
@@ -118,8 +119,7 @@ const MapComponent = ({ setIsMapOpen, setFormData, initialCenter }) => {
         </button>
 
         <span className="inline-block absolute top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2">
-          {/* <MdLocationPin className="h-16 w-16 fill-red-600" /> */}
-          <span className="inline-block h-8 w-8 rounded-full border-4 border-indigo-600"></span>
+          <MdLocationPin className="h-16 w-16 fill-red-600" />
         </span>
 
         <div className="absolute bottom-4 right-0 left-0 h-auto">
