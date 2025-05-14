@@ -346,32 +346,48 @@ const OrderSummary = ({
               <span className="inline-block h-16 w-16 rounded-full border-[5px] border-gray-300 border-r-indigo-500 animate-spin laptop-md:h-14 laptop-md:w-14"></span>
             </div>
           ) : (
-            <table className="coupon-table w-full">
+            <table className="coupon-table w-full table-auto">
               <tbody>
                 {coupons.length !== 0 ? (
                   coupons.map((coupon) => {
-                    const { coupon_id, code, discount_type, discount_value } =
-                      coupon;
+                    const {
+                      coupon_id,
+                      code,
+                      discount_type,
+                      discount_value,
+                      min_cart_value,
+                    } = coupon;
                     return (
-                      <tr key={coupon_id}>
-                        <td className="justify-self-start py-3 laptop-md:py-2">
-                          <RiDiscountPercentFill className="h-20 w-20 fill-[var(--secondary)] laptop-l:h-16 laptop-l:w-16 laptop-md:h-14 laptop-md:w-14 tab-m:h-16 tab-m:w-16" />
+                      <tr
+                        key={coupon_id}
+                        className="border-b border-gray-200 last:border-b-0"
+                      >
+                        <td className="py-3 px-2 align-top w-[70px]">
+                          <RiDiscountPercentFill className="h-20 w-20 fill-[var(--secondary)] laptop-md:h-12 laptop-md:w-12 tab-m:h-12 tab-m:w-12" />
                         </td>
-                        <td>
-                          <p className="text-[1.8rem] text-[var(--black)] font-medium uppercase laptop-l:text-[1.6rem] laptop-md:text-[1.4rem] laptop:text-[1.3rem] tab-m:text-[1.4rem]">
-                            {code}
-                          </p>
+
+                        <td className="py-3 px-2 align-top w-full max-w-[300px]">
+                          <div className="flex flex-col">
+                            <p className="text-[1.8rem] text-[var(--black)] font-medium uppercase break-words laptop-l:text-[1.6rem] laptop-md:text-[1.4rem] laptop:text-[1.3rem] tab-m:text-[1.4rem]">
+                              {code}
+                            </p>
+                            <p className="text-[1.4rem] text-gray-600 mt-1 break-words leading-snug laptop-l:text-[1.3rem] laptop-md:text-[1.2rem] laptop:text-[1.1rem] tab-m:text-[1.2rem]">
+                              Min Cart Value: {min_cart_value}
+                            </p>
+                          </div>
                         </td>
-                        <td>
+
+                        <td className="py-3 px-2 align-top whitespace-nowrap">
                           <p className="text-[1.8rem] text-[var(--black)] uppercase laptop-l:text-[1.6rem] laptop-md:text-[1.4rem] laptop:text-[1.3rem] tab-m:text-[1.4rem]">
                             {discount_type === 1
-                              ? "₹" + discount_value + " OFF"
-                              : discount_value + "%" + " OFF"}
+                              ? `₹${discount_value} OFF`
+                              : `${discount_value}% OFF`}
                           </p>
                         </td>
-                        <td>
+
+                        <td className="py-3 px-2 align-top">
                           <button
-                            className="new-apply-btn"
+                            className="new-apply-btn whitespace-nowrap"
                             onClick={() => applyBtnClick(code)}
                           >
                             apply
@@ -382,8 +398,11 @@ const OrderSummary = ({
                   })
                 ) : (
                   <tr>
-                    <td className="col-span-full text-3xl font-medium text-[var(--black)] laptop-l:text-2xl laptop-md:text-xl">
-                      No coupon code found !
+                    <td
+                      colSpan={4}
+                      className="text-center py-4 text-3xl font-medium text-[var(--black)] laptop-l:text-2xl laptop-md:text-xl"
+                    >
+                      No coupon code found!
                     </td>
                   </tr>
                 )}
