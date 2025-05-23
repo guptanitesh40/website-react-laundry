@@ -1,14 +1,15 @@
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
-import PropTypes from "prop-types";
 
 const PublicRoute = ({ children }) => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  return isAuthenticated ? <Navigate to="/" /> : children;
-};
+  const location = useLocation();
 
-PublicRoute.propTypes = {
-  children: PropTypes.node.isRequired,
+  return isAuthenticated ? (
+    <Navigate to={location.state?.from || "/"} replace />
+  ) : (
+    children
+  );
 };
 
 export default PublicRoute;

@@ -1,6 +1,6 @@
 import "./login.css";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import useLogin from "../../hooks/login/useLogin";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
@@ -11,6 +11,10 @@ import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const location = useLocation();
+  const from = location.state?.from || "/";
+
   const { login, loading } = useLogin();
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
@@ -46,7 +50,7 @@ const Login = () => {
       if (result) {
         dispatch(addUser(result.user));
         dispatch(setAuthStatus(!!result.token));
-        navigate("/");
+        navigate(from, { replace: true });
       }
     } catch (error) {
       const validationErrors = {};
