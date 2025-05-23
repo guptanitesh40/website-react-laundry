@@ -6,7 +6,8 @@ import { RiInstagramFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
-  const admin = import.meta.env.VITE_BASE_URL.replace(":3000", "/dashboard");
+  const admin = import.meta.env.VITE_BASE_URL.replace("api", "admin") + "dashboard";
+  
   return (
     <footer className="footer">
       <div className="footer-space">

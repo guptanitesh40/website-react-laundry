@@ -28,7 +28,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   if (!profile_image) {
     profile_image = "/default_pfp.png";
-  }
+  } 
 
   const onLogoutClick = () => {
     localStorage.clear();
@@ -167,7 +167,6 @@ const Navbar = () => {
                   </Link>
                 </div>
             )}
-            
               {isLoggedIn && (
                 <Link
                   to="/cart"
@@ -234,6 +233,7 @@ const Navbar = () => {
               ) : (
                 <Link
                   to="/login"
+                  state={{ from: pathname }}
                   className="login"
                   role="button"
                   title="login"

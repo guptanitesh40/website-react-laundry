@@ -4,7 +4,7 @@ import { HiOutlineMinus, HiOutlinePlus } from "react-icons/hi";
 import useAddToCart from "../../hooks/newCart/useAddToCart";
 import toast from "react-hot-toast";
 import useUpdateCart from "../../hooks/newCart/useUpdateCart";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteItem, updateQty } from "../../redux/slices/cartSlice";
 import useDeleteProduct from "../../hooks/newCart/useDeleteProduct";
@@ -13,6 +13,7 @@ import { addItem } from "../../redux/slices/cartSlice";
 const CategoryItem = ({ categoryItem, category_id }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
   const [itemCount, setItemCount] = useState(1);
   const [cartId, setCartId] = useState(null);
   const [numberBtn, setNumberBtn] = useState(false);
@@ -89,7 +90,7 @@ const CategoryItem = ({ categoryItem, category_id }) => {
   };
 
   const handelLoginClick = () => {
-    navigate("/login");
+    navigate("/login", { state: { from: location.pathname } });
   };
 
   useEffect(() => {

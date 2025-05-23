@@ -3,8 +3,9 @@ import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 
 const ProtectedRoute = ({ children }) => {
+  
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  return isAuthenticated ? children : <Navigate to="/login" />;
+  return isAuthenticated ? children : <Navigate to="/login" state={{ from: location.pathname }} replace />;
 };
 
 ProtectedRoute.propTypes = {
