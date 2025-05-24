@@ -95,11 +95,9 @@ const Home = () => {
     }
   };
 
-  const handleDownloadClick = async (order_id, order_status) => {
-    if (order_status === 11) {
+  const handleDownloadClick = async (order_id) => {
       setInvoice(order_id);
       await downloadInvoice(order_id);
-    }
   };
 
   const handleGiveFeedBack = (order_id, feedback) => {
@@ -521,14 +519,13 @@ const Home = () => {
                               </div>
                             </div>
 
-                            {order_status === 11 && (
                               <div className="relative group">
                                 <button
                                   className="icon-button"
                                   disabled={loadingInvoice}
                                   onClick={(e) => {
                                     e.stopPropagation();
-                                    handleDownloadClick(order_id, order_status);
+                                    handleDownloadClick(order_id);
                                   }}
                                 >
                                   {loadingInvoice && invoice === order_id ? (
@@ -541,7 +538,6 @@ const Home = () => {
                                     />
                                   )}
                                 </button>
-                                {order_status === 11 && (
                                   <div
                                     role="tooltip"
                                     className="absolute z-10 invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[var(--primary)] text-white rounded-md shadow-sm px-3 py-2 text-sm text-nowrap tab:hidden"
@@ -557,9 +553,7 @@ const Home = () => {
                                       data-popper-arrow
                                     ></div>
                                   </div>
-                                )}
                               </div>
-                            )}
 
                             {order_status === 11 && (
                               <div className="relative group">

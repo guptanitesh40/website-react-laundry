@@ -86,24 +86,22 @@ const ViewOrder = () => {
           ))}
 
         <div className="flex items-center gap-5">
-          {order_status === 11 && (
-            <span
-              className="flex justify-center items-center h-14 w-14 p-3 bg-gray-100 rounded-full border border-[#b9bccf4d] cursor-pointer laptop-s:h-12 laptop-s:w-12 laptop-s:p-2"
-              onClick={hanldeInvoiceDownload}
-            >
-              {loading ? (
-                <span className="inline-block h-7 w-7 rounded-full border-2 border-indigo-100 border-t-indigo-600 border-r-indigo-600 animate-spin"></span>
-              ) : (
-                <IoMdDownload className="h-full w-full fill-[var(--primary)]" />
-              )}
-            </span>
-          )}
           <span
             className={`px-4 py-1 rounded-lg font-medium text-[1rem] leading-[2.4rem] order-status-label-${
               order_status >= 4 && order_status < 9 ? 0 : order_status
             }`}
           >
             {order_status_name}
+          </span>
+          <span
+            className="flex justify-center items-center h-14 w-14 p-3 bg-gray-100 rounded-full border border-[#b9bccf4d] cursor-pointer laptop-s:h-12 laptop-s:w-12 laptop-s:p-2"
+            onClick={hanldeInvoiceDownload}
+          >
+            {loading ? (
+              <span className="inline-block h-7 w-7 rounded-full border-2 border-indigo-100 border-t-indigo-600 border-r-indigo-600 animate-spin"></span>
+            ) : (
+              <IoMdDownload className="h-full w-full fill-[var(--primary)]" />
+            )}
           </span>
         </div>
       </div>
