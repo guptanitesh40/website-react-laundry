@@ -11,7 +11,7 @@ const useGetAllCoupon = () => {
 
     try {
       setLoading(true);
-      const response = await fetch(`${baseURL}/customer/coupon`, {
+      const response = await fetch(`${baseURL}/customer/coupon?coupon_type=1`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
