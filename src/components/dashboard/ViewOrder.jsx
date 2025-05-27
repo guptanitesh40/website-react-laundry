@@ -76,16 +76,16 @@ const ViewOrder = () => {
 
   return (
     <div className="flex flex-col gap-8 tab-s:gap-6">
-      <div className="text-[1.8rem] leading-[4rem] text-[var(--black)] font-semibold py-4 px-6 rounded-xl bg-white border border-[#b9bccf4d] flex items-center justify-between shadow-sm laptop-s:text-[1.6rem] laptop-s:leading-[3rem] laptop-s:rounded-lg tab-s:p-4 tab-s:text-[1.5rem]">
-        <span>Order Details : #{order_id}</span>
-        {order_status === 12 ||
-          (order_status === 13 && (
-            <span className="self-center border border-secondary text-[1.4rem] leading-[1.25] font-normal rounded-lg text-secondary p-3">
-              This order is cancelled
-            </span>
-          ))}
+      <div className="text-[1.8rem] leading-[4rem] text-[var(--black)] font-semibold py-4 px-6 rounded-xl bg-white border border-[#b9bccf4d] flex flex-wrap items-start justify-between gap-y-4 shadow-sm laptop-s:text-[1.6rem] laptop-s:leading-[3rem] laptop-s:rounded-lg tab-s:p-4 tab-s:text-[1.5rem]">
+        <span className="w-full sm:w-auto">Order Details : #{order_id}</span>
 
-        <div className="flex items-center gap-5">
+        {(order_status === 12 || order_status === 13) && (
+          <span className="w-full sm:w-auto self-center border border-secondary text-[1.4rem] leading-[1.25] font-normal rounded-lg text-secondary p-3">
+            This order is cancelled
+          </span>
+        )}
+
+        <div className="flex flex-wrap sm:flex-nowrap items-center gap-4 sm:gap-5 w-full sm:w-auto">
           <span
             className={`px-4 py-1 rounded-lg font-medium text-[1rem] leading-[2.4rem] order-status-label-${
               order_status >= 4 && order_status < 9 ? 0 : order_status
@@ -93,16 +93,18 @@ const ViewOrder = () => {
           >
             {order_status_name}
           </span>
-          <span
-            className="flex justify-center items-center h-14 w-14 p-3 bg-gray-100 rounded-full border border-[#b9bccf4d] cursor-pointer laptop-s:h-12 laptop-s:w-12 laptop-s:p-2"
+          <button
+            className="flex items-center gap-3 px-4 py-3 rounded-lg border border-gray-200 bg-white text-gray-700 hover:border-gray-300 transition-all duration-200 shadow-sm"
             onClick={hanldeInvoiceDownload}
+            disabled={loading}
           >
             {loading ? (
-              <span className="inline-block h-7 w-7 rounded-full border-2 border-indigo-100 border-t-indigo-600 border-r-indigo-600 animate-spin"></span>
+              <span className="h-6 w-6 animate-spin rounded-full border-2 border-indigo-200 border-t-indigo-600"></span>
             ) : (
-              <IoMdDownload className="h-full w-full fill-[var(--primary)]" />
+              <IoMdDownload className="h-6 w-6 text-indigo-600" />
             )}
-          </span>
+            <span className="text-base font-medium">Download Invoice</span>
+          </button>
         </div>
       </div>
 
