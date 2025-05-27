@@ -10,7 +10,7 @@ const Services = () => {
             <h2>Services We’re Offering</h2>
           </div>
           <Link
-            to="/services"
+            to="/order-now"
             className="btn"
             role="button"
             title="Explore More"

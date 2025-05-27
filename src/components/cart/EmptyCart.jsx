@@ -18,7 +18,7 @@ const EmptyCart = () => {
         </p>
 
         <Link
-          to="/services"
+          to="/order-now"
           className="mt-4 flex gap-6 items-center px-8 py-4 border border-transparent text-3xl font-medium rounded-md text-white bg-primary focus:outline-none transition-colors duration-200 laptop-l:py-3 laptop-l:px-6 laptop-l:text-2xl laptop-md:mt-2 laptop-md:text-xl laptop-md:py-2 laptop-md:px-4 laptop-md:gap-4 laptop-s:gap-3 tab:px-3 tab:text-lg mb-l:rounded"
           aria-label="Start shopping"
           title="Start shopping"

@@ -116,7 +116,7 @@ const Order = () => {
             <Link to="/dashboard/home" className="to-btn">
               Track your order
             </Link>
-            <Link to="/services" className="rs-btn">
+            <Link to="/order-now" className="rs-btn">
               Return to shopping
             </Link>
           </div>

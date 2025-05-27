@@ -21,7 +21,7 @@ const QuickOrderCart = () => {
   const [isPickupClothes, setIsPickupClothes] = useState(false);
 
   useEffect(() => {
-    if (location.pathname === "/pickup-clothes") {
+    if (location.pathname === "/quick-order") {
       setIsPickupClothes(true);
     } else {
       setIsPickupClothes(false);

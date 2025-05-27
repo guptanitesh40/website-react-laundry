@@ -197,7 +197,7 @@ const MainComponent = () => {
           />
 
           <Route
-            path="/pickup-clothes"
+            path="/quick-order"
             element={
               <ProtectedRoute>
                 <Suspense fallback={<Loading />}>
@@ -216,7 +216,7 @@ const MainComponent = () => {
             }
           />
           <Route
-            path="/corporate-services"
+            path="/our-services"
             element={
               <Suspense fallback={<Loading />}>
                 <CorporateServices />
@@ -224,7 +224,7 @@ const MainComponent = () => {
             }
           />
           <Route
-            path="/services"
+            path="/order-now"
             element={
               <Suspense fallback={<Loading />}>
                 <Services />

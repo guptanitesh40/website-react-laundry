@@ -21,7 +21,7 @@
 }
 
 .section-space {
-  padding: 7rem 0;
+  padding: 5rem 0;
 }
 
 .star-psudo::before {
@@ -377,7 +377,7 @@ h3 {
   }
 
   .section-space {
-    padding: 6.5rem 0;
+    padding: 4.5rem 0;
   }
 
   .tertiary-container {
@@ -459,7 +459,7 @@ h3 {
   }
 
   .section-space {
-    padding: 6rem 0;
+    padding: 4rem 0;
   }
 
   .banner-title {
@@ -514,7 +514,7 @@ h3 {
 
 @media only screen and (max-width: 83.75em) {
   .section-space {
-    padding: 5rem 0;
+    padding: 3rem 0;
   }
 
   .banner-title {
@@ -576,7 +576,7 @@ h3 {
   }
 
   .section-space {
-    padding: 4rem 0;
+    padding: 2rem 0;
   }
 
   .faq-heading {
