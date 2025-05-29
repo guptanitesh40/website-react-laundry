@@ -163,36 +163,32 @@
 }
 
 @media only screen and (max-width: 55em) {
-  .sr-list li {
-    font-size: 1.2rem;
-    line-height: 1.8rem;
-    font-weight: 500;
-    padding-left: 2.4rem;
-  }
-
-  .sr-list li::before {
-    top: 5%;
-  }
-
-  .sr-list {
-    gap: 2rem;
-  }
-
-  .corporate-tc-link {
-    font-size: 1.2rem;
+  .sm-services {
+    position: static;
+    width: 100%;
+    border-radius:0;
   }
 }
+
+
 
 @media only screen and (max-width: 38.4375em) {
   .sm-services {
     position: static;
     width: 100%;
-    border-radius: 0.5rem;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
   }
 }
 
 @media only screen and (max-width: 27.5em) {
   .sm-services {
     border-radius: 0.25rem;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
   }
 }

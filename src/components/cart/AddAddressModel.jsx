@@ -27,8 +27,8 @@ const addressShcema = Yup.object().shape({
     .matches(/^[0-9]{10}$/, "Phone number must be exactly 10 digits")
     .required("Phone number is required"),
   address_type: Yup.string().required("Address type is require"),
-  building_number: Yup.string().trim().required("Building number is required"),
-  area: Yup.string().trim().required("Area is required"),
+  building_number: Yup.string().trim().required("House no and society is required"),
+  area: Yup.string().trim().required("Please select address"),
   landmark: Yup.string().trim().required("Landmark is required"),
   city: Yup.string().trim().required("City is required"),
   state: Yup.string().trim().required("State is required"),
@@ -270,27 +270,8 @@ const AddAddressModel = ({ setIsOpen, isOpen, address, isEditMode }) => {
           </div>
 
           <div className="flex flex-col gap-2">
-            <label htmlFor="building_number" className="aam-label">
-              House No
-            </label>
-            <div>
-              <input
-                name="building_number"
-                id="building_number"
-                type="text"
-                onChange={handleChange}
-                value={formData.building_number}
-                className="aam-input"
-              />
-              {errors.building_number && (
-                <p className="aam-error-label">{errors.building_number}</p>
-              )}
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-2">
             <label htmlFor="area" className="aam-label">
-              area
+              Search Address
             </label>
 
             <div className="relative">
@@ -356,15 +337,34 @@ const AddAddressModel = ({ setIsOpen, isOpen, address, isEditMode }) => {
               )) ||
                 (isLatLng && (
                   <p className="aam-error-label">
-                    please select valid area from dropdown
+                    please select valid address from dropdown
                   </p>
                 ))}
             </div>
           </div>
 
           <div className="flex flex-col gap-2">
+            <label htmlFor="building_number" className="aam-label">
+              House number and society
+            </label>
+            <div>
+              <input
+                name="building_number"
+                id="building_number"
+                type="text"
+                onChange={handleChange}
+                value={formData.building_number}
+                className="aam-input"
+              />
+              {errors.building_number && (
+                <p className="aam-error-label">{errors.building_number}</p>
+              )}
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-2">
             <label htmlFor="landmark" className="aam-label">
-              landmark
+              Landmark
             </label>
             <div>
               <input
@@ -382,8 +382,25 @@ const AddAddressModel = ({ setIsOpen, isOpen, address, isEditMode }) => {
           </div>
 
           <div className="flex flex-col gap-2">
+            <label htmlFor="city" className="aam-label">
+              City
+            </label>
+            <div>
+              <input
+                name="city"
+                id="city"
+                type="text"
+                onChange={handleChange}
+                value={formData.city}
+                className="aam-input"
+              />
+              {errors.city && <p className="aam-error-label">{errors.city}</p>}
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-2">
             <label htmlFor="pincode" className="aam-label">
-              pincode
+              Pincode
             </label>
             <div>
               <input
@@ -401,28 +418,8 @@ const AddAddressModel = ({ setIsOpen, isOpen, address, isEditMode }) => {
           </div>
 
           <div className="flex flex-col gap-2">
-            <label
-              htmlFor="city"
-              className="self-start text-[1.2rem] text-[var(--black)]"
-            >
-              city
-            </label>
-            <div>
-              <input
-                name="city"
-                id="city"
-                type="text"
-                onChange={handleChange}
-                value={formData.city}
-                className="aam-input"
-              />
-              {errors.city && <p className="aam-error-label">{errors.city}</p>}
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-2">
             <label htmlFor="state" className="aam-label">
-              state
+              State
             </label>
             <div>
               <input
@@ -441,7 +438,7 @@ const AddAddressModel = ({ setIsOpen, isOpen, address, isEditMode }) => {
 
           <div className="flex flex-col gap-2">
             <label htmlFor="country" className="aam-label">
-              country
+              Country
             </label>
             <input
               name="country"
