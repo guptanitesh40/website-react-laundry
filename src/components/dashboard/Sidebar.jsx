@@ -1,4 +1,5 @@
 import { AiFillHome } from "react-icons/ai";
+import { BsBoxSeamFill } from "react-icons/bs";
 import { FaLocationDot } from "react-icons/fa6";
 import { IoNewspaper, IoPerson } from "react-icons/io5";
 import { Link, useLocation } from "react-router-dom";
@@ -27,6 +28,11 @@ const Sidebar = () => {
       icon: <FaLocationDot className="dash-icon" />,
       label: "Saved Addresses",
       route: "/dashboard/saved-addresses",
+    },
+    {
+      icon: <BsBoxSeamFill />,
+      label: "Order Now",
+      route: "/order-now",
     },
   ];
 

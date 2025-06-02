@@ -188,14 +188,14 @@ const Navbar = () => {
               </ul>
             </div>
 
-            <div className="flex justify-center items-center gap-8 laptop-l:gap-6 tab:gap-4 mb:ml-2 mb-m:2">
+            <div className="flex justify-center items-center gap-8 laptop-l:gap-6 tab:gap-4 mb:ml-2 mb-m:gap-2">
               {pathname !== "/quick-order" && (
                 <div>
                   <Link
                     to="/quick-order"
                     title="Pickup Clothes"
                     aria-label="Pickup Clothes"
-                    className="bg-white text-gray-800 border border-gray-300 px-[1.5rem] py-[0.5rem] rounded-xl shadow-sm hover:bg-gray-100 transition tab:px-[1rem] mb-x:px-[1rem] mb-x:text-[1.4rem] mb-m:text-[1.3rem] mb-m:px-[.7rem]"
+                    className="bg-white text-gray-800 border border-gray-300 px-[1.5rem] py-[0.5rem] rounded-xl shadow-sm hover:bg-gray-100 transition tab:px-[1rem] tab-z:px-[.8rem] tab-z:text-[1.5rem] mb-x:px-[.7rem] mb-x:text-[1.2rem] mb-m:text-[1.3rem] mb-m:px-[.7rem]"
                   >
                     Quick Order
                   </Link>
@@ -232,38 +232,15 @@ const Navbar = () => {
               )}
 
               {isLoggedIn ? (
-                <span className="inline-block cursor-pointer h-[4.6rem] w-[4.6rem] relative group laptop-l:h-[4.2rem] laptop-l:w-[4.2rem] laptop:h-[4rem] laptop:w-[4rem] tab-l:h-[3.8rem] tab-l:w-[3.8rem] tab-m:hidden">
-                  <img
-                    src={profile_image}
-                    alt="Avatar"
-                    className={`h-full w-full rounded-full border-[1.5px] laptop-l:border ${
-                      pathname === "/order-now"
-                        ? "border-white/45"
-                        : "border-black/45"
-                    }`}
-                    loading="lazy"
-                  />
-                  <div className="hidden group-hover:inline-block z-10">
-                    <div className="logout-container flex flex-col items-start gap-4">
-                      <button
-                        className="inline-flex items-center justify-center gap-4 cursor-pointer"
-                        style={{ cursor: "pointer" }}
-                        role="button"
-                        onClick={onProfileClick}
-                      >
-                        <CgProfile className="h-[2rem] w-[2rem] text-[#676788]" />
-                        <span className="logout">Profile</span>
-                      </button>
-                      <button
-                        className="flex items-center justify-center gap-4 cursor-pointer"
-                        onClick={onLogoutClick}
-                      >
-                        <FiLogOut className="h-[2rem] w-[2rem] stroke-[#676788]" />
-                        <span className="logout">logout</span>
-                      </button>
-                    </div>
-                  </div>
-                </span>
+                <button
+                  onClick={onProfileClick}
+                  role="button"
+                  title="My Account"
+                  aria-label="My Account"
+                  className="bg-primary text-white px-[1.5rem] py-[0.75rem] rounded-[30px] hover:bg-primary-dark transition-all duration-200 tab:py-[.5rem] tab-z:px-[1rem]  mb-x:px-[.8rem] mb-x:text-[1.4rem] mb-m:px-[.8rem] mb-m: -mr-3"
+                >
+                  My Account
+                </button>
               ) : (
                 <Link
                   to="/login"
@@ -271,7 +248,7 @@ const Navbar = () => {
                   role="button"
                   title="login"
                   aria-label="login"
-                  className="bg-primary text-white px-[1.5rem] py-[0.75rem] rounded-[30px] hover:bg-primary-dark transition-all duration-200 tab:py-[.5rem] mb-x:px-[1rem] mb-x:text-[1.5rem] mb-m:px-[.8rem] mb-m: -mr-3"
+                  className="bg-primary text-white px-[1.5rem] py-[0.75rem] rounded-[30px] hover:bg-primary-dark transition-all duration-200 tab:py-[.5rem] mb-x:px-[.8rem] mb-x:text-[1.4rem] mb-m:px-[.8rem] mb-m: -mr-3"
                 >
                   My Account
                 </Link>

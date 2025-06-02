@@ -28,6 +28,7 @@ export default {
         "tab-s": { max: "55em" },
         mobile: { max: "31.25em" },
         tab: { max: "38.4375em" },
+        "tab-z": { max: "26.875em" },
         "mb-l": { max: "27.5em" },
         "mb-x": { max: "25em"}, 
         "mb-m": { max: "22em" },
