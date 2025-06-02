@@ -60,6 +60,16 @@
   text-decoration: underline;
 }
 
+.service {
+  padding: 3rem 3.5rem;
+  background-color:#F7F8FD;  
+  border-radius: 3rem;
+}
+
+.service-heading {
+  font-size: 2.2rem;
+}
+
 @media only screen and (max-width: 100em) {
   .sr-list {
     gap: 3rem;
