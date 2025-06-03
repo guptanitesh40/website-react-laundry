@@ -2,7 +2,7 @@ const Services = () => {
   return (
     <section className="py-[5rem] px-[10rem] laptop-md:px-[2rem] laptop-l:px-[4rem]">
       <div className="grid [grid-template-columns:repeat(auto-fit,minmax(320px,3fr))] gap-10 px-4 md:px-10 mb-x:[grid-template-columns:repeat(auto-fit,minmax(280px,3fr))] mb-x:px-0">
-        <div className="service">
+        <div className="service shadow rounded-3xl laptop:rounded-2xl tab-l:rounded-xl">
           <div className="mb-10">
             <svg
               width="64"
@@ -47,8 +47,8 @@ const Services = () => {
               />
             </svg>
           </div>
-          <h3 className="service-heading mb-5">Dry Cleaning</h3>
-          <div>
+          <h3 className="mb-5">Dry Cleaning</h3>
+          <div className="content text-center">
             A solvent-based cleaning process that gently removes stains and dirt
             without using water. We use safe and effective organic solvents like
             perchloroethylene, hydrocarbons, and other advanced options for
@@ -56,7 +56,7 @@ const Services = () => {
           </div>
         </div>
 
-        <div className="service">
+        <div className="service shadow rounded-3xl laptop:rounded-2xl tab-l:rounded-xl">
           <div className="mb-10">
             <svg
               width="59"
@@ -136,15 +136,15 @@ const Services = () => {
               />
             </svg>
           </div>
-          <h3 className="service-heading mb-5">Wet Cleaning</h3>
-          <div>
+          <h3 className="mb-5">Wet Cleaning</h3>
+          <div className="content text-center">
             An eco-friendly alternative to dry cleaning, using water,
             biodegradable detergents, and specialized equipment to clean
             delicate fabrics without harsh chemicals.
           </div>
         </div>
 
-        <div className="service">
+        <div className="service shadow rounded-3xl laptop:rounded-2xl tab-l:rounded-xl">
           <div className="mb-10">
             <svg
               width="80"
@@ -179,15 +179,15 @@ const Services = () => {
               />
             </svg>
           </div>
-          <h3 className="service-heading mb-5">Washing</h3>
-          <div>
+          <h3 className="mb-5">Washing</h3>
+          <div className="content text-center">
             Standard cleaning using water, quality detergents, and optional
             additives like bleach, soda, or oxi-bleach, depending on fabric
             requirements.
           </div>
         </div>
 
-        <div className="service">
+        <div className="service shadow rounded-3xl laptop:rounded-2xl tab-l:rounded-xl">
           <div className="mb-10">
             <svg
               width="63"
@@ -210,13 +210,13 @@ const Services = () => {
               />
             </svg>
           </div>
-          <h3 className="service-heading mb-5">Ordinary Press</h3>
-          <div>
+          <h3 className="mb-5">Ordinary Press</h3>
+          <div className="content text-center">
             Basic ironing service to keep your garments neat and wrinkle-free.
           </div>
         </div>
 
-        <div className="service">
+        <div className="service shadow rounded-3xl laptop:rounded-2xl tab-l:rounded-xl">
           <div className="mb-10">
             <svg
               width="84"
@@ -247,14 +247,14 @@ const Services = () => {
               />
             </svg>
           </div>
-          <h3 className="service-heading mb-5">Steam Press</h3>
-          <div>
+          <h3 className="mb-5">Steam Press</h3>
+          <div className="content text-center">
             A professional pressing method using hot steam to remove even the
             most stubborn wrinkles quickly and efficiently.
           </div>
         </div>
 
-        <div className="service">
+        <div className="service shadow rounded-3xl laptop:rounded-2xl tab-l:rounded-xl">
           <div className="mb-10">
             <svg
               width="64"
@@ -281,49 +281,53 @@ const Services = () => {
               />
             </svg>
           </div>
-          <h3 className="service-heading mb-5">Roll Press</h3>
-          <div>
+          <h3 className="mb-5">Roll Press</h3>
+          <div className="content text-center">
             Specialized for starched sarees and similar garments, this process
             uses a felt-lined calendar roller to apply controlled heat while
             preserving fabric beauty and strength.
           </div>
         </div>
 
-        <div className="service">
+        <div className="service shadow rounded-3xl laptop:rounded-2xl tab-l:rounded-xl">
           <div className="mb-10">
             <svg
-              width="64"
-              height="64"
-              viewBox="0 0 64 64"
+              width="91"
+              height="63"
+              viewBox="0 0 61 41"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                d="M50.7638 54.3065C52.7198 54.3065 54.3055 52.7208 54.3055 50.7648C54.3055 48.8088 52.7198 47.2231 50.7638 47.2231C48.8078 47.2231 47.2222 48.8088 47.2222 50.7648C47.2222 52.7208 48.8078 54.3065 50.7638 54.3065Z"
-                fill="#FF2E17"
-              />
-              <path
-                d="M37.7778 50.764V12.9639C37.7778 12.971 37.7766 12.9792 37.7766 12.9863V14.1669H1.18056C0.528889 14.1669 0 14.6957 0 15.3474V62.5695C0 63.2224 0.528889 63.7501 1.18056 63.7501H50.7639C43.6038 63.7501 37.7778 57.9241 37.7778 50.764Z"
-                fill="#E0E2ED"
-              />
-              <path
-                d="M50.7637 0C46.3732 0 42.4903 2.19701 40.1387 5.5427V43.3204C42.4903 39.9736 46.372 37.7777 50.7637 37.7777C57.9237 37.7777 63.7498 43.6038 63.7498 50.7638V12.9861C63.7498 5.82603 57.9237 0 50.7637 0Z"
+                d="M56.2292 20.3819C54.8505 21.3051 46.2063 22.528 32.6705 22.528C21.7244 22.528 13.9914 21.7367 10.6944 20.9334C10.5865 20.8855 10.4786 20.8495 10.3587 20.8495C9.75923 20.6936 9.33961 20.5258 9.11182 20.3819V17.5645C13.8955 19.4228 26.5321 19.6626 32.6705 19.6626C38.809 19.6626 51.4456 19.4228 56.2292 17.5645V20.3819Z"
                 fill="#161F5F"
               />
               <path
-                d="M50.7637 40.1396C44.9046 40.1396 40.1387 44.9055 40.1387 50.7646C40.1387 56.6237 44.9046 61.3896 50.7637 61.3896C56.6228 61.3896 61.3887 56.6237 61.3887 50.7646C61.3887 44.9055 56.6228 40.1396 50.7637 40.1396ZM50.7637 56.6674C47.5089 56.6674 44.8609 54.0194 44.8609 50.7646C44.8609 47.5098 47.5089 44.8619 50.7637 44.8619C54.0185 44.8619 56.6664 47.5098 56.6664 50.7646C56.6664 54.0194 54.0185 56.6674 50.7637 56.6674Z"
-                fill="#FF2E17"
+                d="M12.5643 11.607C12.9959 11.5231 13.3077 11.1394 13.3316 10.7078C13.4036 8.57372 15.13 6.90723 17.2641 6.90723C18.6548 6.90723 19.9617 7.66254 20.669 8.87345C20.8369 9.16119 21.1366 9.34103 21.4603 9.35302C21.784 9.40097 22.0957 9.20915 22.2876 8.9334C23.0309 7.85437 24.2418 7.21894 25.5366 7.21894C27.6467 7.21894 29.3732 8.87345 29.4691 10.9835C29.4811 11.2593 29.6129 11.5231 29.8287 11.6909C30.0446 11.8588 30.3323 11.9307 30.5961 11.8827C31.6391 11.6789 32.7901 11.9427 33.6773 12.6141C33.989 12.8419 34.4086 12.8778 34.7443 12.674C35.08 12.4822 35.2598 12.0985 35.2119 11.7149C35.1879 11.535 35.1639 11.3552 35.1639 11.1634C35.1639 8.99334 36.9383 7.21894 39.1084 7.21894C40.4272 7.21894 41.6501 7.87835 42.3934 8.98135C42.7531 9.50888 43.6283 9.50888 43.988 8.98135C44.7193 7.87835 45.9422 7.21894 47.273 7.21894C49.443 7.21894 51.2174 8.98135 51.2174 11.1634C51.2174 11.2953 51.2054 11.4152 51.1935 11.547C51.1575 11.9187 51.3373 12.2664 51.661 12.4582C51.9728 12.6381 52.3684 12.6381 52.6801 12.4342C53.8311 11.6669 55.5335 12.5901 55.5335 13.9689C55.5335 14.2446 55.4736 14.5084 55.3537 14.7481C55.1619 15.1558 55.2938 15.6353 55.6414 15.8991C53.1477 16.7743 44.9111 17.7694 32.6822 17.7694C19.8298 17.7694 11.3894 16.6664 9.38721 15.7672C9.41119 15.6713 9.44715 15.5874 9.44715 15.4795C9.42317 13.6092 10.754 11.9906 12.5643 11.607Z"
+                fill="#161F5F"
+              />
+              <path
+                d="M48.5438 37.4791C47.8004 38.63 41.8658 40.2366 32.6701 40.2366C23.5703 40.2366 18.0074 38.702 16.9044 37.611L11.749 23.0801C17.5518 24.267 27.4548 24.4468 32.6581 24.4468C37.8734 24.4468 47.7765 24.267 53.5792 23.0801L48.5438 37.4791Z"
+                fill="#E0E2ED"
+              />
+              <path
+                d="M7.27228 21.1097C7.27228 19.1315 5.66573 17.5249 3.68752 17.5249C1.70931 17.5249 0.114746 19.1315 0.114746 21.1097C0.114746 23.0879 1.7213 24.6944 3.69951 24.6944C5.67772 24.6944 7.27228 23.0759 7.27228 21.1097ZM2.02102 21.1097C2.02102 20.1865 2.77634 19.4432 3.68752 19.4432C4.5987 19.4432 5.35401 20.1865 5.35401 21.1097C5.35401 22.0328 4.5987 22.7762 3.68752 22.7762C2.77634 22.7762 2.02102 22.0208 2.02102 21.1097Z"
+                fill="#161F5F"
+              />
+              <path
+                d="M57.1876 0.911621C55.0894 0.911621 53.375 2.62607 53.375 4.72418C53.375 6.82229 55.0894 8.53674 57.1876 8.53674C59.2857 8.53674 61.0001 6.82229 61.0001 4.72418C61.0001 2.62607 59.2857 0.911621 57.1876 0.911621ZM57.1876 6.61847C56.1445 6.61847 55.2813 5.76724 55.2813 4.71219C55.2813 3.65714 56.1325 2.80591 57.1876 2.80591C58.2306 2.80591 59.0938 3.65714 59.0938 4.71219C59.0938 5.76724 58.2306 6.61847 57.1876 6.61847Z"
+                fill="#161F5F"
               />
             </svg>
           </div>
-          <h3 className="service-heading mb-5">Shoe Washing & Cleaning</h3>
-          <div>
+          <h3 className="mb-5">Shoe Washing & Cleaning</h3>
+          <div className="content text-center">
             Comprehensive shoe care service including cleaning, deodorizing, and
             gentle restoration for all types of footwear.
           </div>
         </div>
 
-        <div className="service">
+        <div className="service shadow rounded-3xl laptop:rounded-2xl tab-l:rounded-xl">
           <div className="mb-10">
             <svg
               width="79"
@@ -366,14 +370,18 @@ const Services = () => {
               </g>
             </svg>
           </div>
-          <h3 className="service-heading mb-5">Raffu / Darning</h3>
-          <div>
+          <h3 className="mb-5">Raffu / Darning</h3>
+          <div className="content text-center">
             Traditional hand-sewing technique used to mend holes or tears in
-            knitwear. (Please contact the branch for taking this service.)
+            knitwear.&nbsp;
+            <br />
+            <span className="text-[1.7rem] text-blue-600 font-bold laptop-m:text-[1.5rem] laptop:text-[1.3rem] mb-x:text-[1.2rem]">
+              (Please contact the branch for taking this service.)
+            </span>
           </div>
         </div>
 
-        <div className="service">
+        <div className="service shadow rounded-3xl laptop:rounded-2xl tab-l:rounded-xl">
           <div className="mb-10">
             <svg
               width="54"
@@ -411,15 +419,18 @@ const Services = () => {
               />
             </svg>
           </div>
-          <h3 className="service-heading mb-5">Vulcanizing</h3>
-          <div>
+          <h3 className="mb-5">Vulcanizing</h3>
+          <div className="content text-center">
             A garment patching technique that reinforces fabric by covering
-            holes with durable material. (Please contact the branch for taking
-            this service.)
+            holes with durable material.&nbsp;
+            <br />
+            <span className="text-[1.7rem] text-blue-600 font-bold laptop-m:text-[1.5rem] laptop:text-[1.3rem] mb-x:text-[1.2rem]">
+              (Please contact the branch for taking this service.)
+            </span>
           </div>
         </div>
 
-        <div className="service">
+        <div className="service shadow rounded-3xl laptop:rounded-2xl tab-l:rounded-xl">
           <div className="mb-10">
             <svg
               width="72"
@@ -491,18 +502,19 @@ const Services = () => {
               />
             </svg>
           </div>
-          <h3 className="service-heading mb-5">Dyeing</h3>
-          <div>
+          <h3 className="mb-5">Dyeing</h3>
+          <div className="content text-center">
             Transform or refresh your garments with our professional dyeing
             service. We apply vibrant, long-lasting colors through a careful
             multi-stage process. &nbsp;
-            <span className="text-[1.4rem] text-blue-500 font-medium">
+            <br />
+            <span className="text-[1.7rem] text-blue-600 font-bold laptop-m:text-[1.5rem] laptop:text-[1.3rem] mb-x:text-[1.2rem]">
               (Please contact the branch for taking this service.)
             </span>
           </div>
         </div>
 
-        <div className="service">
+        <div className="service shadow rounded-3xl laptop:rounded-2xl tab-l:rounded-xl">
           <div className="mb-10">
             <svg
               width="80"
@@ -537,17 +549,18 @@ const Services = () => {
               />
             </svg>
           </div>
-          <h3 className="service-heading mb-5">Rewash Service</h3>
-          <div>
+          <h3 className="mb-5">Rewash Service</h3>
+          <div className="content text-center">
             For garments that need a second round of cleaning to ensure complete
             stain or odor removal. &nbsp;
-            <span className="text-[1.4rem] text-blue-500 font-medium">
+            <br />
+            <span className="text-[1.7rem] text-blue-600 font-bold laptop-m:text-[1.5rem] laptop:text-[1.3rem] mb-x:text-[1.2rem]">
               (Please contact the branch for taking this service.)
             </span>
           </div>
         </div>
 
-        <div className="service">
+        <div className="service shadow rounded-3xl laptop:rounded-2xl tab-l:rounded-xl">
           <div className="mb-10">
             <svg
               width="60"
@@ -570,17 +583,18 @@ const Services = () => {
               />
             </svg>
           </div>
-          <h3 className="service-heading mb-5">Interlock Stitching</h3>
-          <div>
+          <h3 className="mb-5">Interlock Stitching</h3>
+          <div className="content text-center">
             Secure and durable stitching used to finish edges and prevent fabric
             fraying. &nbsp;
-            <span className="text-[1.4rem] text-blue-500 font-medium">
+            <br />
+            <span className="text-[1.7rem] text-blue-600 font-bold laptop-m:text-[1.5rem] laptop:text-[1.3rem] mb-x:text-[1.2rem]">
               (Please contact the branch for taking this service.)
             </span>
           </div>
         </div>
 
-        <div className="service">
+        <div className="service shadow rounded-3xl laptop:rounded-2xl tab-l:rounded-xl">
           <div className="mb-10">
             <svg
               width="58"
@@ -600,48 +614,84 @@ const Services = () => {
               />
             </svg>
           </div>
-          <h3 className="service-heading mb-5">Fall Bidding</h3>
-          <div>
+          <h3 className="mb-5">Fall Bidding</h3>
+          <div className="content text-center">
             Expert hemming and border work for sarees, ensuring perfect drape
             and elegance. &nbsp;
-            <span className="text-[1.4rem] text-blue-500 font-medium">
+            <br />
+            <span className="text-[1.7rem] text-blue-600 font-bold laptop-m:text-[1.5rem] laptop:text-[1.3rem] mb-x:text-[1.2rem]">
               (Please contact the branch for taking this service.)
             </span>
           </div>
         </div>
 
-        <div className="service">
+        <div className="service shadow rounded-3xl laptop:rounded-2xl tab-l:rounded-xl">
           <div className="mb-10">
             <svg
-              width="64"
+              width="58"
               height="64"
-              viewBox="0 0 64 64"
+              viewBox="0 0 58 64"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                d="M50.7638 54.3065C52.7198 54.3065 54.3055 52.7208 54.3055 50.7648C54.3055 48.8088 52.7198 47.2231 50.7638 47.2231C48.8078 47.2231 47.2222 48.8088 47.2222 50.7648C47.2222 52.7208 48.8078 54.3065 50.7638 54.3065Z"
-                fill="#FF2E17"
+                d="M0 16.9391C0 7.58389 7.58388 0 16.9391 0H41.0588C50.414 0 57.9979 7.58388 57.9979 16.9391V38.1129C57.9979 52.1457 46.6221 63.5215 32.5893 63.5215H25.4086C11.3758 63.5215 0 52.1457 0 38.1129V16.9391Z"
+                fill="#E0E2ED"
               />
-              <path
-                d="M37.7778 50.764V12.9639C37.7778 12.971 37.7766 12.9792 37.7766 12.9863V14.1669H1.18056C0.528889 14.1669 0 14.6957 0 15.3474V62.5695C0 63.2224 0.528889 63.7501 1.18056 63.7501H50.7639C43.6038 63.7501 37.7778 57.9241 37.7778 50.764Z"
+              <rect
+                width="57.9979"
+                height="63.5215"
+                rx="12.7043"
                 fill="#E0E2ED"
               />
               <path
-                d="M50.7637 0C46.3732 0 42.4903 2.19701 40.1387 5.5427V43.3204C42.4903 39.9736 46.372 37.7777 50.7637 37.7777C57.9237 37.7777 63.7498 43.6038 63.7498 50.7638V12.9861C63.7498 5.82603 57.9237 0 50.7637 0Z"
-                fill="#161F5F"
+                d="M0 11.3431C0 5.07849 5.07849 0 11.3431 0H46.6548C52.9194 0 57.9979 5.07849 57.9979 11.3431C57.9979 11.3431 37.6869 16.7162 28.7641 16.7162C19.8414 16.7162 0 11.3431 0 11.3431Z"
+                fill="#FF2E17"
               />
               <path
-                d="M50.7637 40.1396C44.9046 40.1396 40.1387 44.9055 40.1387 50.7646C40.1387 56.6237 44.9046 61.3896 50.7637 61.3896C56.6228 61.3896 61.3887 56.6237 61.3887 50.7646C61.3887 44.9055 56.6228 40.1396 50.7637 40.1396ZM50.7637 56.6674C47.5089 56.6674 44.8609 54.0194 44.8609 50.7646C44.8609 47.5098 47.5089 44.8619 50.7637 44.8619C54.0185 44.8619 56.6664 47.5098 56.6664 50.7646C56.6664 54.0194 54.0185 56.6674 50.7637 56.6674Z"
-                fill="#FF2E17"
+                d="M3.41162 11.7012C3.41162 11.7012 16.2053 16.716 28.9989 16.716C41.7926 16.716 54.5862 11.7012 54.5862 11.7012"
+                stroke="#161F5F"
+                stroke-width="3.17608"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M42.0583 34.9365H19.1008C19.1008 34.9365 17.7504 46.8468 29.9043 46.8468C42.0583 46.8468 42.0583 34.9365 42.0583 34.9365Z"
+                fill="white"
+              />
+              <path
+                d="M29.7095 21.1953C22.2332 21.1953 16.2051 27.1421 16.2051 34.3813C16.2051 41.6516 22.2632 47.5664 29.7095 47.5664C37.2583 47.5664 43.2139 41.5844 43.2139 34.3813C43.2139 27.1597 37.2401 21.1953 29.7095 21.1953ZM29.7095 23.9721C33.6947 23.9721 37.3177 26.1169 39.1646 29.57C39.668 30.5102 40.0148 31.5001 40.203 32.5281C39.6088 32.6866 39.0575 32.9054 38.5732 33.1828C38.5662 33.1869 38.5592 33.191 38.5521 33.1952C37.2297 33.9377 34.9363 33.9347 33.6235 33.1836C31.4407 31.9337 28.0281 31.9268 25.8323 33.163C25.8201 33.1696 25.808 33.1764 25.7958 33.1832C24.4973 33.9258 22.1983 33.9498 20.8455 33.1828C20.3619 32.9058 19.8115 32.6873 19.2181 32.5287C20.1159 27.6698 24.4787 23.9721 29.7095 23.9721ZM29.7095 44.7896C24.1928 44.7896 19.6416 40.677 19.1027 35.427C19.2476 35.4911 19.3269 35.5328 19.408 35.5791C21.5895 36.8274 25.001 36.8343 27.197 35.5999C27.2099 35.5931 27.2227 35.586 27.2354 35.5787C28.5533 34.8237 30.8662 34.8238 32.1854 35.5791C34.4859 36.8955 37.9839 36.7916 40.0334 35.5661C40.1219 35.5164 40.2177 35.4706 40.3167 35.4269C39.7878 40.6719 35.2539 44.7896 29.7095 44.7896Z"
+                fill="#161F5F"
+              />
+              <ellipse
+                cx="21.6071"
+                cy="7.94019"
+                rx="2.70088"
+                ry="2.64673"
+                fill="white"
+              />
+              <ellipse
+                cx="29.7097"
+                cy="7.94019"
+                rx="2.70088"
+                ry="2.64673"
+                fill="white"
+              />
+              <ellipse
+                cx="37.8122"
+                cy="7.94019"
+                rx="2.70088"
+                ry="2.64673"
+                fill="white"
               />
             </svg>
           </div>
-          <h3 className="service-heading mb-5">Laundry by Weight (KG)</h3>
-          <div>
+          <h3 className="mb-5">Laundry by Weight (KG)</h3>
+          <div className="content text-center">
             Convenient per-kilogram laundry service for regular wear and
             household items. &nbsp;
-            <span className="text-[1.4rem] text-blue-500 font-medium">
+            <br />
+            <span className="text-[1.7rem] text-blue-600 font-bold laptop-m:text-[1.5rem] laptop:text-[1.3rem] mb-x:text-[1.2rem]">
               (Please contact the branch for taking this service.)
             </span>
           </div>

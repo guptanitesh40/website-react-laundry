@@ -63,7 +63,10 @@
 .service {
   padding: 3rem 3.5rem;
   background-color:#F7F8FD;  
-  border-radius: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
 }
 
 .service-heading {

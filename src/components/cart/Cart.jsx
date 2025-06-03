@@ -30,18 +30,36 @@ const Cart = () => {
                   instruction={instruction}
                   setInstruction={setInstruction}
                 />
-                <Branches setSelectedBranchId={setSelectedBranchId} noSelection={noSelection} setNoSelection={setNoSelection}/>
-                <PayementMethod setPayementMethod={setPayementMethod} paymentMethod={paymentMethod}/>
+                <Branches
+                  setSelectedBranchId={setSelectedBranchId}
+                  noSelection={noSelection}
+                  setNoSelection={setNoSelection}
+                />
+                <PayementMethod
+                  setPayementMethod={setPayementMethod}
+                  paymentMethod={paymentMethod}
+                />
               </div>
             </div>
-            <div className="basis-[31%] border border-[#b9bccf4d] rounded-xl sticky-summary relative laptop-l:basis-[28%] laptop-l:rounded-lg laptop-s:basis-[30%] tab-l:basis-[31%] tab-m:w-[35rem] mb-l:w-full">
-              <OrderSummary
-                instruction={instruction}
-                paymentMethod={paymentMethod}
-                selectedAddId={selectedAddId}
-                selectedBranchId={selectedBranchId}
-                setNoSelection={setNoSelection}
-              />
+            <div className="basis-[31%] relative sticky-summary laptop-l:basis-[28%] laptop-s:basis-[30%] tab-l:basis-[31%] tab-m:w-[35rem] mb-l:w-full">
+              <div className=" border border-[#b9bccf4d] rounded-xl laptop-l:rounded-lg">
+                <OrderSummary
+                  instruction={instruction}
+                  paymentMethod={paymentMethod}
+                  selectedAddId={selectedAddId}
+                  selectedBranchId={selectedBranchId}
+                  setNoSelection={setNoSelection}
+                />
+              </div>
+              <div
+                role="note"
+                aria-label="Note"
+                className="para2 mt-5 text-[1.6rem] text-gray-700 dark:text-gray-300 italic"
+              >
+                <strong className="not-italic font-semibold text-red-500">Note:</strong>
+                &nbsp; All prices are subject to change based on the quality of
+                clothes and the required labor work.
+              </div>
             </div>
           </div>
         ) : (

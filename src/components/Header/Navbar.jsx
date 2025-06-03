@@ -188,14 +188,14 @@ const Navbar = () => {
               </ul>
             </div>
 
-            <div className="flex justify-center items-center gap-8 laptop-l:gap-6 tab:gap-4 mb:ml-2 mb-m:gap-2">
+            <div className="flex justify-center items-center gap-8 laptop-l:gap-6 tab:gap-4 mb:ml-2 mb-s:gap-2">
               {pathname !== "/quick-order" && (
                 <div>
                   <Link
                     to="/quick-order"
                     title="Pickup Clothes"
                     aria-label="Pickup Clothes"
-                    className="bg-white text-gray-800 border border-gray-300 px-[1.5rem] py-[0.5rem] rounded-xl shadow-sm hover:bg-gray-100 transition tab:px-[1rem] tab-z:px-[.8rem] tab-z:text-[1.5rem] mb-x:px-[.7rem] mb-x:text-[1.2rem] mb-m:text-[1.3rem] mb-m:px-[.7rem]"
+                    className="bg-white text-gray-800 border border-gray-300 px-[1.5rem] py-[0.5rem] rounded-xl shadow-sm hover:bg-gray-100 transition tab:px-[1rem] tab-z:px-[.8rem] tab-z:text-[1.5rem] mb-x:px-[.7rem] mb-x:text-[1.2rem] mb-m:text-[1.2rem] mb-m:px-[.5rem]"
                   >
                     Quick Order
                   </Link>
@@ -210,7 +210,7 @@ const Navbar = () => {
                         ? "bg-transparent border-white/25"
                         : "bg-white border-black/25 "
                     }
-                  relative inline-block border-[1.5px] h-[4.6rem] w-[4.6rem] rounded-full p-4 laptop-l:h-[4.2rem] laptop-l:w-[4.2rem] laptop:h-[4rem] laptop:w-[4rem] tab-l:h-[3.8rem] tab-l:w-[3.8rem] tab-m:h-[3.6rem] tab-m:w-[3.6rem] tab-m:border`}
+                  relative inline-block border-[1.5px] h-[4.6rem] w-[4.6rem] rounded-full p-4 laptop-l:h-[4.2rem] laptop-l:w-[4.2rem] laptop:h-[4rem] laptop:w-[4rem] tab-l:h-[3.8rem] tab-l:w-[3.8rem] tab-m:h-[3.6rem] tab-m:w-[3.6rem] tab-m:border mb-xs:h-[3.4rem] mb-xs:w-[3.4rem]`}
                 >
                   <LuShoppingCart
                     className={`h-full w-full ${
@@ -237,7 +237,7 @@ const Navbar = () => {
                   role="button"
                   title="My Account"
                   aria-label="My Account"
-                  className="bg-primary text-white px-[1.5rem] py-[0.75rem] rounded-[30px] hover:bg-primary-dark transition-all duration-200 tab:py-[.5rem] tab-z:px-[1rem]  mb-x:px-[.8rem] mb-x:text-[1.4rem] mb-m:px-[.8rem] mb-m: -mr-3"
+                  className="bg-primary text-white px-[1.5rem] py-[0.75rem] rounded-[30px] hover:bg-primary-dark transition-all duration-200 tab:py-[.5rem] tab-z:px-[1rem] mb-x:px-[.8rem] mb-x:text-[1.4rem] mb-m:px-[.8rem] mb-m:-mr-2 mb-xs:px-[.7rem] mb-xs:py-[.4rem]"
                 >
                   My Account
                 </button>
@@ -248,13 +248,13 @@ const Navbar = () => {
                   role="button"
                   title="login"
                   aria-label="login"
-                  className="bg-primary text-white px-[1.5rem] py-[0.75rem] rounded-[30px] hover:bg-primary-dark transition-all duration-200 tab:py-[.5rem] mb-x:px-[.8rem] mb-x:text-[1.4rem] mb-m:px-[.8rem] mb-m: -mr-3"
+                  className="bg-primary text-white px-[1.5rem] py-[0.75rem] rounded-[30px] hover:bg-primary-dark transition-all duration-200 tab:py-[.5rem] tab-z:px-[1rem] mb-x:px-[.8rem] mb-x:text-[1.4rem] mb-m:px-[.8rem] mb-m:-mr-2 mb-xs:px-[.7rem] mb-xs:py-[.4rem]"
                 >
                   My Account
                 </Link>
               )}
 
-              <div className="h-[3.8rem] w-[3.8rem] justify-end items-center hidden tab-m:flex tab:h-[3.2rem] tab:w-[3.2rem]">
+              <div className="h-[3.8rem] w-[3.8rem] justify-end items-center hidden tab-m:flex tab:h-[3.2rem] tab:w-[3.2rem] mb-m:-mr-3">
                 <div
                   className={`hamburger ${
                     pathname === "/order-now" ? "white-hamburger" : ""
