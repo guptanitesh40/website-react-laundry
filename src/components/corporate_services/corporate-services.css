@@ -60,6 +60,19 @@
   text-decoration: underline;
 }
 
+.service {
+  padding: 3rem 3.5rem;
+  background-color:#F7F8FD;  
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+}
+
+.service-heading {
+  font-size: 2.2rem;
+}
+
 @media only screen and (max-width: 100em) {
   .sr-list {
     gap: 3rem;

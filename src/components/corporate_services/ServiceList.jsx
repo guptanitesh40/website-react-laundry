@@ -50,10 +50,6 @@ const ServiceList = () => {
                 Whether it’s a single garment or a large corporate order, we’re
                 here to make laundry day effortless for you.
               </p>
-              <p className="px-6">
-                **Note: All prices are subject to change based on the quality of
-                clothes and the required labor work.
-              </p>
             </div>
             <div className="text-center mt-20 laptop-m:mt-10 tab-m:mt-8 tab:mt-6">
               {" "}
