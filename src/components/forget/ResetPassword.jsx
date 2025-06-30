@@ -66,8 +66,6 @@ const ResetPassword = () => {
 
   const validationSchema = Yup.object().shape({
     newPassword: Yup.string()
-      .matches(/[a-zA-Z]/, "Password must contain at least one letter")
-      .matches(/[0-9]/, "Password must contain at least one number")
       .min(6, "Password must be 6 character long")
       .required("new password is required"),
     confPassword: Yup.string()

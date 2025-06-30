@@ -48,7 +48,7 @@ const Signup = () => {
       .required("Mobile number is required"),
     gender: Yup.string().required("Please select you gender"),
     password: Yup.string()
-      .min(6, "Password must be at least 6 characters")
+      .min(6, "Password must be at least 6 characters long")
       .required("Password is required"),
     email: Yup.string()
       .email("Invalid email address")
