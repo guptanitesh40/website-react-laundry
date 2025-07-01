@@ -32,6 +32,7 @@ const Footer = () => {
                   rel="noopener noreferrer">
                   <RiInstagramFill className="social-icon" />
                 </a>
+                
                 <a
                   href="https://www.youtube.com/@sikkacleaners3220"
                   target="__blank"
