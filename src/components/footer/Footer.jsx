@@ -6,7 +6,7 @@ import { RiInstagramFill, RiYoutubeFill } from 'react-icons/ri'
 import { Link } from 'react-router-dom'
 
 const Footer = () => {
-  const admin = import.meta.env.VITE_BASE_URL.replace('api', 'admin') + 'dashboard'
+  const admin = import.meta.env.VITE_BASE_URL.replace("api", "admin") + "/dashboard";
 
   return (
     <footer className="footer">
@@ -99,18 +99,22 @@ const Footer = () => {
 
             <div className="basis-[30%] text-[1.8rem] leading-[2.2rem] laptop-l:basis-[30%] tab-m:basis-[35%] laptop-m:text-[1.6rem] laptop-m:leading-normal laptop-m:tracking-[1px] tab-s:px-10 tab:px-0">
               <h4 className="sitemap-title">contact</h4>
-              <div className="contact flex flex-col gap-9 laptop-m:gap-6 mb-l:max-w-[22rem] mb-l:mx-auto">              
-                <div className="flex items-center gap-4 laptop-l:text-[1.6rem] laptop-m:text-[1.4rem] laptop-m:gap-3 laptop-s:text-[1.25rem] laptop-s:gap-2 mb-l:text-[1.4rem]  mb-l:gap-3">
-                  <FiPhoneCall className="block h-[2.4rem] w-[2.4rem] laptop-l:h-[2rem] laptop-l:w-[2rem] laptop-m:h-[1.8rem] laptop-m:w-[1.8rem] laptop-s:h-6 laptop-s:w-6 mb-l:h-7 mb-l:w-7" />
-                  <a href="tel:9879400838" className="border-b border-white laptop-m:border-b-[0.5px] laptop-m:tracking-normal">
-                    +91 98256 00838
-                  </a>
-                  <span className="block">|</span>
-                  <a href="tel:9825600838" className="border-b border-white laptop-m:border-b-[0.5px] laptop-m:tracking-normal">
-                    +91 97730 26100
-                  </a>
+              <div className="contact flex flex-col gap-9 laptop-m:gap-6 mb-l:max-w-[22rem] mb-l:mx-auto mb-l:items-center">
+                <div className="flex items-center gap-4 laptop-l:text-[1.6rem] laptop-m:text-[1.4rem] laptop-m:gap-3 laptop-s:text-[1.25rem] laptop-s:gap-2 tab-x:flex-col tab-x:items-start tab-x:gap-y-5 mb-l:text-[1.4rem]  mb-l:gap-6">
+                  <div className="flex items-center gap-2 tab-x:gap-3">
+                    <FiPhoneCall className="block h-[2.4rem] w-[2.4rem] laptop-l:h-[2rem] laptop-l:w-[2rem] laptop-m:h-[1.8rem] laptop-m:w-[1.8rem] laptop-s:h-6 laptop-s:w-6 mb-l:h-7 mb-l:w-7" />
+                    <a href="tel:9879400838" className="border-b ml-3 border-white laptop-m:border-b-[0.5px] laptop-m:tracking-normal tab-x:ml-0">
+                      +91 98256 00838
+                    </a>
+                  </div>
+                  <div className="flex items-center gap-2 tab-x:gap-3">
+                    <FiPhoneCall className="hidden tab-x:block h-[2.4rem] w-[2.4rem] laptop-l:h-[2rem] laptop-l:w-[2rem] laptop-m:h-[1.8rem] laptop-m:w-[1.8rem] laptop-s:h-6 laptop-s:w-6 mb-l:h-7 mb-l:w-7" />
+                    <span className="block tab-x:hidden">|</span>
+                    <a href="tel:9825600838" className="border-b ml-3 border-white laptop-m:border-b-[0.5px] laptop-m:tracking-normal tab-x:ml-0">
+                      +91 97730 26100
+                    </a>
+                  </div>
                 </div>
-
 
                 <div className="flex items-center justify-start gap-4 laptop-l:text-[1.6rem] laptop-m:text-[1.4rem] laptop-m:tracking-normal laptop-m:gap-3 laptop-s:text-[1.25rem] mb-l:text-[1.4rem]">
                   <span className="block">
