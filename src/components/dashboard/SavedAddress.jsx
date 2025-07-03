@@ -1,68 +1,68 @@
-import { useEffect, useState } from "react";
-import { FaPlus } from "react-icons/fa6";
-import { useDispatch, useSelector } from "react-redux";
-import { deleteAddress as deleteAddressAction } from "../../redux/slices/addressSlice";
-import useFetchAddress from "../../hooks/address/useFetchAddress";
-import useDeleteAddress from "../../hooks/address/useDeleteAddress";
-import AddAddressModel from "../cart/AddAddressModel";
-import Loading from "./Loading";
-import useSetDefaultAddress from "../../hooks/address/useSetDefaultAddress";
+import { useEffect, useState } from 'react'
+import { FaPlus } from 'react-icons/fa6'
+import { useDispatch, useSelector } from 'react-redux'
+import { deleteAddress as deleteAddressAction } from '../../redux/slices/addressSlice'
+import useFetchAddress from '../../hooks/address/useFetchAddress'
+import useDeleteAddress from '../../hooks/address/useDeleteAddress'
+import AddAddressModel from '../cart/AddAddressModel'
+import Loading from './Loading'
+import useSetDefaultAddress from '../../hooks/address/useSetDefaultAddress'
 
 const SavedAddress = () => {
-  const dispatch = useDispatch();
-  const [isEditMode, setIsEditMode] = useState(false);
-  const [isModelOpen, setIsModelOpen] = useState(false);
-  const [editAddress, setEditAddress] = useState(null);
-  const [loadingStates, setLoadingStates] = useState({});
-  const addresses = useSelector((state) => state.address.address);
-  const { loading: loadingFetchAddress, fetchAddress } = useFetchAddress();
-  const { loading: loadingDelAdd, deleteAddress } = useDeleteAddress();
-  const { setDefaultAddress } = useSetDefaultAddress();
+  const dispatch = useDispatch()
+  const [isEditMode, setIsEditMode] = useState(false)
+  const [isModelOpen, setIsModelOpen] = useState(false)
+  const [editAddress, setEditAddress] = useState(null)
+  const [loadingStates, setLoadingStates] = useState({})
+  const addresses = useSelector((state) => state.address.address)
+  const { loading: loadingFetchAddress, fetchAddress } = useFetchAddress()
+  const { loading: loadingDelAdd, deleteAddress } = useDeleteAddress()
+  const { setDefaultAddress } = useSetDefaultAddress()
 
-  const [defaultAddr, setDefaultAddr] = useState();
+  const [defaultAddr, setDefaultAddr] = useState()
 
   useEffect(() => {
-    if (!defaultAddr) return;
+    if (!defaultAddr) return
 
     const setAddress = async () => {
-      const success = await setDefaultAddress(defaultAddr);
+      const success = await setDefaultAddress(defaultAddr)
       if (success) {
-        await fetchAddress();
+        await fetchAddress()
       }
-    };
-    setAddress();
-  }, [defaultAddr]);
+    }
+    setAddress()
+  }, [defaultAddr])
 
   const addressMapping = {
-    1: "Home",
-    2: "Office",
-    3: "Other",
-  };
+    1: 'Home',
+    2: 'Office',
+    3: 'Other',
+  }
 
   const handleAddClick = () => {
-    setIsEditMode(false);
-    setIsModelOpen(true);
-    setEditAddress(null);
-  };
+    setIsEditMode(false)
+    setIsModelOpen(true)
+    setEditAddress(null)
+  }
 
   const handleEdit = (address) => {
-    setEditAddress(address);
-    setIsEditMode(true);
-    setIsModelOpen(true);
-  };
+    setEditAddress(address)
+    setIsEditMode(true)
+    setIsModelOpen(true)
+  }
 
   const handleDelete = async (address_id) => {
-    setLoadingStates((prev) => ({ ...prev, [address_id]: true }));
+    setLoadingStates((prev) => ({ ...prev, [address_id]: true }))
 
-    const result = await deleteAddress(address_id);
+    const result = await deleteAddress(address_id)
     if (result) {
-      dispatch(deleteAddressAction(address_id));
+      dispatch(deleteAddressAction(address_id))
     }
-    setLoadingStates((prev) => ({ ...prev, [address_id]: false }));
-  };
+    setLoadingStates((prev) => ({ ...prev, [address_id]: false }))
+  }
 
   if (loadingFetchAddress) {
-    return <Loading />;
+    return <Loading />
   }
 
   return (
@@ -77,25 +77,16 @@ const SavedAddress = () => {
           </div>
           {addresses &&
             addresses.map((address) => {
-              const {
-                address_id,
-                address_type,
-                building_number,
-                area,
-                landmark,
-                city,
-                pincode,
-                full_name,
-                phone_number,
-              } = address;
-              const isDeleting = loadingStates[address_id] || false;
-              const address_str = `${building_number}, ${area}, ${landmark}, ${city}, ${pincode}`;
+              const { address_id, address_type, building_number, area, landmark, city, pincode, full_name, phone_number } = address
+              const isDeleting = loadingStates[address_id] || false
+              const addressParts = [building_number, area, landmark, city, pincode && pincode !== 0 ? pincode : null]
+
+              const address_str = addressParts.filter(Boolean).join(', ')
 
               return (
                 <div
                   key={address_id}
-                  className="border border-[#b9bccf4d] rounded-2xl laptop:rounded-xl laptop-s:rounded-lg relative overflow-hidden"
-                >
+                  className="border border-[#b9bccf4d] rounded-2xl laptop:rounded-xl laptop-s:rounded-lg relative overflow-hidden">
                   {address.is_default && (
                     <>
                       <span className="absolute top-0 right-0 bg-[#008080BF] text-[#FAF3E0] px-4 py-1.5 font-medium rounded-bl-xl border border-[#0080804d] text-[1.2rem] mb-l:text-[0.9rem] mb:text-[0.7rem]">
@@ -126,17 +117,14 @@ const SavedAddress = () => {
                       </h4>
                     </div>
                     <p className="text-[1.5rem] leading-10 laptop:text-[1.4rem] laptop:leading-[1.75] laptop-s:text-[1.2rem] tab-m:w-full">
-                      {address_str.length > 50
-                        ? address_str.slice(0, 50) + " ..."
-                        : address_str}
+                      {address_str.length > 50 ? address_str.slice(0, 50) + ' ...' : address_str +"."}
                     </p>
                   </div>
                   <div className="flex items-stretch justify-center">
                     <div className="basis-1/2 border-r border-[#b9bccf4d]">
                       <button
                         className="text-2xl text-[var(--primary)] font-medium py-5 w-full laptop:text-[1.4rem] laptop-s:text-[1.2rem] laptop-s:py-4 mb:py-3"
-                        onClick={() => handleEdit(address)}
-                      >
+                        onClick={() => handleEdit(address)}>
                         Edit
                       </button>
                     </div>
@@ -144,27 +132,19 @@ const SavedAddress = () => {
                       <button
                         className="text-2xl text-[var(--primary)] font-medium h-full w-full text-center laptop:text-[1.4rem] laptop-s:text-[1.2rem] laptop-s:py-4 mb:py-3"
                         disabled={loadingDelAdd}
-                        onClick={() => handleDelete(address_id)}
-                      >
-                        {isDeleting ? "Removing..." : "Remove"}
+                        onClick={() => handleDelete(address_id)}>
+                        {isDeleting ? 'Removing...' : 'Remove'}
                       </button>
                     </div>
                   </div>
                 </div>
-              );
+              )
             })}
         </div>
       </div>
-      {isModelOpen && (
-        <AddAddressModel
-          setIsOpen={setIsModelOpen}
-          isOpen={isModelOpen}
-          address={editAddress}
-          isEditMode={isEditMode}
-        />
-      )}
+      {isModelOpen && <AddAddressModel setIsOpen={setIsModelOpen} isOpen={isModelOpen} address={editAddress} isEditMode={isEditMode} />}
     </>
-  );
-};
+  )
+}
 
-export default SavedAddress;
+export default SavedAddress

@@ -15,7 +15,7 @@ const useEditAddress = () => {
     const upDatedFormData = {
       ...formData,
       address_type: Number(formData.address_type),
-      pincode: String(formData.pincode),
+      pincode: formData.pincode === "" ? 0 : String(formData.pincode),
       lat: Number(formData.lat),
       long: Number(formData.long),
     };

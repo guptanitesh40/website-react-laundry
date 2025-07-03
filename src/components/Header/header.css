@@ -20,6 +20,11 @@
   background-color: rgba(0, 0, 0, 0.2);
 }
 
+.inner-banner-container {
+  transition: min-height 0.5s ease;
+  min-height: 150px;
+}
+
 .path-service .navbar li a {
   color: white;
 }
