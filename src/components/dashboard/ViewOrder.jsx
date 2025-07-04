@@ -137,11 +137,32 @@ const ViewOrder = () => {
                         <span>{service?.name}</span>
                       </span>
                     </div>
+
+                    {item?.description && (
+                      <div className="mt-2 p-3 rounded-md">
+                        <p className="text-xl text-gray-600 whitespace-pre-wrap break-words leading-relaxed">
+                          <span className="font-semibold text-gray-700">Description:</span> {item?.description}
+                        </p>
+                      </div>
+                    )}
                   </div>
                 )
               })}
             </div>
           </div>
+
+          {order?.description && (
+            <div className="common-container shadow-sm">
+              <div className="flex items-center justify-between gap-5 px-12 p-6 bg-[center_right_-8rem] bg-no-repeat bg-[length:700px] upgrade-bg tab:p-5 mb-l:p-4">
+                <div className="flex flex-col gap-3">
+                  <div className="flex gap-2.5">
+                    <h3 className="text-[1.6rem] font-semibold text-[var(--black)] tab:text-[1.5rem] mb-l:text-[1.4rem]">Order Instructions</h3>
+                  </div>
+                  <div className="info-label mb-l:text-[1.3rem]">{order?.description}</div>
+                </div>
+              </div>
+            </div>
+          )}
 
           <div className="common-container shadow-sm">
             <div className="text-[1.6rem] text-[var(--black)] font-medium py-6 px-12 border-b border-[#b9bccf4d] tab-l:text-[1.5rem] tab-s:px-10 tab-s:text-[1.4rem] tab:px-8 mb-l:py-4 mb-l:px-6">

@@ -56,13 +56,13 @@ const Download = () => {
                   />
                 </a>
 
-                {/* <a href="https://apps.apple.com/us/app/whatsapp-messenger/id310633997" target="_blank" rel="noopener noreferrer">
+                <a href="https://apps.apple.com/in/app/sikka-cleaners/id6743491066" target="_blank" rel="noopener noreferrer">
                   <img
                     src="/branding-logos/AppStore.svg"
                     alt="Download on the App Store"
                     className="h-24 w-auto object-contain hover:scale-105 transition-transform duration-200"
                   />
-                </a> */}
+                </a>
               </div>
             </div>
           </div>

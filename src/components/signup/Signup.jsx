@@ -46,7 +46,6 @@ const Signup = () => {
     mobile_number: Yup.string()
       .matches(/^[0-9]{10}$/, "Mobile number must be 10 digits")
       .required("Mobile number is required"),
-    gender: Yup.string().required("Please select you gender"),
     password: Yup.string()
       .min(6, "Password must be at least 6 characters long")
       .required("Password is required"),
